@@ -1,0 +1,18 @@
+spring:
+  jpa:
+    database-platform=org:
+      hibernate:
+        community:
+          dialect: SQLiteDialect
+    hibernate:
+      hbm2ddl:
+        auto: create-drop
+      show_sql: true
+datasource:
+  driverClassName: org.sqlite.JDBC
+  url: jdbc:sqlite:shopping.db
+  username: sa
+  password: sa
+
+flyway:
+  locations: db/migration
