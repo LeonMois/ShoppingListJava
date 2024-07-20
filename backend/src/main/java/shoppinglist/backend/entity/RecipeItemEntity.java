@@ -12,19 +12,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Item {
+public class RecipeItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "item_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
+    @SequenceGenerator(name = "recipe_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
     private int id;
 
-    @Column(unique = true)
-    private String name;
+    @ManyToMany(targetEntity = RecipeEntity.class)
+    private RecipeEntity recipe;
 
-    @OneToOne(targetEntity = Category.class)
-    private int category;
+    @ManyToMany(targetEntity = ItemEntity.class)
+    private ItemEntity item;
 
-    @OneToOne(targetEntity = Unit.class)
-    private int unit;
+    private int amount;
 }

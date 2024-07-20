@@ -2,7 +2,6 @@ package shoppinglist.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 
 @Entity
@@ -10,7 +9,7 @@ import org.hibernate.Hibernate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Category {
+public class CategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
