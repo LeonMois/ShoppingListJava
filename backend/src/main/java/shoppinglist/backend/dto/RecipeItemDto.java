@@ -6,14 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoriesDto {
+public class RecipeItemDto {
+    private String recipeName;
 
-    private List<String> categories;
+    private String itemName;
+
+    private String category;
+
+    private int amount;
 
 }

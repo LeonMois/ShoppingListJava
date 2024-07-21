@@ -1,7 +1,10 @@
 package shoppinglist.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
@@ -9,13 +12,14 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "category")
 public class CategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "category_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
-    private int id;
+    private int category_id;
 
     @Column(unique = true)
-    private String category;
+    private String categoryName;
 }

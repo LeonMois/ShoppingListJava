@@ -12,13 +12,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "unit")
 public class UnitEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "unit_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
-    private int id;
+    private int unit_id;
 
     @Column(unique = true)
-    private String unit;
+    private String unitName;
 }

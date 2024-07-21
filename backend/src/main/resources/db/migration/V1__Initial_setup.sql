@@ -1,27 +1,28 @@
 CREATE TABLE category (
-    id INTEGER PRIMARY KEY,
-    category TEXT UNIQUE
+    category_id INTEGER PRIMARY KEY,
+    category_name TEXT UNIQUE
 );
 CREATE TABLE unit (
-    id INTEGER PRIMARY KEY,
-    unit TEXT UNIQUE NOT NULL
+    unit_id INTEGER PRIMARY KEY,
+    unit_name TEXT UNIQUE NOT NULL
 );
 CREATE TABLE recipe (
-    id INTEGER PRIMARY KEY,
-    name TEXT UNIQUE,
+    recipe_id INTEGER PRIMARY KEY,
+    recipe_name TEXT UNIQUE,
     serves INTEGER NOT NULL
 );
 CREATE TABLE item (
-    id INTEGER PRIMARY KEY,
-    name TEXT UNIQUE,
+    item_id INTEGER PRIMARY KEY,
+    item_name TEXT,
     category TEXT,
     unit TEXT,
+    UNIQUE (item_name, unit)
     FOREIGN KEY (category) REFERENCES category(category),
     FOREIGN KEY (unit) REFERENCES unit(unit)
 );
 
 CREATE TABLE recipe_item (
-    id INTEGER PRIMARY KEY,
+    recipe_item_id INTEGER PRIMARY KEY,
     recipe_id INTEGER,
     item_id INTEGER,
     amount REAL,
@@ -31,7 +32,7 @@ CREATE TABLE recipe_item (
     FOREIGN KEY (serves) REFERENCES recipe(serves)
 );
 CREATE TABLE shopping_list (
-    id INTEGER PRIMARY KEY,
+    shopping_list_id INTEGER PRIMARY KEY,
     recipe_item_id INTEGER,
     servings INTEGER,
     FOREIGN KEY (recipe_item_id) REFERENCES recipe_item(id)

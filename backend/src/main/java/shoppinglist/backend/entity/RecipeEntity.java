@@ -12,15 +12,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "recipe")
 public class RecipeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "recipe_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
-    private int id;
+    private int recipeId;
 
     @Column(unique = true)
-    private String name;
+    private String recipe_name;
 
     private int serves;
 }
+
+

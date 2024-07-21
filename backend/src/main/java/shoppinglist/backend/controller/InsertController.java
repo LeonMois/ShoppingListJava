@@ -3,30 +3,23 @@ package shoppinglist.backend.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import shoppinglist.backend.dto.CategoriesDto;
-import shoppinglist.backend.entity.CategoryEntity;
-import shoppinglist.backend.repository.TypeRepository;
+import shoppinglist.backend.dto.ItemDto;
+import shoppinglist.backend.service.InsertService;
 
 @RestController
 public class InsertController {
 
-    private final TypeRepository typeRepository;
+    private final InsertService insertService;
 
-    public InsertController(TypeRepository typeRepository) {
-        this.typeRepository = typeRepository;
+    public InsertController(InsertService insertService) {
+        this.insertService = insertService;
     }
-
 
     @GetMapping(path = "/insert")
-    public void insertCategory(@RequestParam String category){
-        CategoryEntity category1 = new CategoryEntity();
-        category1.setCategory(category);
-        typeRepository.save(category1);
-    }
+    public void insertCategory(@RequestParam String name, @RequestParam String category, @RequestParam String unit) {
 
-    @GetMapping(path = "/all")
-    public CategoriesDto getAllCategories(){
-        return new CategoriesDto(typeRepository.findAll().stream().map(CategoryEntity::getCategory).toList());
+        ItemDto itemDto = new ItemDto(name, category, unit);
+        insertService.insertItem(itemDto);
     }
 
 }

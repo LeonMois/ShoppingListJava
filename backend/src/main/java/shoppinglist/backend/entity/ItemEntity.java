@@ -12,19 +12,25 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "item")
 public class ItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "item_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
-    private int id;
+    private int itemId;
 
-    @Column(unique = true)
-    private String name;
+    private String itemName;
 
+    @JoinColumn(name = "category", insertable = false, updatable = false)
     @OneToOne(targetEntity = CategoryEntity.class)
-    private CategoryEntity category;
+    private CategoryEntity categoryEntity;
 
+    private String category;
+
+    @JoinColumn(name = "unit", insertable = false, updatable = false)
     @OneToOne(targetEntity = UnitEntity.class)
-    private UnitEntity unit;
+    private UnitEntity unitEntity;
+
+    private String unit;
 }
