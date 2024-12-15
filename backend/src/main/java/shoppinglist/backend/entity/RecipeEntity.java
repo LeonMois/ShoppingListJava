@@ -23,7 +23,7 @@ public class RecipeEntity {
     @Column(unique = true)
     private String recipe_name;
 
-    private int serves;
+    private int servings;
 }
 
 

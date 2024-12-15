@@ -20,17 +20,15 @@ public class ItemEntity {
     @SequenceGenerator(name = "item_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
     private int itemId;
 
+    @Column(unique = true, name = "item_name")
     private String itemName;
 
     @JoinColumn(name = "category", insertable = false, updatable = false)
-    @OneToOne(targetEntity = CategoryEntity.class)
-    private CategoryEntity categoryEntity;
-
-    private String category;
+    @ManyToOne(targetEntity = CategoryEntity.class)
+    private CategoryEntity category;
 
     @JoinColumn(name = "unit", insertable = false, updatable = false)
-    @OneToOne(targetEntity = UnitEntity.class)
-    private UnitEntity unitEntity;
+    @ManyToOne(targetEntity = UnitEntity.class)
+    private UnitEntity unit;
 
-    private String unit;
 }

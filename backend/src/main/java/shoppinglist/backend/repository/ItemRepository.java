@@ -5,6 +5,6 @@ import shoppinglist.backend.entity.ItemEntity;
 
 public interface ItemRepository extends JpaRepository<ItemEntity, Integer> {
 
-    ItemEntity getReferenceByItemNameAndUnit(String name, String unit);
+    ItemEntity findByItemNameAndUnit(String name, String unit);
 
 }

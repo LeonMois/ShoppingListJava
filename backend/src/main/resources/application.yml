@@ -1,6 +1,6 @@
 logging:
   level:
-    org.hibernate: DEBUG
+    org.hibernate: INFO
 spring:
   jpa:
     database-platform=org:
@@ -10,12 +10,15 @@ spring:
     hibernate:
       hbm2ddl:
         auto: create-drop
-      show_sql: true
+      show_sql: false
 datasource:
   driverClassName: org.sqlite.JDBC
   url: jdbc:sqlite:shopping.db
   username: sa
   password: sa
-
+  tomcat:
+    max-active: 1
 flyway:
   locations: db/migration
+
+  spring:

@@ -21,11 +21,9 @@ public class ShoppingListEntity {
     private int shoppingListId;
 
     @JoinColumn(name = "recipe_item_id", insertable = false, updatable = false)
-    @ManyToOne(targetEntity = RecipeItemEntity.class)
+    @OneToOne(targetEntity = RecipeItemEntity.class)
     private RecipeItemEntity recipeItem;
 
-    @Column(name = "recipe_item_id")
-    private int recipeItemId;
+    private float quantity;
 
-    private int servings;
 }
