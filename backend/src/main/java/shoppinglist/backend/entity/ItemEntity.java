@@ -23,11 +23,11 @@ public class ItemEntity {
     @Column(unique = true, name = "item_name")
     private String itemName;
 
-    @JoinColumn(name = "category", insertable = false, updatable = false)
+    @JoinColumn(name = "category")
     @ManyToOne(targetEntity = CategoryEntity.class)
     private CategoryEntity category;
 
-    @JoinColumn(name = "unit", insertable = false, updatable = false)
+    @JoinColumn(name = "unit")
     @ManyToOne(targetEntity = UnitEntity.class)
     private UnitEntity unit;
 

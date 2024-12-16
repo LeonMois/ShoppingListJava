@@ -59,24 +59,10 @@ CREATE TABLE shopping_list_seq (
     hibernate_sequence TEXT PRIMARY KEY,
     next_val INTEGER
 );
-INSERT INTO category_seq (next_val) VALUES (0);
-INSERT INTO unit_seq (next_val) VALUES (0);
-INSERT INTO recipe_seq (next_val) VALUES (0);
-INSERT INTO item_seq (next_val) VALUES (0);
-INSERT INTO recipe_item_seq (next_val) VALUES (0);
-INSERT INTO shopping_list_seq (next_val) VALUES (0);
+INSERT INTO category_seq (next_val) VALUES (1);
+INSERT INTO unit_seq (next_val) VALUES (1);
+INSERT INTO recipe_seq (next_val) VALUES (1);
+INSERT INTO item_seq (next_val) VALUES (1);
+INSERT INTO recipe_item_seq (next_val) VALUES (1);
+INSERT INTO shopping_list_seq (next_val) VALUES (1);
 
-INSERT INTO category (category_id, category_name) VALUES (1, 'Vegetables');
-INSERT INTO unit (unit_id, unit_name) VALUES (1, 'Kilograms');
-INSERT INTO recipe (recipe_id, recipe_name, servings) VALUES (1, 'Vegetable Soup', 4);
-INSERT INTO item (item_id, item_name, category, unit) VALUES (1, 'Carrot', 'Vegetables', 'Kilograms');
-INSERT INTO recipe_item (recipe_item_id, recipe_name, item_id, quantity) VALUES (1, 'Vegetable Soup', 1, 0.5);
-INSERT INTO shopping_list (shopping_list_id, recipe_item_id, quantity) VALUES (1, 1, 1.0);
-
--- Update sequence tables to match the current state
-UPDATE category_seq SET next_val = 1;
-UPDATE unit_seq SET next_val = 1;
-UPDATE recipe_seq SET next_val = 1;
-UPDATE item_seq SET next_val = 1;
-UPDATE recipe_item_seq SET next_val = 1;
-UPDATE shopping_list_seq SET next_val = 1;

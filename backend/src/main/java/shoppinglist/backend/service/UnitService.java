@@ -61,6 +61,15 @@ public class UnitService {
         newEntity.setUnitName(name);
         unitRepository.save(newEntity);
         return unitRepository.getEntityByUnitName(name);
+    }
+
+    public UnitEntity getUnit(String name) {
+        UnitEntity existingEntity = unitRepository.getEntityByUnitName(name);
+        if (existingEntity == null) {
+            throw new IllegalArgumentException("Unit doesnt exist");
+        }
+        return existingEntity;
 
     }
+
 }

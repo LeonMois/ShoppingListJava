@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import shoppinglist.backend.dto.ItemDto;
 import shoppinglist.backend.service.ItemService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -18,27 +19,26 @@ public class ItemController {
 
     @GetMapping()
     public List<ItemDto> getItems() {
-
-        return List.of();
+        return itemService.getAllItems();
     }
 
-    @PostMapping(path = "/item/{itemDto}")
-    public ItemDto insertItem(@PathVariable ItemDto itemDto) {
+    @PostMapping(path = "/item/add")
+    public ItemDto insertItem(ItemDto itemDto) throws IOException {
 
-        return itemDto;
+        return itemService.addItem(itemDto);
     }
 
-    @DeleteMapping(path = "/item/{itemDto}")
-    public ItemDto deleteItem(@PathVariable ItemDto itemDto) {
+    @DeleteMapping(path = "/item/delete")
+    public ItemDto deleteItem(ItemDto itemDto) throws IOException {
 
-        return itemDto;
+        return itemService.deleteItem(itemDto);
     }
 
 
-    @PutMapping(path = "/item/{itemDto}")
-    public ItemDto updateItem(@PathVariable ItemDto itemDto) {
+    @PutMapping(path = "/item/update")
+    public ItemDto updateItem(@RequestBody List<ItemDto> items) throws IOException {
 
-        return itemDto;
+        return itemService.updateItem(items.getFirst(), items.getLast());
     }
 
 }

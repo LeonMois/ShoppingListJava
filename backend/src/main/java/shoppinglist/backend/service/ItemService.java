@@ -3,6 +3,7 @@ package shoppinglist.backend.service;
 import org.springframework.stereotype.Service;
 import shoppinglist.backend.dto.ItemDto;
 import shoppinglist.backend.entity.ItemEntity;
+import shoppinglist.backend.entity.UnitEntity;
 import shoppinglist.backend.repository.ItemRepository;
 
 import java.io.IOException;
@@ -22,28 +23,46 @@ public class ItemService {
     }
 
     public List<ItemDto> getAllItems() {
+        itemRepository.findAll();
         return itemRepository.findAll().stream().map(itemEntity -> new ItemDto(itemEntity.getItemName(), itemEntity.getCategory().getCategoryName(), itemEntity.getUnit().getUnitName())).toList();
     }
 
     public ItemDto addItem(ItemDto itemDto) throws IOException {
-        if (itemRepository.findByItemNameAndUnit(itemDto.getName(), itemDto.getUnit()) != null) {
+        UnitEntity unit = unitService.getOrAddUnit(itemDto.getUnit());
+        if (itemRepository.findByItemNameAndUnit(itemDto.getName(), unit) != null) {
             throw new IOException("Item already exists!");
         }
-        ItemEntity entity = new ItemEntity();
-        entity.setItemName(itemDto.getName());
-        entity.setCategory(categoryService.getOrAddCategory(itemDto.getCategory()));
-        entity.setUnit(unitService.getOrAddUnit(itemDto.getUnit()));
+        ItemEntity item = new ItemEntity();
+        item.setItemName(itemDto.getName());
+        item.setCategory(categoryService.getOrAddCategory(itemDto.getCategory()));
+        item.setUnit(unit);
+        itemRepository.save(item);
         return itemDto;
     }
 
-    public ItemDto delete(ItemDto itemDto) throws IOException {
-        if (itemRepository.findByItemNameAndUnit(itemDto.getName(), itemDto.getUnit()) != null) {
+    public ItemDto deleteItem(ItemDto itemDto) throws IOException {
+        UnitEntity unit = unitService.getOrAddUnit(itemDto.getUnit());
+        if (itemRepository.findByItemNameAndUnit(itemDto.getName(), unit) != null) {
             throw new IOException("Item already exists!");
         }
-        ItemEntity entity = new ItemEntity();
-        entity.setItemName(itemDto.getName());
-        entity.setCategory(categoryService.getOrAddCategory(itemDto.getCategory()));
-        entity.setUnit(unitService.getOrAddUnit(itemDto.getUnit()));
+        ItemEntity item = new ItemEntity();
+        item.setItemName(itemDto.getName());
+        item.setCategory(categoryService.getOrAddCategory(itemDto.getCategory()));
+        item.setUnit(unit);
+        itemRepository.delete(item);
         return itemDto;
+    }
+
+    public ItemDto updateItem(ItemDto oldItem, ItemDto newItem) throws IOException {
+        ItemEntity oldEntry = itemRepository.findByItemNameAndUnit(oldItem.getName(), unitService.getUnit(oldItem.getUnit()));
+        ItemEntity newEntry = itemRepository.findByItemNameAndUnit(oldItem.getName(), unitService.getUnit(oldItem.getUnit()));
+        if (oldEntry == null || newEntry != null) {
+            throw new IOException("Original item doesn't exist!");
+        }
+        oldEntry.setItemName(newItem.getName());
+        oldEntry.setUnit(unitService.getOrAddUnit(newItem.getUnit()));
+        oldEntry.setCategory(categoryService.getOrAddCategory(newItem.getCategory()));
+        itemRepository.save(oldEntry);
+        return newItem;
     }
 }
