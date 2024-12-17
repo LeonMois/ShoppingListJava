@@ -1,49 +1,40 @@
 package shoppinglist.backend.controller;
 
+import java.io.IOException;
 import org.springframework.web.bind.annotation.*;
 import shoppinglist.backend.dto.RecipeDto;
-import shoppinglist.backend.dto.RecipeItemDto;
 
 import java.util.List;
+import shoppinglist.backend.service.RecipeService;
 
 @RestController
 @RequestMapping("/recipes")
 public class RecipeController {
+    private final RecipeService recipeService;
 
-    @GetMapping(path = "/")
+    public RecipeController(RecipeService recipeService) {
+        this.recipeService = recipeService;
+    }
+    @GetMapping
     public List<RecipeDto> getRecipes() {
-
-        return List.of();
+        return recipeService.getAllRecipes();
     }
 
-    @PostMapping(path = "/{recipe}")
-    public RecipeDto insertOrUpdateRecipe(@PathVariable RecipeDto recipeDto) {
-
-        return recipeDto;
+    @PostMapping(path = "/recipe/add")
+    public RecipeDto addRecipe(@RequestBody RecipeDto recipeDto) throws IOException {
+        return recipeService.addRecipe(recipeDto);
     }
 
-    @DeleteMapping(path = "/{recipe}")
-    public RecipeDto deleteRecipe(@PathVariable RecipeDto recipeDto) {
+    @DeleteMapping(path = "/recipe/delete")
+    public RecipeDto deleteRecipe(@RequestBody RecipeDto recipeDto) throws IOException {
 
-        return recipeDto;
+        return recipeService.deleteRecipe(recipeDto);
     }
 
-    @GetMapping(path = "/item/{recipeDto}")
-    public List<RecipeItemDto> getRecipeItems(@PathVariable RecipeDto recipeDto) {
-
-        return List.of();
+    @PutMapping(path = "/recipe/{oldRecipe}/{newRecipe}")
+    public RecipeDto getRecipeItems(@RequestBody RecipeDto oldRecipe, @RequestBody RecipeDto newRecipe) throws IOException {
+        return recipeService.updateRecipe(oldRecipe, newRecipe);
     }
 
-    @PostMapping(path = "/item/{recipe}")
-    public RecipeItemDto insertOrUpdateRecipeItem(@PathVariable RecipeItemDto recipeItemDto) {
-
-        return recipeItemDto;
-    }
-
-    @DeleteMapping(path = "/item/{recipe}")
-    public RecipeItemDto deleteRecipeItem(@PathVariable RecipeItemDto recipeItemDto) {
-
-        return recipeItemDto;
-    }
 
 }

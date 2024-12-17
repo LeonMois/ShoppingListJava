@@ -65,4 +65,12 @@ public class ItemService {
         itemRepository.save(oldEntry);
         return newItem;
     }
+
+    public ItemEntity getSingleItem(String itemName, String unit) throws IOException {
+        ItemEntity item = itemRepository.findByItemNameAndUnit(itemName, unitService.getUnit(unit));
+        if (item == null) {
+            throw new IOException("Item doesn't exist!");
+        }
+        return item;
+    }
 }

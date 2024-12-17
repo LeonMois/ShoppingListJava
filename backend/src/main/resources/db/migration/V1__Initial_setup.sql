@@ -24,10 +24,10 @@ CREATE TABLE item (
 CREATE TABLE recipe_item (
     recipe_item_id INTEGER PRIMARY KEY,
     recipe_name TEXT,
-    item_id INTEGER,
+    item_name TEXT,
     quantity FLOAT,
     FOREIGN KEY (recipe_name) REFERENCES recipe(recipe_name),
-    FOREIGN KEY (item_id) REFERENCES item(item_id)
+    FOREIGN KEY (item_name) REFERENCES item(item_name)
 );
 CREATE TABLE shopping_list (
     shopping_list_id INTEGER PRIMARY KEY,

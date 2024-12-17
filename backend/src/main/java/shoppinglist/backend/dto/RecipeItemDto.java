@@ -15,8 +15,10 @@ public class RecipeItemDto {
 
     private String itemName;
 
+    private String unit;
+
     private String category;
 
-    private int amount;
+    private float quantity;
 
 }

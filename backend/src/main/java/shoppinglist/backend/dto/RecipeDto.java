@@ -14,6 +14,6 @@ public class RecipeDto {
 
     private String name;
 
-    private int serves;
+    private int servings;
 
 }

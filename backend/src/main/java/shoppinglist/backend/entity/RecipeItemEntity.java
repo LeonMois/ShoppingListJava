@@ -24,7 +24,7 @@ public class RecipeItemEntity {
     @ManyToOne(targetEntity = RecipeEntity.class)
     private RecipeEntity recipe;
 
-    @JoinColumn(name = "id", referencedColumnName = "item_name")
+    @JoinColumn(name = "item_name", referencedColumnName = "item_name")
     @ManyToOne(targetEntity = ItemEntity.class)
     private ItemEntity item;
 

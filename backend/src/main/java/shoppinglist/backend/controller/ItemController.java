@@ -23,13 +23,13 @@ public class ItemController {
     }
 
     @PostMapping(path = "/item/add")
-    public ItemDto insertItem(ItemDto itemDto) throws IOException {
+    public ItemDto insertItem(@RequestBody ItemDto itemDto) throws IOException {
 
         return itemService.addItem(itemDto);
     }
 
     @DeleteMapping(path = "/item/delete")
-    public ItemDto deleteItem(ItemDto itemDto) throws IOException {
+    public ItemDto deleteItem(@RequestBody  ItemDto itemDto) throws IOException {
 
         return itemService.deleteItem(itemDto);
     }

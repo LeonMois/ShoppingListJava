@@ -20,8 +20,8 @@ public class RecipeEntity {
     @SequenceGenerator(name = "recipe_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
     private int recipeId;
 
-    @Column(unique = true)
-    private String recipe_name;
+    @Column(unique = true, name = "recipe_name")
+    private String recipeName;
 
     private int servings;
 }
