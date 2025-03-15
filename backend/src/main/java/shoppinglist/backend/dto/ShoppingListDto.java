@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shoppinglist.backend.entity.ItemEntity;
 import shoppinglist.backend.entity.RecipeItemEntity;
 
 @Getter
@@ -13,8 +14,8 @@ import shoppinglist.backend.entity.RecipeItemEntity;
 @NoArgsConstructor
 public class ShoppingListDto {
 
-    private RecipeItemEntity recipeItem;
+    private ItemEntity recipeItem;
 
-    private int servings;
+    private float quantity;
 
 }

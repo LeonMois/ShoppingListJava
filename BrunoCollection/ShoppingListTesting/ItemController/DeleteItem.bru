@@ -1,0 +1,17 @@
+meta {
+  name: DeleteItem
+  type: http
+  seq: 3
+}
+
+delete {
+  url: http://localhost:8080/items/item/delete?name=carrot&unit=kilogram&category=vegetable
+  body: none
+  auth: none
+}
+
+params:query {
+  name: carrot
+  unit: kilogram
+  category: vegetable
+}

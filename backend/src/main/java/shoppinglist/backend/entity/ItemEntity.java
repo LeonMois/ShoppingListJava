@@ -18,16 +18,16 @@ public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "item_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
-    private int itemId;
+    private int id;
 
-    @Column(unique = true, name = "item_name")
+    @Column(unique = true, name = "name")
     private String itemName;
 
-    @JoinColumn(name = "category")
-    @ManyToOne(targetEntity = CategoryEntity.class)
+    @JoinColumn(name = "category_id", referencedColumnName = "id" )
+    @OneToOne(targetEntity = CategoryEntity.class)
     private CategoryEntity category;
 
-    @JoinColumn(name = "unit")
+    @JoinColumn(name = "unit_id", referencedColumnName = "id")
     @ManyToOne(targetEntity = UnitEntity.class)
     private UnitEntity unit;
 

@@ -1,39 +1,39 @@
 CREATE TABLE category (
-    category_id INTEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     category_name TEXT UNIQUE
 );
 CREATE TABLE unit (
-    unit_id INTEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     unit_name TEXT UNIQUE NOT NULL
 );
 CREATE TABLE recipe (
-    recipe_id INTEGER PRIMARY KEY,
-    recipe_name TEXT UNIQUE,
+    id INTEGER PRIMARY KEY,
+    name TEXT UNIQUE,
     servings INTEGER NOT NULL
 );
 CREATE TABLE item (
-    item_id INTEGER PRIMARY KEY,
-    item_name TEXT,
-    category TEXT,
-    unit TEXT,
-    UNIQUE (item_name, unit),
-    FOREIGN KEY (category) REFERENCES category(category_name),
-    FOREIGN KEY (unit) REFERENCES unit(unit_name)
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    category_id INTEGER,
+    unit_id INTEGER,
+    UNIQUE (name, unit_id),
+    FOREIGN KEY (category_id) REFERENCES category(id),
+    FOREIGN KEY (unit_id) REFERENCES unit(id)
 );
 
 CREATE TABLE recipe_item (
-    recipe_item_id INTEGER PRIMARY KEY,
-    recipe_name TEXT,
-    item_name TEXT,
+    id INTEGER PRIMARY KEY,
+    recipe_id INTEGER,
+    item_id INTEGER,
     quantity FLOAT,
-    FOREIGN KEY (recipe_name) REFERENCES recipe(recipe_name),
-    FOREIGN KEY (item_name) REFERENCES item(item_name)
+    FOREIGN KEY (recipe_id) REFERENCES recipe(id),
+    FOREIGN KEY (item_id) REFERENCES item(id)
 );
 CREATE TABLE shopping_list (
-    shopping_list_id INTEGER PRIMARY KEY,
-    recipe_item_id INTEGER,
+    id INTEGER PRIMARY KEY,
+    item_id INTEGER,
     quantity FLOAT,
-    FOREIGN KEY (recipe_item_id) REFERENCES recipe_item(id)
+    FOREIGN KEY (item_id) REFERENCES item(id)
 );
 CREATE TABLE category_seq (
     hibernate_sequence TEXT PRIMARY KEY,

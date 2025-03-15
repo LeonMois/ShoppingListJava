@@ -4,17 +4,23 @@ import org.springframework.web.bind.annotation.*;
 import shoppinglist.backend.dto.ItemDto;
 import shoppinglist.backend.dto.RecipeDto;
 import shoppinglist.backend.dto.ShoppingListDto;
+import shoppinglist.backend.service.ShoppingListService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/shoppingList")
+@RequestMapping("/shopping-list")
 public class ShoppingListController {
 
-    @GetMapping(path = "/")
-    public ShoppingListDto getShoppingList() {
+    private final ShoppingListService shoppingListService;
 
-        return new ShoppingListDto();
+    public ShoppingListController(ShoppingListService shoppingListService){
+        this.shoppingListService = shoppingListService;
+    }
+    @GetMapping
+    public List<ShoppingListDto> getShoppingList() {
+
+        return shoppingListService.getAll();
     }
 
     @PostMapping(path = "/item/{itemDto}")

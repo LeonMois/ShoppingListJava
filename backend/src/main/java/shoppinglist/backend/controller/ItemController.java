@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("items")
+@RequestMapping("/items")
 public class ItemController {
 
     private final ItemService itemService;

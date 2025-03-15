@@ -18,13 +18,13 @@ public class RecipeItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "recipe_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
-    private int recipeItemId;
+    private int id;
 
-    @JoinColumn(name = "recipe_name", referencedColumnName = "recipe_name")
-    @ManyToOne(targetEntity = RecipeEntity.class)
+    @JoinColumn(name = "recipe_id", referencedColumnName = "id")
+    @OneToOne(targetEntity = RecipeEntity.class)
     private RecipeEntity recipe;
 
-    @JoinColumn(name = "item_name", referencedColumnName = "item_name")
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
     @ManyToOne(targetEntity = ItemEntity.class)
     private ItemEntity item;
 
