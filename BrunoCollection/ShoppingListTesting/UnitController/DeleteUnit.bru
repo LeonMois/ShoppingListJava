@@ -5,7 +5,13 @@ meta {
 }
 
 delete {
-  url: http://localhost:8080/units/kilogram
-  body: none
+  url: http://localhost:8080/units/delete
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "unitName": "bar"
+  }
 }

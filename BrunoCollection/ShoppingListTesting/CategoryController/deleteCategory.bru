@@ -5,7 +5,13 @@ meta {
 }
 
 delete {
-  url: http://localhost:8080/category/fruits
-  body: none
+  url: http://localhost:8080/category/delete
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "categoryName":"bar"
+  }
 }

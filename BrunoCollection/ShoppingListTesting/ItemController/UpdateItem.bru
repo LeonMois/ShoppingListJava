@@ -5,31 +5,22 @@ meta {
 }
 
 put {
-  url: http://localhost:8080/items/item/update?name=carrot&category=vegetables&unit=kilogram&name=carrot&category=fruit&unit=kilogram
+  url: http://localhost:8080/items/item/update
   body: json
   auth: none
-}
-
-params:query {
-  name: carrot
-  category: vegetables
-  unit: kilogram
-  name: carrot
-  category: fruit
-  unit: kilogram
 }
 
 body:json {
   [
     {
       "name": "carrot",
-      "category": "vegetables",
-      "unit": "kilogram"
+      "category": "fruits",
+      "unit": "liters"
     },
     {
       "name": "carrot",
       "category": "vegetable",
-      "unit": "fruits"
+      "unit": "Gram"
     }
   ]
 }

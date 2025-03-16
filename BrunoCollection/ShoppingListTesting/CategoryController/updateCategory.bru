@@ -5,7 +5,17 @@ meta {
 }
 
 put {
-  url: http://localhost:8080/category/fruits/vegetables
-  body: none
+  url: http://localhost:8080/category/update
+  body: json
   auth: none
+}
+
+body:json {
+  [{
+    "categoryName":"foo"
+  },
+   {
+    "categoryName":"bar"
+  } 
+  ]
 }

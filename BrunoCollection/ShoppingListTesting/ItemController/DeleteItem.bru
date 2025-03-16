@@ -5,13 +5,15 @@ meta {
 }
 
 delete {
-  url: http://localhost:8080/items/item/delete?name=carrot&unit=kilogram&category=vegetable
-  body: none
+  url: http://localhost:8080/items/item/delete
+  body: json
   auth: none
 }
 
-params:query {
-  name: carrot
-  unit: kilogram
-  category: vegetable
+body:json {
+  {
+    "name": "carrot",
+    "category": "fruits",
+    "unit": "liters"
+  }
 }

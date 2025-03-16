@@ -5,15 +5,17 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/items/item/add?name=carrot&category=fruits&unit=liters
+  url: http://localhost:8080/items/item/add
   body: json
   auth: none
 }
 
-params:query {
-  name: carrot
-  category: fruits
-  unit: liters
+body:json {
+  {
+    "name": "carrot",
+    "category": "fruits",
+    "unit": "liters"
+  }
 }
 
 docs {

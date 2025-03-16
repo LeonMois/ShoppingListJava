@@ -5,7 +5,13 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/units/liter
-  body: none
+  url: http://localhost:8080/units/add
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "unitName": "foo"
+  }
 }
