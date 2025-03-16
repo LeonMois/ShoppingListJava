@@ -33,6 +33,7 @@ CREATE TABLE shopping_list (
     id INTEGER PRIMARY KEY,
     item_id INTEGER,
     quantity FLOAT,
+    deleted INTEGER,
     FOREIGN KEY (item_id) REFERENCES item(id)
 );
 CREATE TABLE category_seq (
@@ -101,12 +102,12 @@ INSERT INTO recipe_item (id, recipe_id, item_id, quantity) VALUES
 (5, 4, 4, 200);
 
 -- Insert shopping list items
-INSERT INTO shopping_list (id, item_id, quantity) VALUES
-(1, 1, 4),
-(2, 2, 3),
-(3, 3, 0.5),
-(4, 4, 300),
-(5, 5, 5);
+INSERT INTO shopping_list (id, item_id, quantity, deleted) VALUES
+(1, 1, 4, 0),
+(2, 2, 3, 0),
+(3, 3, 0.5, 0),
+(4, 4, 300, 0),
+(5, 5, 5, 0);
 
 INSERT INTO category_seq (next_val) VALUES (100);
 INSERT INTO unit_seq (next_val) VALUES (100);

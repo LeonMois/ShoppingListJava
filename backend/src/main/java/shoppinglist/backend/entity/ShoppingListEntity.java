@@ -21,17 +21,22 @@ public class ShoppingListEntity {
     @SequenceGenerator(name = "recipe_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
     private int id;
 
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
     @OneToOne(targetEntity = ItemEntity.class)
-    private ItemEntity recipeItem;
+    private ItemEntity item;
 
     private float quantity;
 
+    // Sqlite doesn't support booleans, they are stored as 1 or 0
+    private Integer deleted;
 
-    public static ShoppingListDto mapToDto(ShoppingListEntity entity){
+
+    public static ShoppingListDto mapToDto(ShoppingListEntity entity) {
         ShoppingListDto dto = new ShoppingListDto();
-        dto.setRecipeItem(entity.getRecipeItem());
+        dto.setItemName(entity.getItem().getItemName());
+        dto.setUnitName(entity.getItem().getUnit().getUnitName());
         dto.setQuantity(entity.getQuantity());
+        dto.setDeleted(entity.deleted == 1);
         return dto;
     }
 }

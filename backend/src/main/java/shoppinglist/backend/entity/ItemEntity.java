@@ -24,7 +24,7 @@ public class ItemEntity {
     @Column(unique = true, name = "name")
     private String itemName;
 
-    @JoinColumn(name = "category_id", referencedColumnName = "id" )
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     @OneToOne(targetEntity = CategoryEntity.class)
     private CategoryEntity category;
 

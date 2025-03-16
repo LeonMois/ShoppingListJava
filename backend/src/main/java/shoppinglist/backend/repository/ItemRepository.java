@@ -8,5 +8,6 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Integer> {
 
     ItemEntity findByItemNameIgnoreCaseAndUnit(String name, UnitEntity unit);
 
+    ItemEntity findByItemNameIgnoreCase(String name);
 
 }

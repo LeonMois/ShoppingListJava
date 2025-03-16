@@ -29,7 +29,7 @@ public class ItemController {
     }
 
     @DeleteMapping(path = "/item/delete")
-    public ItemDto deleteItem(@RequestBody  ItemDto itemDto) throws IOException {
+    public ItemDto deleteItem(@RequestBody ItemDto itemDto) throws IOException {
 
         return itemService.deleteItem(itemDto);
     }

@@ -65,8 +65,16 @@ public class ItemService {
         return newItem;
     }
 
-    public ItemEntity getSingleItem(String itemName, String unit) throws IOException {
+    public ItemEntity getSingleItemByNameAndUnit(String itemName, String unit) throws IOException {
         ItemEntity item = itemRepository.findByItemNameIgnoreCaseAndUnit(itemName, unitService.getUnit(unit));
+        if (item == null) {
+            throw new IOException("Item doesn't exist!");
+        }
+        return item;
+    }
+
+    public ItemEntity getSingleItemByName(String itemName) throws IOException {
+        ItemEntity item = itemRepository.findByItemNameIgnoreCase(itemName);
         if (item == null) {
             throw new IOException("Item doesn't exist!");
         }

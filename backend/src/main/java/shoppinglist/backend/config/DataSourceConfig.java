@@ -22,6 +22,7 @@ public class DataSourceConfig {
 
     @Value("${datasource.password}")
     private String password;
+
     @Bean
     @ConfigurationProperties()
     public DataSource dataSource() {
