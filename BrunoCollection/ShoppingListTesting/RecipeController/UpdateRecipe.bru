@@ -1,0 +1,24 @@
+meta {
+  name: UpdateRecipe
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/recipes/update
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    {
+      "name": "Burrata",
+      "servings": 6
+    },
+    {
+      "name": "Burrito",
+      "servings": 6
+    }
+  ]
+}

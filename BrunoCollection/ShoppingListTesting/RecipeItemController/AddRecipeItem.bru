@@ -1,0 +1,23 @@
+meta {
+  name: AddRecipeItem
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/recipe-items/add
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    {
+      "recipeName": "Cheese Sandwich",
+      "itemName": "Apple",
+      "unit": "Piece",
+      "category": "Fruits",
+      "quantity": 2
+    }
+  ]
+}

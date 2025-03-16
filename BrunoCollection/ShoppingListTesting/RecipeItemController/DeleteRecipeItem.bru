@@ -1,0 +1,23 @@
+meta {
+  name: DeleteRecipeItem
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:8080/recipe-items/delete
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    {
+      "recipeName": "Cheese Sandwich",
+      "itemName": "Apple",
+      "unit": "Piece",
+      "category": "Fruits",
+      "quantity": 2
+    }
+  ]
+}

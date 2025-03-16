@@ -1,0 +1,19 @@
+meta {
+  name: DeleteUpdate
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:8080/items/item/delete
+  body: json
+  auth: none
+}
+
+body:json {
+    {
+      "name": "carrot",
+      "category": "vegetable",
+      "unit": "Gram"
+    }
+}

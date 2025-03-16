@@ -1,0 +1,18 @@
+meta {
+  name: AddRecipeFoo
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/recipes/add
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Foo",
+    "servings": 6
+  }
+}
