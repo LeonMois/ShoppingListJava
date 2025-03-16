@@ -22,18 +22,18 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
 
-    @PostMapping(path = "/{categoryDto}")
-    public CategoryDto addCategory(@PathVariable String categoryDto) throws IOException {
-        return categoryService.addCategory(categoryDto);
+    @PostMapping(path = "/add")
+    public CategoryDto addCategory(@RequestBody CategoryDto categoryDto) throws IOException {
+        return categoryService.addCategory(categoryDto.getCategoryName());
     }
 
-    @PutMapping(path = "/{oldName}/{newName}")
-    public CategoryDto updateCategory(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName) throws IOException {
-        return categoryService.updateCategory(oldName, newName);
+    @PutMapping(path = "/update")
+    public CategoryDto updateCategory(@RequestBody List<CategoryDto> categories) throws IOException {
+        return categoryService.updateCategory(categories.getFirst().getCategoryName(), categories.getLast().getCategoryName());
     }
 
-    @DeleteMapping(path = "/{categoryDto}")
-    public CategoryDto deleteCategory(@PathVariable String categoryDto) throws IOException {
-        return categoryService.deleteCategory(categoryDto);
+    @DeleteMapping(path = "/delete")
+    public CategoryDto deleteCategory(@RequestBody CategoryDto categoryDto) throws IOException {
+        return categoryService.deleteCategory(categoryDto.getCategoryName());
     }
 }

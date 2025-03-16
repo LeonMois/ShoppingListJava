@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shoppinglist.backend.dto.ItemDto;
 
 
 @Entity
@@ -31,4 +32,11 @@ public class ItemEntity {
     @ManyToOne(targetEntity = UnitEntity.class)
     private UnitEntity unit;
 
+    public static ItemDto mapToDto(ItemEntity itemEntity) {
+        ItemDto dto = new ItemDto();
+        dto.setCategory(itemEntity.getCategory().getCategoryName());
+        dto.setUnit(itemEntity.getUnit().getUnitName());
+        dto.setName(itemEntity.getItemName());
+        return dto;
+    }
 }

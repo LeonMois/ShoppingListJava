@@ -18,7 +18,7 @@ public class UnitService {
     }
 
     public UnitDto addUnit(String unit) throws IOException {
-        UnitEntity entity = unitRepository.getEntityByUnitName(unit);
+        UnitEntity entity = unitRepository.findEntityByUnitNameIgnoreCase(unit);
         if (entity != null) {
             // todo: write proper exception statuses
             throw new IOException("Unit already exists!");
@@ -30,7 +30,7 @@ public class UnitService {
     }
 
     public UnitDto deleteUnit(String unit) throws IOException {
-        UnitEntity categoryEntity = unitRepository.getEntityByUnitName(unit);
+        UnitEntity categoryEntity = unitRepository.findEntityByUnitNameIgnoreCase(unit);
         if (categoryEntity == null) {
             throw new IOException("Unit doesn't exist!");
         }
@@ -39,7 +39,7 @@ public class UnitService {
     }
 
     public UnitDto updateUnit(String oldName, String newName) throws IOException {
-        UnitEntity entity = unitRepository.getEntityByUnitName(oldName);
+        UnitEntity entity = unitRepository.findEntityByUnitNameIgnoreCase(oldName);
         if (entity == null) {
             throw new IOException("Category doesn't exist!");
         }
@@ -53,18 +53,18 @@ public class UnitService {
     }
 
     public UnitEntity getOrAddUnit(String name) {
-        UnitEntity existingEntity = unitRepository.getEntityByUnitName(name);
+        UnitEntity existingEntity = unitRepository.findEntityByUnitNameIgnoreCase(name);
         if (existingEntity != null) {
             return existingEntity;
         }
         UnitEntity newEntity = new UnitEntity();
         newEntity.setUnitName(name);
         unitRepository.save(newEntity);
-        return unitRepository.getEntityByUnitName(name);
+        return unitRepository.findEntityByUnitNameIgnoreCase(name);
     }
 
     public UnitEntity getUnit(String name) {
-        UnitEntity existingEntity = unitRepository.getEntityByUnitName(name);
+        UnitEntity existingEntity = unitRepository.findEntityByUnitNameIgnoreCase(name);
         if (existingEntity == null) {
             throw new IllegalArgumentException("Unit doesnt exist");
         }

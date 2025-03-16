@@ -1,16 +1,11 @@
 package shoppinglist.backend.controller;
 
-import java.io.IOException;
-import java.util.List;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import shoppinglist.backend.dto.RecipeItemDto;
 import shoppinglist.backend.service.RecipeItemService;
+
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/recipe-items")
@@ -26,18 +21,18 @@ public class RecipeItemController {
     return recipeItemService.getAllRecipeItems();
   }
 
-  @PostMapping(path = "/item/add")
-  public RecipeItemDto addRecipeItem(@RequestBody RecipeItemDto recipeItemDto) throws IOException {
-    return recipeItemService.addRecipeItem(recipeItemDto);
+  @PostMapping(path = "/add")
+  public List<RecipeItemDto> addItemsToRecipe(@RequestBody List<RecipeItemDto> items) throws IOException {
+    return recipeItemService.addItemsToRecipe(items);
   }
 
-  @DeleteMapping(path = "/item/delete")
-  public RecipeItemDto deleteRecipeItem(@RequestBody RecipeItemDto recipeItemDto) throws IOException {
+  @DeleteMapping(path = "/delete")
+  public List<RecipeItemDto> deleteRecipeItem(@RequestBody List<RecipeItemDto> recipeItemDto) throws IOException {
     return recipeItemService.deleteRecipeItem(recipeItemDto);
   }
 
-  @PutMapping(path = "/item/update")
-  public RecipeItemDto updateRecipeItem(@RequestBody RecipeItemDto oldRecipeItem, @RequestBody RecipeItemDto newRecipeItem) throws IOException {
-    return recipeItemService.updateRecipeItem(oldRecipeItem, newRecipeItem);
+  @PutMapping(path = "/update")
+  public RecipeItemDto updateRecipeItem(@RequestBody List<RecipeItemDto> recipeItems) throws IOException {
+    return recipeItemService.updateRecipeItem(recipeItems.getFirst(), recipeItems.getLast());
   }
 }

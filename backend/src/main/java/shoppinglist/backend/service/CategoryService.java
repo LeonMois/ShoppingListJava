@@ -18,7 +18,7 @@ public class CategoryService {
     }
 
     public CategoryDto addCategory(String category) throws IOException {
-        CategoryEntity entity = categoryRepository.getEntityByCategoryName(category);
+        CategoryEntity entity = categoryRepository.findEntityByCategoryNameIgnoreCase(category);
         if (entity != null) {
             // todo: write proper exception statuses
             throw new IOException("Category already exists!");
@@ -30,7 +30,7 @@ public class CategoryService {
     }
 
     public CategoryDto deleteCategory(String category) throws IOException {
-        CategoryEntity categoryEntity = categoryRepository.getEntityByCategoryName(category);
+        CategoryEntity categoryEntity = categoryRepository.findEntityByCategoryNameIgnoreCase(category);
         if (categoryEntity == null) {
             throw new IOException("Category doesn't exist!");
         }
@@ -39,12 +39,16 @@ public class CategoryService {
     }
 
     public CategoryDto updateCategory(String oldName, String newName) throws IOException {
-        CategoryEntity entity = categoryRepository.getEntityByCategoryName(oldName);
-        if (entity == null) {
+        CategoryEntity oldEntity = categoryRepository.findEntityByCategoryNameIgnoreCase(oldName);
+        if (oldEntity == null) {
             throw new IOException("Category doesn't exist!");
         }
-        entity.setCategoryName(newName);
-        categoryRepository.save(entity);
+        CategoryEntity newEntityInDatabase = categoryRepository.findEntityByCategoryNameIgnoreCase(newName);
+        if (newEntityInDatabase != null) {
+            throw new IOException("New Category already exists!!");
+        }
+        oldEntity.setCategoryName(newName);
+        categoryRepository.save(oldEntity);
         return new CategoryDto(newName);
     }
 
@@ -53,14 +57,14 @@ public class CategoryService {
     }
 
     public CategoryEntity getOrAddCategory(String name) {
-        CategoryEntity existingEntity = categoryRepository.getEntityByCategoryName(name);
+        CategoryEntity existingEntity = categoryRepository.findEntityByCategoryNameIgnoreCase(name);
         if (existingEntity != null) {
             return existingEntity;
         }
         CategoryEntity newEntity = new CategoryEntity();
         newEntity.setCategoryName(name);
         categoryRepository.save(newEntity);
-        return categoryRepository.getEntityByCategoryName(name);
+        return categoryRepository.findEntityByCategoryNameIgnoreCase(name);
 
     }
 

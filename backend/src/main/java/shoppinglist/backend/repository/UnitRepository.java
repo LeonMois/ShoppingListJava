@@ -5,5 +5,5 @@ import shoppinglist.backend.entity.UnitEntity;
 
 public interface UnitRepository extends JpaRepository<UnitEntity, Integer> {
 
-    UnitEntity getEntityByUnitName(String name);
+    UnitEntity findEntityByUnitNameIgnoreCase(String name);
 }

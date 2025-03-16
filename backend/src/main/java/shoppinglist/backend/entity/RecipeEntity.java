@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shoppinglist.backend.dto.RecipeDto;
 
 
 @Entity
@@ -24,6 +25,13 @@ public class RecipeEntity {
     private String recipeName;
 
     private int servings;
+
+    public static RecipeDto mapToDto(RecipeEntity entity) {
+        RecipeDto dto = new RecipeDto();
+        dto.setName(entity.getRecipeName());
+        dto.setServings(entity.getServings());
+        return dto;
+    }
 }
 
 

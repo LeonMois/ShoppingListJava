@@ -6,7 +6,7 @@ import shoppinglist.backend.entity.UnitEntity;
 
 public interface ItemRepository extends JpaRepository<ItemEntity, Integer> {
 
-    ItemEntity findByItemNameAndUnit(String name, UnitEntity unit);
+    ItemEntity findByItemNameIgnoreCaseAndUnit(String name, UnitEntity unit);
 
 
 }

@@ -1,11 +1,12 @@
 package shoppinglist.backend.service;
 
-import java.io.IOException;
-import java.util.List;
 import org.springframework.stereotype.Service;
 import shoppinglist.backend.dto.RecipeDto;
 import shoppinglist.backend.entity.RecipeEntity;
 import shoppinglist.backend.repository.RecipeRepository;
+
+import java.io.IOException;
+import java.util.List;
 
 @Service
 public class RecipeService {
@@ -22,7 +23,7 @@ public class RecipeService {
   // Add a recipe
   public RecipeDto addRecipe(RecipeDto recipeDto) throws IOException {
 
-    if(recipeRepository.findByRecipeName(recipeDto.getName()) != null) {
+    if (recipeRepository.findByRecipeNameIgnoreCase(recipeDto.getName()) != null) {
       throw new IOException("Recipe already exists!");
     }
     RecipeEntity recipe = new RecipeEntity();
@@ -33,7 +34,7 @@ public class RecipeService {
   }
   // Delete a recipe
   public RecipeDto deleteRecipe(RecipeDto recipeDto) throws IOException {
-    RecipeEntity recipe = recipeRepository.findByRecipeName(recipeDto.getName());
+    RecipeEntity recipe = recipeRepository.findByRecipeNameIgnoreCase(recipeDto.getName());
     if (recipe == null) {
       throw new IOException("Recipe doesn't exist!");
     }
@@ -43,10 +44,13 @@ public class RecipeService {
 
   // Update a recipe
   public RecipeDto updateRecipe(RecipeDto oldRecipe, RecipeDto newRecipe) throws IOException {
-    RecipeEntity oldEntry = recipeRepository.findByRecipeName(oldRecipe.getName());
-    RecipeEntity newEntry = recipeRepository.findByRecipeName(newRecipe.getName());
-    if (oldEntry == null || newEntry != null) {
+    RecipeEntity oldEntry = recipeRepository.findByRecipeNameIgnoreCase(oldRecipe.getName());
+    if (oldEntry == null) {
       throw new IOException("Original recipe doesn't exist!");
+    }
+    RecipeEntity newEntry = recipeRepository.findByRecipeNameIgnoreCase(newRecipe.getName());
+    if (newEntry != null) {
+      throw new IOException("New recipe already exists!");
     }
     oldEntry.setRecipeName(newRecipe.getName());
     oldEntry.setServings(newRecipe.getServings());
@@ -55,7 +59,7 @@ public class RecipeService {
   }
 
   public RecipeEntity getSingleRecipe(String recipeName) throws IOException {
-    RecipeEntity recipe = recipeRepository.findByRecipeName(recipeName);
+    RecipeEntity recipe = recipeRepository.findByRecipeNameIgnoreCase(recipeName);
     if (recipe == null) {
       throw new IOException("Recipe doesn't exist!");
     }

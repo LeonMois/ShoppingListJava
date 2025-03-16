@@ -29,7 +29,7 @@ public class ItemService {
 
     public ItemDto addItem(ItemDto itemDto) throws IOException {
         UnitEntity unit = unitService.getOrAddUnit(itemDto.getUnit());
-        if (itemRepository.findByItemNameAndUnit(itemDto.getName(), unit) != null) {
+        if (itemRepository.findByItemNameIgnoreCaseAndUnit(itemDto.getName(), unit) != null) {
             throw new IOException("Item already exists!");
         }
         ItemEntity item = new ItemEntity();
@@ -41,23 +41,22 @@ public class ItemService {
     }
 
     public ItemDto deleteItem(ItemDto itemDto) throws IOException {
-        UnitEntity unit = unitService.getOrAddUnit(itemDto.getUnit());
-        if (itemRepository.findByItemNameAndUnit(itemDto.getName(), unit) != null) {
-            throw new IOException("Item already exists!");
+        ItemEntity item = itemRepository.findByItemNameIgnoreCaseAndUnit(itemDto.getName(), unitService.getUnit(itemDto.getUnit()));
+        if (item == null) {
+            throw new IOException("Item doesn't exist");
         }
-        ItemEntity item = new ItemEntity();
-        item.setItemName(itemDto.getName());
-        item.setCategory(categoryService.getOrAddCategory(itemDto.getCategory()));
-        item.setUnit(unit);
         itemRepository.delete(item);
-        return itemDto;
+        return ItemEntity.mapToDto(item);
     }
 
     public ItemDto updateItem(ItemDto oldItem, ItemDto newItem) throws IOException {
-        ItemEntity oldEntry = itemRepository.findByItemNameAndUnit(oldItem.getName(), unitService.getUnit(oldItem.getUnit()));
-        ItemEntity newEntry = itemRepository.findByItemNameAndUnit(oldItem.getName(), unitService.getUnit(oldItem.getUnit()));
-        if (oldEntry == null || newEntry != null) {
+        ItemEntity oldEntry = itemRepository.findByItemNameIgnoreCaseAndUnit(oldItem.getName(), unitService.getUnit(oldItem.getUnit()));
+        if (oldEntry == null) {
             throw new IOException("Original item doesn't exist!");
+        }
+        ItemEntity newEntry = itemRepository.findByItemNameIgnoreCaseAndUnit(newItem.getName(), unitService.getUnit(newItem.getUnit()));
+        if (newEntry != null) {
+            throw new IOException("New Item already exists!");
         }
         oldEntry.setItemName(newItem.getName());
         oldEntry.setUnit(unitService.getOrAddUnit(newItem.getUnit()));
@@ -67,7 +66,7 @@ public class ItemService {
     }
 
     public ItemEntity getSingleItem(String itemName, String unit) throws IOException {
-        ItemEntity item = itemRepository.findByItemNameAndUnit(itemName, unitService.getUnit(unit));
+        ItemEntity item = itemRepository.findByItemNameIgnoreCaseAndUnit(itemName, unitService.getUnit(unit));
         if (item == null) {
             throw new IOException("Item doesn't exist!");
         }

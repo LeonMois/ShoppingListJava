@@ -1,13 +1,15 @@
 package shoppinglist.backend.service;
 
-import java.io.IOException;
-import java.util.List;
 import org.springframework.stereotype.Service;
 import shoppinglist.backend.dto.RecipeItemDto;
 import shoppinglist.backend.entity.ItemEntity;
 import shoppinglist.backend.entity.RecipeEntity;
 import shoppinglist.backend.entity.RecipeItemEntity;
 import shoppinglist.backend.repository.RecipeItemRepository;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RecipeItemService {
@@ -32,30 +34,34 @@ public class RecipeItemService {
   }
 
   // Add a recipeItem
-  public RecipeItemDto addRecipeItem(RecipeItemDto recipeItemDto) throws IOException {
-    RecipeEntity recipe = recipeService.getSingleRecipe(recipeItemDto.getRecipeName());
-    ItemEntity item = itemService.getSingleItem(recipeItemDto.getItemName(), recipeItemDto.getUnit());
-    if (recipeItemRepository.findByRecipeAndItem(recipe, item) != null) {
-      throw new IOException("RecipeItem already exists!");
+  public List<RecipeItemDto> addItemsToRecipe(List<RecipeItemDto> recipeItems) throws IOException {
+    if (recipeItems.stream().map(RecipeItemDto::getRecipeName).distinct().count() > 1) {
+      throw new IOException("Changing more than one recipe at a time is not allowed!");
     }
-    RecipeItemEntity recipeItem = new RecipeItemEntity();
-    recipeItem.setRecipe(recipe);
-    recipeItem.setItem(item);
-    recipeItem.setQuantity(recipeItemDto.getQuantity());
-    recipeItemRepository.save(recipeItem);
-    return recipeItemDto;
+    RecipeEntity recipe = recipeService.getSingleRecipe(recipeItems.getFirst().getRecipeName());
+    if (recipe == null) {
+      throw new IOException("Recipe doesn't exist!");
+    }
+    recipeItems.removeAll(recipeItemRepository.findAll().stream().map(RecipeItemEntity::mapToDto).toList());
+    List<RecipeItemEntity> saveEntities = new ArrayList<>();
+    for (RecipeItemDto item : recipeItems) {
+      RecipeItemEntity newEntity = createEntityFromDto(item);
+      saveEntities.add(newEntity);
+    }
+    saveEntities = recipeItemRepository.saveAll(saveEntities);
+    return saveEntities.stream().map(RecipeItemEntity::mapToDto).toList();
   }
 
   // Delete a recipeItem
-  public RecipeItemDto deleteRecipeItem(RecipeItemDto recipeItemDto) throws IOException {
-    RecipeEntity recipe = recipeService.getSingleRecipe(recipeItemDto.getRecipeName());
-    ItemEntity item = itemService.getSingleItem(recipeItemDto.getItemName(), recipeItemDto.getUnit());
-    RecipeItemEntity recipeItem = recipeItemRepository.findByRecipeAndItem(recipe, item);
-    if (recipeItem == null) {
-      throw new IOException("RecipeItem doesnt exist!");
+  public List<RecipeItemDto> deleteRecipeItem(List<RecipeItemDto> recipeItems) throws IOException {
+    List<RecipeItemEntity> deleteEntities = new ArrayList<>();
+    for (RecipeItemDto recipeItem : recipeItems) {
+      RecipeEntity recipe = recipeService.getSingleRecipe(recipeItem.getRecipeName());
+      ItemEntity item = itemService.getSingleItem(recipeItem.getItemName(), recipeItem.getUnit());
+      deleteEntities.add(recipeItemRepository.findByRecipeAndItem(recipe, item));
     }
-    recipeItemRepository.delete(recipeItem);
-    return recipeItemDto;
+    recipeItemRepository.deleteAll(deleteEntities);
+    return deleteEntities.stream().map(RecipeItemEntity::mapToDto).toList();
   }
 
   public RecipeItemDto updateRecipeItem(RecipeItemDto oldRecipeitemDto, RecipeItemDto newRecipeItemDto) throws IOException {
@@ -84,5 +90,13 @@ public class RecipeItemService {
       throw new IOException("RecipeItem doesn't exist!");
     }
     return recipeItem;
+  }
+
+  private RecipeItemEntity createEntityFromDto(RecipeItemDto dto) throws IOException {
+    RecipeItemEntity entity = new RecipeItemEntity();
+    entity.setItem(itemService.getSingleItem(dto.getItemName(), dto.getUnit()));
+    entity.setRecipe(recipeService.getSingleRecipe(dto.getRecipeName()));
+    entity.setQuantity(dto.getQuantity());
+    return entity;
   }
 }

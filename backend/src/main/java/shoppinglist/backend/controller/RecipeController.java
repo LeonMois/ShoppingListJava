@@ -1,11 +1,12 @@
 package shoppinglist.backend.controller;
 
-import java.io.IOException;
 import org.springframework.web.bind.annotation.*;
 import shoppinglist.backend.dto.RecipeDto;
-
-import java.util.List;
+import shoppinglist.backend.entity.RecipeEntity;
 import shoppinglist.backend.service.RecipeService;
+
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/recipes")
@@ -20,20 +21,25 @@ public class RecipeController {
         return recipeService.getAllRecipes();
     }
 
-    @PostMapping(path = "/recipe/add")
+    @GetMapping("/{recipe}")
+    public RecipeDto getOneRecipe(@PathVariable String recipe) throws IOException {
+        return RecipeEntity.mapToDto(recipeService.getSingleRecipe(recipe));
+    }
+
+    @PostMapping(path = "/add")
     public RecipeDto addRecipe(@RequestBody RecipeDto recipeDto) throws IOException {
         return recipeService.addRecipe(recipeDto);
     }
 
-    @DeleteMapping(path = "/recipe/delete")
+    @DeleteMapping(path = "/delete")
     public RecipeDto deleteRecipe(@RequestBody RecipeDto recipeDto) throws IOException {
 
         return recipeService.deleteRecipe(recipeDto);
     }
 
-    @PutMapping(path = "/recipe/{oldRecipe}/{newRecipe}")
-    public RecipeDto getRecipeItems(@RequestBody RecipeDto oldRecipe, @RequestBody RecipeDto newRecipe) throws IOException {
-        return recipeService.updateRecipe(oldRecipe, newRecipe);
+    @PutMapping(path = "/update")
+    public RecipeDto getRecipeItems(@RequestBody List<RecipeDto> recipes) throws IOException {
+        return recipeService.updateRecipe(recipes.getFirst(), recipes.getLast());
     }
 
 

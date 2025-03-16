@@ -23,21 +23,21 @@ public class UnitController {
         return unitService.getAllUnits();
     }
 
-    @PostMapping(path = "/{unit}")
-    public UnitDto addUnit(@PathVariable String unit) throws IOException {
+    @PostMapping(path = "/add")
+    public UnitDto addUnit(@RequestBody UnitDto unit) throws IOException {
 
-        return unitService.addUnit(unit);
+        return unitService.addUnit(unit.getUnitName());
     }
 
-    @DeleteMapping(path = "/{unit}")
-    public UnitDto deleteUnit(@PathVariable String unit) throws IOException {
+    @DeleteMapping(path = "/delete")
+    public UnitDto deleteUnit(@RequestBody UnitDto unit) throws IOException {
 
-        return unitService.deleteUnit(unit);
+        return unitService.deleteUnit(unit.getUnitName());
     }
 
-    @PutMapping(path = "/{oldUnit}/{newUnit}")
-    public UnitDto updateUnit(@PathVariable("oldUnit") String oldUnit, @PathVariable("newUnit") String newUnit) throws IOException {
+    @PutMapping(path = "/update")
+    public UnitDto updateUnit(@RequestBody List<UnitDto> units) throws IOException {
 
-        return unitService.updateUnit(oldUnit, newUnit);
+        return unitService.updateUnit(units.getFirst().getUnitName(), units.getLast().getUnitName());
     }
 }

@@ -12,6 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UnitDto {
 
-    private String unit;
+    private String unitName;
 
 }
