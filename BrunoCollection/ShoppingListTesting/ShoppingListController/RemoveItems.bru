@@ -1,0 +1,11 @@
+meta {
+  name: RemoveItems
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:8080/shopping-list/delete
+  body: json
+  auth: none
+}

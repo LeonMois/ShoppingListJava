@@ -1,0 +1,37 @@
+meta {
+  name: UpdateRecipeItems
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:8080/recipe-items/update
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    {
+      "recipeName": "Fruit Salad",
+      "itemName": "Apple",
+      "unit": "Piece",
+      "category": "Fruits",
+      "quantity": 2
+    },
+    {
+      "recipeName": "Fruit Salad",
+      "itemName": "Carrot",
+      "unit": "Piece",
+      "category": "Vegetables",
+      "quantity": 1
+    },
+    {
+      "recipeName": "Fruit Salad",
+      "itemName": "Cheese",
+      "category": "Dairy",
+      "unit": "Kilogram",
+      "quantity": 7
+    }
+  ]
+}

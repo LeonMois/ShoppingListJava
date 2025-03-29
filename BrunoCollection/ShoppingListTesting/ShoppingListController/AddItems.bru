@@ -1,0 +1,26 @@
+meta {
+  name: AddItems
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/shopping-list/add/items
+  body: json
+  auth: none
+}
+
+body:json {
+  [{
+    "itemName" : "Carrot",
+    "unitName" : "Piece",
+    "quantity" : 4,
+    "deleted" : 0
+  },
+  {
+    "itemName" : "Cheese",
+    "unitName" : "Kilogram",
+    "quantity" : 3,
+    "deleted" : 0
+  }]
+}

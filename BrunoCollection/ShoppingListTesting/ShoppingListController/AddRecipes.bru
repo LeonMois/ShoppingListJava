@@ -1,0 +1,25 @@
+meta {
+  name: AddRecipes
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/shopping-list/add/recipes
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    {
+      "name": "Pasta",
+      "servings": 3
+    },
+    
+    {
+      "name": "Cheese Sandwich",
+      "servings": 3
+    }
+  ]
+}

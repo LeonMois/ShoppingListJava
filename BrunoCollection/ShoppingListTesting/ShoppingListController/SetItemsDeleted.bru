@@ -1,0 +1,26 @@
+meta {
+  name: SetItemsDeleted
+  type: http
+  seq: 3
+}
+
+delete {
+  url: http://localhost:8080/shopping-list/delete/items
+  body: json
+  auth: none
+}
+
+body:json {
+  [{
+    "itemName" : "Carrot",
+    "unitName" : "Piece",
+    "quantity" : 4,
+    "deleted" : 0
+  },
+  {
+    "itemName" : "Cheese",
+    "unitName" : "Kilogram",
+    "quantity" : 3,
+    "deleted" : 0
+  }]
+}
