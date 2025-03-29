@@ -11,4 +11,5 @@ public interface ShoppingListRepository extends JpaRepository<ShoppingListEntity
     List<ShoppingListEntity> findByItem(ItemEntity item);
 
     List<ShoppingListEntity> findByDeleted(Integer i);
+
 }

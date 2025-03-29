@@ -31,7 +31,7 @@ public class ShoppingListController {
     }
 
 
-    @DeleteMapping(path = "/delete/items")
+    @PutMapping(path = "/toggle/items")
     public List<ShoppingListDto> setItemsToDeleted(@RequestBody List<ShoppingListDto> items) throws IOException {
 
         return shoppingListService.setItemsToDeleted(items);

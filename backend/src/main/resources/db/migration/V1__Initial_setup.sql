@@ -107,7 +107,8 @@ INSERT INTO shopping_list (id, item_id, quantity, deleted) VALUES
 (2, 2, 3, 0),
 (3, 3, 0.5, 0),
 (4, 4, 300, 0),
-(5, 5, 5, 0);
+(5, 5, 5, 0),
+(6, 2, 3, 0);
 
 INSERT INTO category_seq (next_val) VALUES (100);
 INSERT INTO unit_seq (next_val) VALUES (100);
