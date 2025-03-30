@@ -1,11 +1,12 @@
 import { Component, inject, Signal } from '@angular/core';
-import { ShoppingListItem } from '../shopping-list-item-model';
-import { ListServiceService } from '../list-service.service';
+import { ShoppingListItem } from '../model/shopping-list-item-model';
+import { ListServiceService } from '../service/list-service.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-list',
-  imports: [],
+  imports: [NgClass],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
@@ -14,6 +15,10 @@ export class ListComponent {
   items: Signal<ShoppingListItem[] | undefined>;
   constructor() {
     this.items = toSignal(this.service.getAllItems());
-    console.log(this.items);
+  }
+
+  toggleDeleted(item: ShoppingListItem) {
+    item.deleted = item.deleted == 1 ? 0 : 1;
+    this.service.toggleDeleted(item).subscribe();
   }
 }

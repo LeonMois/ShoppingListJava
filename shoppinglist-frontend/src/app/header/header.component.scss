@@ -1,0 +1,20 @@
+/* app.component.css */
+.button-container {
+  display: flex; /* Display buttons in a row */
+  gap: 10px; /* Add space between the buttons */
+  justify-content: center; /* Optional: center the buttons horizontally */
+}
+
+.btn {
+  padding: 10px 20px; /* Add some padding to the buttons */
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px; /* Optional: rounded corners */
+  font-size: 16px; /* Optional: larger text */
+}
+
+.btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}

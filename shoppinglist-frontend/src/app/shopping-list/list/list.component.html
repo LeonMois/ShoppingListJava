@@ -1,3 +1,7 @@
-@for(item of items(); track item.itemName){
-<p>{{ item.itemName }} - {{ item.unitName }} - {{ item.quantity }}</p>
-}
+<div>
+  @for(item of items(); track item.itemName){
+  <p [ngClass]="item.deleted ? 'yes' : 'no'" (click)="toggleDeleted(item)">
+    {{ item.itemName }} - {{ item.quantity }} {{ item.unitName }}
+  </p>
+  }
+</div>
