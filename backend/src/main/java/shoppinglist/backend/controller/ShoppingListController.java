@@ -20,7 +20,6 @@ public class ShoppingListController {
 
     @GetMapping
     public List<ShoppingListDto> getShoppingList() {
-
         return shoppingListService.getAll();
     }
 
