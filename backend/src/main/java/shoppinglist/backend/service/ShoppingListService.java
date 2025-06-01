@@ -30,10 +30,11 @@ public class ShoppingListService {
     }
 
 
-    public List<ShoppingListDto> getAll() {
+    public List<ShoppingListDto> getAll(final String sortOrder) {
         List<ShoppingListDto> items = shoppingListRepository.findAll().stream().map(ShoppingListEntity::mapToDto).toList();
         Map<ItemUnit, List<ShoppingListDto>> grouped = items.stream().collect(groupingBy(entry -> new ItemUnit(entry.getItemName(), entry.getUnitName())));
         List<ShoppingListDto> summedItems = new ArrayList<>();
+        // Group equal types
         for (ItemUnit key : grouped.keySet()) {
             ShoppingListDto entry = new ShoppingListDto();
             entry.setQuantity(0);
@@ -44,9 +45,16 @@ public class ShoppingListService {
             entry.setUnitName(first.getUnitName());
             entry.setItemName(first.getItemName());
             entry.setDeleted(first.isDeleted());
+            entry.setCategory(first.getCategory());
             summedItems.add(entry);
         }
-
+        // Sort by sort order
+        final String sortBy = sortOrder == null ? summedItems.getFirst().getCategory() : sortOrder;
+        summedItems.sort((ShoppingListDto item1, ShoppingListDto item2) -> {
+            int i1 = item1.getCategory().equals(sortBy) ? 1 : -1;
+            int i2 = item2.getCategory().equals(sortBy) ? 1 : -1;
+            return i1 > i2 ? -1 : 1;
+        });
         return summedItems;
     }
 

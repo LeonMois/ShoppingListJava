@@ -19,8 +19,8 @@ public class ShoppingListController {
     }
 
     @GetMapping
-    public List<ShoppingListDto> getShoppingList() {
-        return shoppingListService.getAll();
+    public List<ShoppingListDto> getShoppingList(@RequestParam(required = false) String sortOrder) {
+        return shoppingListService.getAll(sortOrder);
     }
 
     @PostMapping(path = "/add/items")

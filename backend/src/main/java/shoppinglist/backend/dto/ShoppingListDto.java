@@ -19,4 +19,7 @@ public class ShoppingListDto {
     private float quantity;
 
     private boolean deleted;
+
+    private String category;
+
 }

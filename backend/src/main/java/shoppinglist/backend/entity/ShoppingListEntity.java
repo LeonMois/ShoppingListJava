@@ -37,6 +37,7 @@ public class ShoppingListEntity {
         dto.setUnitName(entity.getItem().getUnit().getUnitName());
         dto.setQuantity(entity.getQuantity());
         dto.setDeleted(entity.deleted == 1);
+        dto.setCategory(entity.getItem().getCategory().getCategoryName());
         return dto;
     }
 }
