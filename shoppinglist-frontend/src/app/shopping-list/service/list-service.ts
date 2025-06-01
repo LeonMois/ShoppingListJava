@@ -6,13 +6,15 @@ import { ShoppingListItem } from '../model/shopping-list-item-model';
 @Injectable({
   providedIn: 'root',
 })
-export class ListServiceService {
+export class ListService {
   private readonly http = inject(HttpClient);
 
   private readonly BASE_URL = '/shopping-list';
 
-  getAllItems(): Observable<ShoppingListItem[]> {
-    return this.http.get<ShoppingListItem[]>(this.BASE_URL);
+  getAllItems(sortOrder: String): Observable<ShoppingListItem[]> {
+    return this.http.get<ShoppingListItem[]>(
+      this.BASE_URL + '?sortOrder=' + sortOrder
+    );
   }
 
   toggleDeleted(item: ShoppingListItem): Observable<ShoppingListItem[]> {

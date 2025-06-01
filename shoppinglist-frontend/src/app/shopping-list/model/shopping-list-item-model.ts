@@ -3,4 +3,5 @@ export interface ShoppingListItem {
   unitName: String;
   quantity: number;
   deleted: number;
+  category: String;
 }

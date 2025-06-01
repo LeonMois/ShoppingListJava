@@ -1,7 +1,22 @@
+<mat-form-field>
+  <mat-label>Sort order:</mat-label>
+  <mat-select>
+    @for(category of categories(); track category){
+    <mat-option (click)="changeSortOrder(category)" [value]="category">{{
+      category
+    }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
 <div>
-  @for(item of items(); track item.itemName){
-  <p [ngClass]="item.deleted ? 'yes' : 'no'" (click)="toggleDeleted(item)">
-    {{ item.itemName }} - {{ item.quantity }} {{ item.unitName }}
-  </p>
-  }
+  <ul class="items-list">
+    <li
+      [ngClass]="{ deleted: item.deleted }"
+      (click)="toggleDeleted(item)"
+      *ngFor="let item of items()"
+    >
+      {{ item.itemName }}
+    </li>
+  </ul>
 </div>
