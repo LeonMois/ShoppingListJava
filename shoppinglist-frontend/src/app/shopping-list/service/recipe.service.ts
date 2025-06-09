@@ -9,7 +9,7 @@ import { Recipe } from '../model/recipe-model';
 export class RecipeService {
   private readonly http = inject(HttpClient);
 
-  private readonly BASE_URL = '/recipes';
+  private readonly BASE_URL = '/api/recipes';
 
   getAllRecipes(): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(this.BASE_URL);

@@ -10,7 +10,7 @@ import { Item } from '../model/item-model';
 export class ItemsService {
   private readonly http = inject(HttpClient);
 
-  private readonly BASE_URL = '/items';
+  private readonly BASE_URL = '/api/items';
 
   getAllItems(): Observable<Item[]> {
     return this.http.get<Item[]>(this.BASE_URL);

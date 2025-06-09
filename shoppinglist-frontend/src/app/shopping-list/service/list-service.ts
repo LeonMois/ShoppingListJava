@@ -13,7 +13,7 @@ import { Recipe } from '../model/recipe-model';
 export class ListService {
   private readonly http = inject(HttpClient);
 
-  private readonly BASE_URL = '/shopping-list';
+  private readonly BASE_URL = '/api/shopping-list';
 
   getAllItems(sortOrder: String): Observable<ShoppingListItem[]> {
     return this.http.get<ShoppingListItem[]>(
