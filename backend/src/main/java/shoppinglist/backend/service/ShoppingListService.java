@@ -79,7 +79,7 @@ public class ShoppingListService {
                 ShoppingListEntity entity = new ShoppingListEntity();
                 entity.setDeleted(0);
                 entity.setItem(item.getItem());
-                entity.setQuantity(item.getQuantity());
+                entity.setQuantity(item.getQuantity() * recipe.getServings());
                 saveEntities.add(entity);
 
             }

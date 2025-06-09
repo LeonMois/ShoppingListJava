@@ -25,7 +25,6 @@ public class ShoppingListController {
 
     @PostMapping(path = "/add/items")
     public List<ShoppingListDto> addItemToShoppingList(@RequestBody List<ShoppingListDto> items) throws IOException {
-
         return shoppingListService.addItems(items);
     }
 

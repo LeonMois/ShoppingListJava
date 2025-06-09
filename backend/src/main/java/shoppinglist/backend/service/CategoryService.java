@@ -29,6 +29,17 @@ public class CategoryService {
         return new CategoryDto(category);
     }
 
+    public List<CategoryDto> addCategoryList(List<CategoryDto> categories) throws IOException {
+        for (CategoryDto category : categories) {
+            try {
+                addCategory(category.getCategoryName());
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return categoryRepository.findAll().stream().map(entity -> new CategoryDto(entity.getCategoryName())).toList();
+    }
+
     public CategoryDto deleteCategory(String category) throws IOException {
         CategoryEntity categoryEntity = categoryRepository.findEntityByCategoryNameIgnoreCase(category);
         if (categoryEntity == null) {

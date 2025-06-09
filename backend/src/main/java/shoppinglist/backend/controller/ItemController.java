@@ -41,4 +41,10 @@ public class ItemController {
         return itemService.updateItem(items.getFirst(), items.getLast());
     }
 
+    @PostMapping(path = "/item/addList")
+    public List<ItemDto> insertItem(@RequestBody List<ItemDto> itemDto) throws IOException {
+
+        return itemService.addItemList(itemDto);
+    }
+
 }

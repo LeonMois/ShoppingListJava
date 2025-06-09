@@ -27,6 +27,11 @@ public class CategoryController {
         return categoryService.addCategory(categoryDto.getCategoryName());
     }
 
+    @PostMapping(path = "/addList")
+    public List<CategoryDto> addCategory(@RequestBody List<CategoryDto> categoryDto) throws IOException {
+        return categoryService.addCategoryList(categoryDto);
+    }
+
     @PutMapping(path = "/update")
     public CategoryDto updateCategory(@RequestBody List<CategoryDto> categories) throws IOException {
         return categoryService.updateCategory(categories.getFirst().getCategoryName(), categories.getLast().getCategoryName());

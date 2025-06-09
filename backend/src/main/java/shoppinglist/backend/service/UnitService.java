@@ -29,6 +29,19 @@ public class UnitService {
         return new UnitDto(unit);
     }
 
+    public List<UnitDto> addUnitList(List<UnitDto> units) throws IOException {
+
+        for (UnitDto unitDto : units) {
+            try {
+                addUnit(unitDto.getUnitName());
+            } catch (IOException e
+            ) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return unitRepository.findAll().stream().map(entity -> new UnitDto(entity.getUnitName())).toList();
+    }
+
     public UnitDto deleteUnit(String unit) throws IOException {
         UnitEntity categoryEntity = unitRepository.findEntityByUnitNameIgnoreCase(unit);
         if (categoryEntity == null) {

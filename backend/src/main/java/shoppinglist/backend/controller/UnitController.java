@@ -29,6 +29,13 @@ public class UnitController {
         return unitService.addUnit(unit.getUnitName());
     }
 
+    @PostMapping(path = "/addList")
+    public List<UnitDto> addUnitList(@RequestBody List<UnitDto> units) throws IOException {
+
+        return unitService.addUnitList(units);
+    }
+
+
     @DeleteMapping(path = "/delete")
     public UnitDto deleteUnit(@RequestBody UnitDto unit) throws IOException {
 

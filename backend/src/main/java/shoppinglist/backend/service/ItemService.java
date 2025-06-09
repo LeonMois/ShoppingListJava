@@ -40,6 +40,17 @@ public class ItemService {
         return itemDto;
     }
 
+    public List<ItemDto> addItemList(List<ItemDto> itemDto) throws IOException {
+        for (ItemDto item : itemDto) {
+            try {
+                addItem(item);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return itemRepository.findAll().stream().map(ItemEntity::mapToDto).toList();
+    }
+
     public ItemDto deleteItem(ItemDto itemDto) throws IOException {
         ItemEntity item = itemRepository.findByItemNameIgnoreCaseAndUnit(itemDto.getName(), unitService.getUnit(itemDto.getUnit()));
         if (item == null) {
