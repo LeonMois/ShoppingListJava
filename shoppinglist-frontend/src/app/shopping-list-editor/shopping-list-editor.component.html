@@ -1,0 +1,110 @@
+<div class="container">
+  <h1>Edit Shopping List</h1>
+  <div class="form-card">
+    <form>
+      <!-- Recipe Autocomplete -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Recipe</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Choose recipe"
+          [formControl]="recipeControl"
+          [matAutocomplete]="autoRecipe"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          tabindex="-1"
+          class="dropdown-arrow"
+          type="button"
+          (mousedown)="openRecipeAutocomplete($event)"
+        >
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-autocomplete #autoRecipe="matAutocomplete">
+          <mat-option
+            *ngFor="let recipe of filteredRecipes | async"
+            [value]="recipe"
+          >
+            {{ recipe }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <!-- Servings Field -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Servings</mat-label>
+        <input
+          matInput
+          type="number"
+          min="1"
+          [(ngModel)]="servings"
+          name="servings"
+        />
+      </mat-form-field>
+
+      <!-- Add Button -->
+      <button
+        mat-raised-button
+        class="add-btn full-width"
+        type="button"
+        (click)="addRecipe()"
+      >
+        Add
+      </button>
+
+      <!-- Separator -->
+      <hr class="section-separator" />
+
+      <!-- Item Autocomplete -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Item</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Choose item"
+          [formControl]="itemControl"
+          [matAutocomplete]="autoItem"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          tabindex="-1"
+          class="dropdown-arrow"
+          type="button"
+          (mousedown)="openItemAutocomplete($event)"
+        >
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-autocomplete #autoItem="matAutocomplete">
+          <mat-option *ngFor="let item of filteredItems | async" [value]="item">
+            {{ item }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <!-- Amount Field -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Amount</mat-label>
+        <input
+          matInput
+          type="number"
+          min="1"
+          [(ngModel)]="amount"
+          name="amount"
+        />
+      </mat-form-field>
+
+      <!-- Add Item Button -->
+      <button
+        mat-raised-button
+        class="add-btn full-width"
+        type="button"
+        (click)="addItem()"
+      >
+        Add Item
+      </button>
+    </form>
+  </div>
+</div>

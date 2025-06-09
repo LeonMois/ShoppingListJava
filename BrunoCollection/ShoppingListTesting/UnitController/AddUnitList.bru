@@ -1,0 +1,35 @@
+meta {
+  name: AddUnitList
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/units/addList
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    { "unitName": "kg" },
+    { "unitName": "g" },
+    { "unitName": "l" },
+    { "unitName": "piece" },
+    { "unitName": "pack" },
+    { "unitName": "box" },
+    { "unitName": "jar" },
+    { "unitName": "bottle" },
+    { "unitName": "bar" },
+    { "unitName": "tub" },
+    { "unitName": "roll" },
+    { "unitName": "loaf" },
+    { "unitName": "can" },
+    { "unitName": "wedge" },
+    { "unitName": "block" },
+    { "unitName": "bunch" },
+    { "unitName": "cube" },
+    { "unitName": "fillet" }
+  ]
+  
+}

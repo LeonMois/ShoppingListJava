@@ -4,5 +4,19 @@
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
+  },
+
+  "/items": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+
+  "/recipes": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }

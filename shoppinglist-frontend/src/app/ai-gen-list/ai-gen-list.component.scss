@@ -1,0 +1,87 @@
+/* app.component.css */
+
+.app-container {
+  height: 100vh;
+  font-family: "Arial", sans-serif;
+}
+
+.app-sidenav {
+  width: 220px;
+  background-color: #f4d7af; /* light beige */
+  padding-top: 16px;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+}
+button.delete-button {
+  background-color: #fdf9f3; /* off-white background */
+  color: #333;
+  border: 1px solid #333;
+
+  border-color: #333;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+mat-option {
+  background-color: #fdf9f3 !important;
+  opacity: 1 !important;
+  z-index: 1000 !important;
+}
+
+.deleted {
+  text-decoration: line-through;
+}
+
+/* Style the mat-icon-button (menu toggle) */
+.mat-icon-button {
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: #333;
+  padding: 8px;
+  margin-right: 8px;
+}
+
+mat-toolbar {
+  background: none;
+  color: #000;
+  font-weight: bold;
+  font-size: 20px;
+  box-shadow: none;
+}
+
+mat-toolbar span {
+  margin-left: 16px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.main-content {
+  padding: 32px;
+  background-color: #fdf9f3; /* off-white background */
+  min-height: 100%;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+mat-list-item {
+  background-color: transparent;
+  border-bottom: 1px solid #ece7df;
+  padding: 12px 0;
+}
+
+mat-form-field {
+  width: 150px;
+}
+
+.item-content {
+  display: flex;
+  align-items: center;
+}

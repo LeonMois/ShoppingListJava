@@ -1,0 +1,106 @@
+.container {
+  min-height: 100vh;
+  background: #fdf9f3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0;
+  font-family: "Arial", sans-serif;
+}
+
+h1 {
+  margin-bottom: 1.2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1b1307;
+  letter-spacing: -1px;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 410px;
+  background: #fdf9f3 !important;
+  border-radius: 18px;
+  padding: 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.add-btn {
+  background-color: #fdf9f3 !important;
+  color: #333 !important;
+  border: 1px solid #333 !important;
+  border-radius: 8px !important;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  min-height: 40px;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  box-shadow: none !important;
+}
+
+.add-btn:hover {
+  background-color: #f4d7af !important;
+}
+
+/* Arrow styling */
+.dropdown-arrow {
+  margin-right: 0;
+}
+
+.section-separator {
+  border: none;
+  border-top: 1.5px solid #ece7df;
+  margin: 20px 0 12px 0;
+}
+
+/* Mat Form Field: Remove outline, use soft border */
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #fdf9f3 !important;
+  border: 1px solid #ece7df !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-outline,
+.mat-form-field-appearance-fill .mat-form-field-underline {
+  display: none !important;
+}
+
+.mat-form-field-label {
+  color: #222 !important;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.mat-input-element {
+  color: #222 !important;
+  font-family: Arial, sans-serif;
+}
+
+@media (max-width: 500px) {
+  .form-card {
+    padding: 0.8rem 0.3rem;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+}
+
+mat-list-item {
+  background-color: transparent;
+  border-bottom: 1px solid #ece7df;
+  padding: 12px 0;
+}
+mat-option {
+  background-color: #fdf9f3 !important;
+  opacity: 1 !important;
+  z-index: 1000 !important;
+  font-family: "Arial", sans-serif;
+}

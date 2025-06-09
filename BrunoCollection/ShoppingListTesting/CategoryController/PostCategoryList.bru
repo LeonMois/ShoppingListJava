@@ -1,0 +1,33 @@
+meta {
+  name: PostCategoryList
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/category/addList
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    { "categoryName": "Bakery" },
+    { "categoryName": "Beverages" },
+    { "categoryName": "Canned Goods" },
+    { "categoryName": "Dairy" },
+    { "categoryName": "Deli" },
+    { "categoryName": "Frozen" },
+    { "categoryName": "Grains" },
+    { "categoryName": "Household" },
+    { "categoryName": "Legumes" },
+    { "categoryName": "Meat" },
+    { "categoryName": "Pantry" },
+    { "categoryName": "Pasta & Noodles" },
+    { "categoryName": "Personal Care" },
+    { "categoryName": "Produce" },
+    { "categoryName": "Seafood" },
+    { "categoryName": "Snacks" }
+  ]
+  
+}
