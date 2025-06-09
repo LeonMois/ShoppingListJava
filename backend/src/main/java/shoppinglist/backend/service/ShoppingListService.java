@@ -74,14 +74,16 @@ public class ShoppingListService {
     public List<ShoppingListDto> addRecipes(List<RecipeDto> recipes) throws IOException {
         List<ShoppingListEntity> saveEntities = new ArrayList<>();
         for (RecipeDto recipe : recipes) {
-            List<RecipeItemEntity> recipeItems = recipeItemService.getItemsForRecipe(recipe.getName());
-            for (RecipeItemEntity item : recipeItems) {
-                ShoppingListEntity entity = new ShoppingListEntity();
-                entity.setDeleted(0);
-                entity.setItem(item.getItem());
-                entity.setQuantity(item.getQuantity() * recipe.getServings());
-                saveEntities.add(entity);
+            for (int i = 0; i < recipe.getServings(); i++) {
+                List<RecipeItemEntity> recipeItems = recipeItemService.getItemsForRecipe(recipe.getName());
+                for (RecipeItemEntity item : recipeItems) {
+                    ShoppingListEntity entity = new ShoppingListEntity();
+                    entity.setDeleted(0);
+                    entity.setItem(item.getItem());
+                    entity.setQuantity(item.getQuantity());
+                    saveEntities.add(entity);
 
+                }
             }
         }
         saveEntities = shoppingListRepository.saveAll(saveEntities);
