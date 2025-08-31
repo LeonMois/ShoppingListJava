@@ -1,21 +1,9 @@
-<mat-expansion-panel [expanded]="!isMenuCollapsed" class="top-menu-panel">
-  <mat-expansion-panel-header>
-    <mat-panel-title>Menu</mat-panel-title>
-  </mat-expansion-panel-header>
-
-  <mat-nav-list>
-    <!-- Your menu items here -->
-    <a mat-list-item href="/">
-      <mat-icon>list</mat-icon>
-      Shopping List
-    </a>
-    <a mat-list-item href="/createShoppingList">
-      <mat-icon>add_shopping_cart</mat-icon>
-      Create Shopping List
-    </a>
-    <a mat-list-item href="/createRecipes">
-      <mat-icon>restaurant_menu</mat-icon>
-      Recipes
-    </a>
-  </mat-nav-list>
-</mat-expansion-panel>
+@if (!signalDataService.isMenuCollapsed) {
+<div class="container">
+  <header>Menu</header>
+  <div class="navigation">
+    <a (click)="setRoute('')">Shopping List</a>
+    <a (click)="setRoute('createShoppingList')">Edit Shopping List</a>
+  </div>
+</div>
+}

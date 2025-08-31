@@ -62,7 +62,6 @@ CREATE TABLE shopping_list_seq (
 );
 
 -- Insert categories
--- Insert categories
 INSERT INTO category (id, category_name) VALUES
 (1, 'Fruits'),
 (2, 'Vegetables'),
@@ -96,7 +95,6 @@ INSERT INTO category (id, category_name) VALUES
 (30, 'Produce'),
 (31, 'Snacks');
 
--- Insert units
 -- Insert units
 INSERT INTO unit (id, unit_name) VALUES
 (1, 'Gram'),
@@ -484,9 +482,6 @@ INSERT INTO recipe_item (id, recipe_id, item_id, quantity) VALUES
 (117, 16, 87, 4),    -- tomato purée (ok)
 (118, 16, 124, 200), -- hot vegetable stock (ok)
 (119, 16, 162, 200); -- light soft cheese (162, 'soft cheese')
-
-
-
 
 INSERT INTO category_seq (next_val) VALUES (100);
 INSERT INTO unit_seq (next_val) VALUES (100);

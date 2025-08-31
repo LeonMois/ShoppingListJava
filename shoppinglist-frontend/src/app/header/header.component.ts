@@ -1,19 +1,22 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-
+import { Component, inject, signal } from '@angular/core';
+import { SiblingDataService } from '../service/sibling-data.service';
 @Component({
   selector: 'app-header',
-  imports: [RouterModule],
+  imports: [],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  router = inject(Router);
+  isMenuCollapsed: boolean = false;
+  OPEN_TEXT = 'Open Menu';
+  CLOSE_TEXT = 'Close Menu';
+  buttonText = this.CLOSE_TEXT;
+  siblingDataService = inject(SiblingDataService);
 
-  edit() {
-    this.router.navigateByUrl('/edit');
-  }
-  list() {
-    this.router.navigateByUrl('/');
+  toggleMenu(): void {
+    this.siblingDataService.toggleMenu();
+    this.buttonText = this.siblingDataService.isMenuCollapsed
+      ? this.OPEN_TEXT
+      : this.CLOSE_TEXT;
   }
 }

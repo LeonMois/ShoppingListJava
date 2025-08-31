@@ -1,0 +1,16 @@
+Next steps:
+Frontend
+ - Navigation Menu
+   - Possibility to switch between pages
+   - Collapsible sidebar
+   - Possibility to add n tabs
+ - Pages -> Shopping List, Edit Shopping List, Create Items / Recipes
+Authentication
+ - Initial basic auth with fixed username / pw
+ - Adjust backend database to have tables for shopping list per user
+ - Find free/cheap oauth server provider
+ - Setup gateway for frontend to authenticate against
+Deployment:
+ - CORS safety
+ - Read about Reverse proxy
+ - Deploy pipeline when pushing (merging?) in GitHub

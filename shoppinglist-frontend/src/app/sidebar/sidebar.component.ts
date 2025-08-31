@@ -1,26 +1,20 @@
-import { Component, input, Signal } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { FormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { Component, computed, inject, input, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { SiblingDataService } from '../service/sibling-data.service';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [
-    FormsModule,
-    MatExpansionModule,
-    MatToolbarModule,
-    MatListModule,
-    MatIcon,
-  ],
+  imports: [],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
-  isMenuCollapsed: boolean = true;
-  toggleMenu(): void {
-    this.isMenuCollapsed = !this.isMenuCollapsed;
+  signalDataService = inject(SiblingDataService);
+  //isMenuCollapsed = signal(() => this.signalDataService.isMenuCollapsed);
+
+  router = inject(Router);
+
+  setRoute(path: string): void {
+    this.router.navigate([path]);
   }
 }
