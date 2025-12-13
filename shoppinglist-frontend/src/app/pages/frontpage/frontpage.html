@@ -1,0 +1,39 @@
+<section class="max-w-3xl mx-auto p-6">
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="badge badge-primary badge-outline">Shopping List</span>
+        <h1 class="card-title text-2xl">Groceries</h1>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+        <div class="text-sm text-base-content/70">Sort by item type (category)</div>
+        <select #sortSelect class="select select-bordered w-full sm:w-64" (change)="changeSort(sortSelect.value)">
+          <option value="">Default order</option>
+          @for (cat of categories(); track cat) {
+            <option [value]="cat">{{ cat }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="space-y-3">
+        @for (item of items(); track item.itemName) {
+          <label class="item-row" [ngClass]="{ done: item.deleted }">
+            <input
+              type="checkbox"
+              class="checkbox checkbox-primary"
+              [checked]="item.deleted"
+              (change)="toggle(item)"
+            />
+            <div class="item-text">
+              <span class="font-medium">{{ item.itemName }}</span>
+              <span class="text-sm text-base-content/70">
+                {{ item.quantity }} {{ item.unitName }} · {{ item.category }}
+              </span>
+            </div>
+          </label>
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 12px;
+  background: #ffffff;
+  transition: transform 120ms ease, border-color 120ms ease;
+}
+
+.item-row:hover {
+  transform: translateY(-1px);
+  border-color: rgba(17, 24, 39, 0.16);
+}
+
+.item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.item-row.done .item-text {
+  text-decoration: line-through;
+  color: rgba(17, 24, 39, 0.45);
+}
