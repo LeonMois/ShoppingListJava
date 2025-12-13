@@ -1,11 +1,13 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { NgClass, NgFor } from '@angular/common';
+import { AddToShoppingListModalComponent } from '../../components/add-to-shopping-list-modal/add-to-shopping-list-modal.component';
+import { ShoppingListItem } from '../../models/shopping-list-item';
 import { ShoppingListService } from '../../service/shopping-list.service';
 
 @Component({
   selector: 'app-frontpage',
   standalone: true,
-  imports: [NgFor, NgClass],
+  imports: [NgFor, NgClass, AddToShoppingListModalComponent],
   templateUrl: './frontpage.html',
   styleUrl: './frontpage.scss',
 })
@@ -28,16 +30,18 @@ export class Frontpage implements OnInit {
     });
   }
 
-  toggle(item: ShoppingListItem): void {
-    const updated = { ...item, deleted: !item.deleted };
+  toggle(item: ShoppingListItem, deleted: boolean): void {
+    const previous = item.deleted;
+    item.deleted = deleted;
+    const updated = { ...item, deleted };
     this.shoppingListService.toggleItems([updated]).subscribe({
       next: (res) => {
         const serverItem = res?.[0];
-        item.deleted = serverItem?.deleted ?? updated.deleted;
+        item.deleted = serverItem?.deleted ?? deleted;
       },
       error: (err) => {
         console.error('Failed to toggle item', err);
-        item.deleted = item.deleted; // no-op, keeps current UI state
+        item.deleted = previous;
       },
     });
   }
@@ -46,12 +50,4 @@ export class Frontpage implements OnInit {
     this.sortOrder.set(order);
     this.loadItems();
   }
-}
-
-export interface ShoppingListItem {
-  itemName: string;
-  unitName: string;
-  quantity: number;
-  deleted: boolean;
-  category: string;
 }
