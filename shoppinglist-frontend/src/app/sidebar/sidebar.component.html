@@ -1,0 +1,26 @@
+<aside class="w-72 bg-base-100 h-full p-4 border-r border-base-200">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-lg font-semibold">Navigation</h2>
+    <div class="badge badge-outline badge-primary">Pages</div>
+  </div>
+  <ul class="menu gap-1">
+    <li>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="badge badge-sm badge-outline">🏠</span>
+        Frontpage
+      </a>
+    </li>
+    <li>
+      <a routerLink="/ingredients" routerLinkActive="active">
+        <span class="badge badge-sm badge-outline">🧂</span>
+        Ingredients Admin
+      </a>
+    </li>
+    <li>
+      <a routerLink="/recipes" routerLinkActive="active">
+        <span class="badge badge-sm badge-outline">📖</span>
+        Recipe Admin
+      </a>
+    </li>
+  </ul>
+</aside>

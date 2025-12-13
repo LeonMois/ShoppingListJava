@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-recipe-admin',
+  standalone: true,
   imports: [],
   templateUrl: './recipe-admin.html',
   styleUrl: './recipe-admin.scss',
