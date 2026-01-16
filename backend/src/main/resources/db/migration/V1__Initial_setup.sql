@@ -36,31 +36,6 @@ CREATE TABLE shopping_list (
     deleted INTEGER,
     FOREIGN KEY (item_id) REFERENCES item(id)
 );
-CREATE TABLE category_seq (
-    hibernate_sequence TEXT PRIMARY KEY,
-    next_val INTEGER
-);
-CREATE TABLE unit_seq (
-    hibernate_sequence TEXT PRIMARY KEY,
-    next_val INTEGER
-);
-CREATE TABLE recipe_seq (
-    hibernate_sequence TEXT PRIMARY KEY,
-    next_val INTEGER
-);
-CREATE TABLE item_seq (
-    hibernate_sequence TEXT PRIMARY KEY,
-    next_val INTEGER
-);
-CREATE TABLE recipe_item_seq (
-    hibernate_sequence TEXT PRIMARY KEY,
-    next_val INTEGER
-);
-CREATE TABLE shopping_list_seq (
-    hibernate_sequence TEXT PRIMARY KEY,
-    next_val INTEGER
-);
-
 -- Insert categories
 INSERT INTO category (id, category_name) VALUES
 (1, 'Fruits'),
@@ -482,10 +457,3 @@ INSERT INTO recipe_item (id, recipe_id, item_id, quantity) VALUES
 (117, 16, 87, 4),    -- tomato purée (ok)
 (118, 16, 124, 200), -- hot vegetable stock (ok)
 (119, 16, 162, 200); -- light soft cheese (162, 'soft cheese')
-
-INSERT INTO category_seq (next_val) VALUES (100);
-INSERT INTO unit_seq (next_val) VALUES (100);
-INSERT INTO recipe_seq (next_val) VALUES (100);
-INSERT INTO item_seq (next_val) VALUES (100);
-INSERT INTO recipe_item_seq (next_val) VALUES (100);
-INSERT INTO shopping_list_seq (next_val) VALUES (100);

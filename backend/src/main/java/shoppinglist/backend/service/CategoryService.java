@@ -55,7 +55,7 @@ public class CategoryService {
             throw new IOException("Category doesn't exist!");
         }
         CategoryEntity newEntityInDatabase = categoryRepository.findEntityByCategoryNameIgnoreCase(newName);
-        if (newEntityInDatabase != null) {
+        if (newEntityInDatabase != null && newEntityInDatabase.getId() != oldEntity.getId()) {
             throw new IOException("New Category already exists!!");
         }
         oldEntity.setCategoryName(newName);

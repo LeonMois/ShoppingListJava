@@ -16,8 +16,7 @@ import lombok.Setter;
 public class UnitEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "unit_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(unique = true)

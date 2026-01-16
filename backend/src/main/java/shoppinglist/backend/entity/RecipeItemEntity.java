@@ -19,8 +19,7 @@ import java.util.Objects;
 public class RecipeItemEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "recipe_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @JoinColumn(name = "recipe_id", referencedColumnName = "id")

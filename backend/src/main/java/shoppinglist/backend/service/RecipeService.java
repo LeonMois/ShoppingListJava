@@ -52,7 +52,7 @@ public class RecipeService {
             throw new IOException("Original recipe doesn't exist!");
         }
         RecipeEntity newEntry = recipeRepository.findByRecipeNameIgnoreCase(newRecipe.getName());
-        if (newEntry != null) {
+        if (newEntry != null && newEntry.getId() != oldEntry.getId()) {
             throw new IOException("New recipe already exists!");
         }
         oldEntry.setRecipeName(newRecipe.getName());
