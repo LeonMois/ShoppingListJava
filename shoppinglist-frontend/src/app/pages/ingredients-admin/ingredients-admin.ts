@@ -30,9 +30,30 @@ export class IngredientsAdmin implements OnInit {
 
   readonly selectedItem = signal<ItemDto | null>(null);
 
+  readonly pageSize = 25;
+  readonly currentPage = signal(1);
+
   readonly sortedItems = computed(() =>
     [...this.items()].sort((a, b) => a.name.localeCompare(b.name))
   );
+  readonly totalPages = computed(() => Math.max(1, Math.ceil(this.sortedItems().length / this.pageSize)));
+  readonly pageNumbers = computed(() =>
+    Array.from({ length: this.totalPages() }, (_, index) => index + 1)
+  );
+  readonly pagedItems = computed(() => {
+    const start = (this.currentPage() - 1) * this.pageSize;
+    return this.sortedItems().slice(start, start + this.pageSize);
+  });
+
+  readonly paginationLabel = computed(() => {
+    const total = this.sortedItems().length;
+    if (total === 0) {
+      return 'No items';
+    }
+    const start = (this.currentPage() - 1) * this.pageSize + 1;
+    const end = Math.min(this.currentPage() * this.pageSize, total);
+    return `Showing ${start}-${end} of ${total}`;
+  });
 
   readonly createForm = this.formBuilder.nonNullable.group({
     name: ['', [Validators.required]],
@@ -58,7 +79,10 @@ export class IngredientsAdmin implements OnInit {
       .getItems()
       .pipe(finalize(() => this.itemsLoading.set(false)))
       .subscribe({
-        next: (items) => this.items.set(items),
+        next: (items) => {
+          this.items.set(items);
+          this.currentPage.set(1);
+        },
         error: (err) => {
           console.error('Failed to load items', err);
           this.error.set('Failed to load items.');
@@ -117,6 +141,7 @@ export class IngredientsAdmin implements OnInit {
       .subscribe({
         next: () => {
           this.createForm.reset({ name: '', category: '', unit: '' });
+          this.currentPage.set(1);
           this.loadItems();
           this.loadMeta();
         },
@@ -146,6 +171,20 @@ export class IngredientsAdmin implements OnInit {
     }
   }
 
+  changePage(page: number): void {
+    const total = this.totalPages();
+    const nextPage = Math.min(Math.max(1, page), total);
+    this.currentPage.set(nextPage);
+  }
+
+  nextPage(): void {
+    this.changePage(this.currentPage() + 1);
+  }
+
+  previousPage(): void {
+    this.changePage(this.currentPage() - 1);
+  }
+
   saveEdit(): void {
     this.error.set(null);
     const original = this.selectedItem();
@@ -168,6 +207,7 @@ export class IngredientsAdmin implements OnInit {
       .subscribe({
         next: () => {
           this.dismissEdit();
+          this.currentPage.set(1);
           this.loadItems();
           this.loadMeta();
         },
@@ -186,7 +226,10 @@ export class IngredientsAdmin implements OnInit {
       .deleteItem(item)
       .pipe(finalize(() => this.submitting.set(false)))
       .subscribe({
-        next: () => this.loadItems(),
+        next: () => {
+          this.currentPage.set(1);
+          this.loadItems();
+        },
         error: (err) => {
           console.error('Failed to delete item', err);
           this.error.set('Failed to delete item.');

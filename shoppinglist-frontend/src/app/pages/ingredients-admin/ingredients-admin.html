@@ -74,7 +74,7 @@
                 </tr>
               </thead>
               <tbody>
-                @for (item of sortedItems(); track item.name + '::' + item.unit) {
+                @for (item of pagedItems(); track item.name + '::' + item.unit) {
                   <tr>
                     <td class="font-medium">{{ item.name }}</td>
                     <td>{{ item.category }}</td>
@@ -87,6 +87,38 @@
                 }
               </tbody>
             </table>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-3 mt-4">
+            <span class="text-sm text-base-content/70">{{ paginationLabel() }}</span>
+            <div class="join">
+              <button
+                class="btn btn-sm join-item"
+                type="button"
+                (click)="previousPage()"
+                [disabled]="currentPage() === 1"
+              >
+                Previous
+              </button>
+              @for (page of pageNumbers(); track page) {
+                <button
+                  class="btn btn-sm join-item"
+                  type="button"
+                  (click)="changePage(page)"
+                  [class.btn-active]="page === currentPage()"
+                >
+                  {{ page }}
+                </button>
+              }
+              <button
+                class="btn btn-sm join-item"
+                type="button"
+                (click)="nextPage()"
+                [disabled]="currentPage() === totalPages()"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </section>
       </div>
