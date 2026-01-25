@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild, computed, inject, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { ItemDto } from '../../models/item.dto';
@@ -10,13 +18,14 @@ import { IngredientsAdminService } from '../../service/ingredients-admin.service
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './ingredients-admin.html',
-  styleUrl: './ingredients-admin.scss',
+  styleUrl: './ingredients-admin.css',
 })
 export class IngredientsAdmin implements OnInit {
   private readonly ingredientsAdminService = inject(IngredientsAdminService);
   private readonly formBuilder = inject(FormBuilder);
 
-  @ViewChild('editDialog', { static: true }) private editDialog!: ElementRef<HTMLDialogElement>;
+  @ViewChild('editDialog', { static: true })
+  private editDialog!: ElementRef<HTMLDialogElement>;
 
   readonly items = signal<ItemDto[]>([]);
   readonly units = signal<string[]>([]);
@@ -34,11 +43,13 @@ export class IngredientsAdmin implements OnInit {
   readonly currentPage = signal(1);
 
   readonly sortedItems = computed(() =>
-    [...this.items()].sort((a, b) => a.name.localeCompare(b.name))
+    [...this.items()].sort((a, b) => a.name.localeCompare(b.name)),
   );
-  readonly totalPages = computed(() => Math.max(1, Math.ceil(this.sortedItems().length / this.pageSize)));
+  readonly totalPages = computed(() =>
+    Math.max(1, Math.ceil(this.sortedItems().length / this.pageSize)),
+  );
   readonly pageNumbers = computed(() =>
-    Array.from({ length: this.totalPages() }, (_, index) => index + 1)
+    Array.from({ length: this.totalPages() }, (_, index) => index + 1),
   );
   readonly pagedItems = computed(() => {
     const start = (this.currentPage() - 1) * this.pageSize;
@@ -114,7 +125,8 @@ export class IngredientsAdmin implements OnInit {
       .getCategories()
       .pipe(finalize(finalizeOne))
       .subscribe({
-        next: (categories) => this.categories.set(categories.map((c) => c.categoryName).sort()),
+        next: (categories) =>
+          this.categories.set(categories.map((c) => c.categoryName).sort()),
         error: (err) => {
           console.error('Failed to load categories', err);
           this.error.set('Failed to load categories.');
@@ -154,7 +166,11 @@ export class IngredientsAdmin implements OnInit {
 
   openEdit(item: ItemDto): void {
     this.selectedItem.set(item);
-    this.editForm.reset({ name: item.name, category: item.category, unit: item.unit });
+    this.editForm.reset({
+      name: item.name,
+      category: item.category,
+      unit: item.unit,
+    });
     this.editDialog.nativeElement.showModal();
   }
 
@@ -213,7 +229,9 @@ export class IngredientsAdmin implements OnInit {
         },
         error: (err) => {
           console.error('Failed to update item', err);
-          this.error.set('Failed to update item. The new item might already exist.');
+          this.error.set(
+            'Failed to update item. The new item might already exist.',
+          );
         },
       });
   }
@@ -236,5 +254,4 @@ export class IngredientsAdmin implements OnInit {
         },
       });
   }
-
 }

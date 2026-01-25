@@ -7,16 +7,16 @@ import { ShoppingListService } from '../../service/shopping-list.service';
 @Component({
   selector: 'app-frontpage',
   standalone: true,
-  imports: [NgFor, NgClass, AddToShoppingListModalComponent],
+  imports: [NgClass, AddToShoppingListModalComponent],
   templateUrl: './frontpage.html',
-  styleUrl: './frontpage.scss',
+  styleUrl: './frontpage.css',
 })
 export class Frontpage implements OnInit {
   private shoppingListService = inject(ShoppingListService);
   items = signal<ShoppingListItem[]>([]);
   sortOrder = signal<string>('');
   categories = computed(() =>
-    Array.from(new Set(this.items().map((item) => item.category))).sort()
+    Array.from(new Set(this.items().map((item) => item.category))).sort(),
   );
 
   ngOnInit(): void {

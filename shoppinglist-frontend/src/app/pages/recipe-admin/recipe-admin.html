@@ -2,15 +2,16 @@
   <div class="card bg-base-100 shadow-xl w-full">
     <div class="card-body">
       <div class="flex items-center gap-3 mb-4">
-        <span class="badge badge-primary badge-outline">Admin</span>
         <h1 class="card-title text-2xl">Recipes</h1>
-        <button class="btn btn-sm ml-auto" (click)="loadRecipes()">Refresh</button>
+        <button class="btn btn-sm ml-auto" (click)="loadRecipes()">
+          Refresh
+        </button>
       </div>
 
       @if (error()) {
-        <div class="alert alert-error mb-4">
-          <span>{{ error() }}</span>
-        </div>
+      <div class="alert alert-error mb-4">
+        <span>{{ error() }}</span>
+      </div>
       }
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -18,17 +19,28 @@
           <div class="flex items-center justify-between">
             <h2 class="font-semibold">Recipes</h2>
             @if (recipesLoading()) {
-              <span class="loading loading-spinner loading-xs" aria-label="Loading recipes"></span>
+            <span
+              class="loading loading-spinner loading-xs"
+              aria-label="Loading recipes"
+            ></span>
             }
           </div>
 
           <div class="space-y-2">
             <label class="form-control w-full">
-              <div class="label"><span class="label-text">Create recipe</span></div>
-              <input class="input input-bordered w-full" placeholder="e.g. Pasta" [formControl]="createRecipeForm.controls.name" />
+              <div class="label">
+                <span class="label-text">Create recipe</span>
+              </div>
+              <input
+                class="input input-bordered w-full"
+                placeholder="e.g. Pasta"
+                [formControl]="createRecipeForm.controls.name"
+              />
             </label>
             <label class="form-control w-full">
-              <div class="label"><span class="label-text">Default servings</span></div>
+              <div class="label">
+                <span class="label-text">Default servings</span>
+              </div>
               <input
                 class="input input-bordered w-full"
                 type="number"
@@ -38,23 +50,29 @@
                 [formControl]="createRecipeForm.controls.servings"
               />
             </label>
-            <button class="btn btn-primary w-full" (click)="addRecipe()" [disabled]="submitting()">Add recipe</button>
+            <button
+              class="btn btn-primary w-full"
+              (click)="addRecipe()"
+              [disabled]="submitting()"
+            >
+              Add recipe
+            </button>
           </div>
 
           <div class="divider my-2"></div>
 
           <ul class="menu bg-base-200 rounded-box">
             @for (recipe of sortedRecipes(); track recipe.name) {
-              <li>
-                <a
-                  (click)="selectRecipe(recipe.name)"
-                  [class.active]="recipe.name === selectedRecipeName()"
-                  class="flex justify-between"
-                >
-                  <span>{{ recipe.name }}</span>
-                  <span class="badge badge-ghost">{{ recipe.servings }}</span>
-                </a>
-              </li>
+            <li>
+              <a
+                (click)="selectRecipe(recipe.name)"
+                [class.active]="recipe.name === selectedRecipeName()"
+                class="flex justify-between"
+              >
+                <span>{{ recipe.name }}</span>
+                <span class="badge badge-ghost">{{ recipe.servings }}</span>
+              </a>
+            </li>
             }
           </ul>
         </aside>
@@ -64,108 +82,152 @@
             <div class="space-y-1">
               <h2 class="font-semibold">Recipe items</h2>
               @if (selectedRecipe()) {
-                <div class="text-sm text-base-content/70">
-                  {{ selectedRecipe()!.name }} · default servings {{ selectedRecipe()!.servings }}
-                </div>
+              <div class="text-sm text-base-content/70">
+                {{ selectedRecipe()!.name }} · default servings {{
+                selectedRecipe()!.servings }}
+              </div>
               } @else {
-                <div class="text-sm text-base-content/70">Select a recipe on the left.</div>
+              <div class="text-sm text-base-content/70">
+                Select a recipe on the left.
+              </div>
               }
             </div>
 
             <div class="flex items-center gap-2">
-              <button class="btn btn-sm" (click)="openEditRecipe()" [disabled]="!selectedRecipe()">Edit</button>
-              <button class="btn btn-sm btn-error btn-outline" (click)="deleteSelectedRecipe()" [disabled]="!selectedRecipe() || submitting()">
+              <button
+                class="btn btn-sm"
+                (click)="openEditRecipe()"
+                [disabled]="!selectedRecipe()"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-sm btn-error btn-outline"
+                (click)="deleteSelectedRecipe()"
+                [disabled]="!selectedRecipe() || submitting()"
+              >
                 Delete
               </button>
             </div>
           </div>
 
           @if (selectedRecipe()) {
-            <div class="card bg-base-200">
-              <div class="card-body">
-                <div class="flex items-center justify-between">
-                  <h3 class="font-semibold">Add item</h3>
-                  @if (itemsLoading()) {
-                    <span class="loading loading-spinner loading-xs" aria-label="Loading items"></span>
-                  }
-                </div>
+          <div class="card bg-base-200">
+            <div class="card-body">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold">Add item</h3>
+                @if (itemsLoading()) {
+                <span
+                  class="loading loading-spinner loading-xs"
+                  aria-label="Loading items"
+                ></span>
+                }
+              </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  <label class="form-control w-full md:col-span-2">
-                    <div class="label"><span class="label-text">Item</span></div>
-                    <input class="input input-bordered w-full" list="item-options" placeholder="Start typing an item..." [formControl]="addRecipeItemForm.controls.itemName" />
-                    <datalist id="item-options">
-                      @for (item of sortedItems(); track item.name + '::' + item.unit) {
-                        <option [value]="item.name"></option>
-                      }
-                    </datalist>
-                  </label>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <label class="form-control w-full md:col-span-2">
+                  <div class="label"><span class="label-text">Item</span></div>
+                  <input
+                    class="input input-bordered w-full"
+                    list="item-options"
+                    placeholder="Start typing an item..."
+                    [formControl]="addRecipeItemForm.controls.itemName"
+                  />
+                  <datalist id="item-options">
+                    @for (item of sortedItems(); track item.name + '::' +
+                    item.unit) {
+                    <option [value]="item.name"></option>
+                    }
+                  </datalist>
+                </label>
 
-                  <label class="form-control w-full">
-                    <div class="label"><span class="label-text">Quantity</span></div>
+                <label class="form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Quantity</span>
+                  </div>
+                  <input
+                    class="input input-bordered w-full"
+                    type="number"
+                    inputmode="decimal"
+                    min="0"
+                    step="0.01"
+                    [formControl]="addRecipeItemForm.controls.quantity"
+                  />
+                </label>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button
+                  class="btn btn-primary"
+                  (click)="addItemToRecipe()"
+                  [disabled]="submitting()"
+                >
+                  Add to list
+                </button>
+                <button
+                  class="btn btn-outline ml-auto"
+                  (click)="saveRecipeItems()"
+                  [disabled]="submitting()"
+                >
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold">Current items</h3>
+            @if (recipeItemsLoading()) {
+            <span
+              class="loading loading-spinner loading-xs"
+              aria-label="Loading recipe items"
+            ></span>
+            }
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="table table-zebra">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Category</th>
+                  <th>Unit</th>
+                  <th>Quantity</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of recipeItems(); track item.itemName + '::' +
+                item.unit) {
+                <tr>
+                  <td class="font-medium">{{ item.itemName }}</td>
+                  <td>{{ item.category }}</td>
+                  <td>{{ item.unit }}</td>
+                  <td>
                     <input
-                      class="input input-bordered w-full"
+                      class="input input-bordered input-sm w-28"
                       type="number"
                       inputmode="decimal"
                       min="0"
                       step="0.01"
-                      [formControl]="addRecipeItemForm.controls.quantity"
+                      [value]="item.quantity"
+                      (input)="updateQuantity(item, $any($event.target).value)"
                     />
-                  </label>
-                </div>
-
-                <div class="flex items-center gap-2">
-                  <button class="btn btn-primary" (click)="addItemToRecipe()" [disabled]="submitting()">Add to list</button>
-                  <button class="btn btn-outline ml-auto" (click)="saveRecipeItems()" [disabled]="submitting()">Save changes</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <h3 class="font-semibold">Current items</h3>
-              @if (recipeItemsLoading()) {
-                <span class="loading loading-spinner loading-xs" aria-label="Loading recipe items"></span>
-              }
-            </div>
-
-            <div class="overflow-x-auto">
-              <table class="table table-zebra">
-                <thead>
-                  <tr>
-                    <th>Item</th>
-                    <th>Category</th>
-                    <th>Unit</th>
-                    <th>Quantity</th>
-                    <th class="text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @for (item of recipeItems(); track item.itemName + '::' + item.unit) {
-                    <tr>
-                      <td class="font-medium">{{ item.itemName }}</td>
-                      <td>{{ item.category }}</td>
-                      <td>{{ item.unit }}</td>
-                      <td>
-                        <input
-                          class="input input-bordered input-sm w-28"
-                          type="number"
-                          inputmode="decimal"
-                          min="0"
-                          step="0.01"
-                          [value]="item.quantity"
-                          (input)="updateQuantity(item, $any($event.target).value)"
-                        />
-                      </td>
-                      <td class="text-right">
-                        <button class="btn btn-ghost btn-xs text-error" (click)="removeRecipeItem(item)" [disabled]="submitting()">
-                          Remove
-                        </button>
-                      </td>
-                    </tr>
-                  }
-                </tbody>
-              </table>
-            </div>
+                  </td>
+                  <td class="text-right">
+                    <button
+                      class="btn btn-ghost btn-xs text-error"
+                      (click)="removeRecipeItem(item)"
+                      [disabled]="submitting()"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
           }
         </main>
       </div>
@@ -175,7 +237,12 @@
   <dialog #editRecipeDialog class="modal" (close)="closeEditRecipe()">
     <div class="modal-box w-11/12 max-w-xl">
       <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
+        <button
+          class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+          aria-label="Close"
+        >
+          ✕
+        </button>
       </form>
 
       <h3 class="font-bold text-lg">Edit recipe</h3>
@@ -183,11 +250,16 @@
       <div class="space-y-3 mt-4">
         <label class="form-control w-full">
           <div class="label"><span class="label-text">Name</span></div>
-          <input class="input input-bordered w-full" [formControl]="editRecipeForm.controls.name" />
+          <input
+            class="input input-bordered w-full"
+            [formControl]="editRecipeForm.controls.name"
+          />
         </label>
 
         <label class="form-control w-full">
-          <div class="label"><span class="label-text">Default servings</span></div>
+          <div class="label">
+            <span class="label-text">Default servings</span>
+          </div>
           <input
             class="input input-bordered w-full"
             type="number"
@@ -200,7 +272,14 @@
       </div>
 
       <div class="modal-action">
-        <button type="button" class="btn btn-primary" (click)="saveRecipeEdit()" [disabled]="submitting()">Save</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="saveRecipeEdit()"
+          [disabled]="submitting()"
+        >
+          Save
+        </button>
         <form method="dialog">
           <button class="btn">Cancel</button>
         </form>

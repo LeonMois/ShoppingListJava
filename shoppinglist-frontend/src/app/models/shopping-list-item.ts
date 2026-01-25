@@ -5,4 +5,3 @@ export interface ShoppingListItem {
   deleted: boolean;
   category: string;
 }
-

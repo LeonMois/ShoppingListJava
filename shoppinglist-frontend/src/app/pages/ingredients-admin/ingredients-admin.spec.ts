@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 
 import { IngredientsAdmin } from './ingredients-admin';
 
@@ -11,8 +14,7 @@ describe('IngredientsAdmin', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [IngredientsAdmin, HttpClientTestingModule],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(IngredientsAdmin);
     component = fixture.componentInstance;

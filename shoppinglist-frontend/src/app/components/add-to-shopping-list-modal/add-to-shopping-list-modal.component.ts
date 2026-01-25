@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, inject, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { ItemDto } from '../../models/item.dto';
@@ -12,14 +21,15 @@ import { ShoppingListService } from '../../service/shopping-list.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './add-to-shopping-list-modal.component.html',
-  styleUrl: './add-to-shopping-list-modal.component.scss',
+  styleUrl: './add-to-shopping-list-modal.component.css',
 })
 export class AddToShoppingListModalComponent implements OnInit {
   private readonly catalogService = inject(CatalogService);
   private readonly shoppingListService = inject(ShoppingListService);
   private readonly formBuilder = inject(FormBuilder);
 
-  @ViewChild('dialog', { static: true }) private dialog!: ElementRef<HTMLDialogElement>;
+  @ViewChild('dialog', { static: true })
+  private dialog!: ElementRef<HTMLDialogElement>;
 
   @Output() shoppingListChanged = new EventEmitter<void>();
 
@@ -103,7 +113,9 @@ export class AddToShoppingListModalComponent implements OnInit {
 
     const recipeName = this.recipeForm.controls.recipeName.value.trim();
     const servings = this.recipeForm.controls.servings.value;
-    const recipe = this.recipes().find((candidate) => candidate.name === recipeName);
+    const recipe = this.recipes().find(
+      (candidate) => candidate.name === recipeName,
+    );
 
     if (!recipeName || !recipe) {
       this.recipeError.set('Select a recipe from the list.');
@@ -168,4 +180,3 @@ export class AddToShoppingListModalComponent implements OnInit {
     this.recipeError.set(null);
   }
 }
-

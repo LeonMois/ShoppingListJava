@@ -1,18 +1,29 @@
 <dialog #dialog class="modal" (close)="resetAll()">
   <div class="modal-box w-11/12 max-w-2xl">
     <form method="dialog">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
+      <button
+        class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
     </form>
 
     <h3 class="font-bold text-lg">Add to shopping list</h3>
-    <p class="text-sm text-base-content/70 mt-1">Add an item and/or a recipe. Each section has its own quantity and add button.</p>
+    <p class="text-sm text-base-content/70 mt-1">
+      Add an item and/or a recipe. Each section has its own quantity and add
+      button.
+    </p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
       <section class="space-y-3">
         <div class="flex items-center justify-between">
           <h4 class="font-semibold">Item</h4>
           @if (itemsLoading()) {
-            <span class="loading loading-spinner loading-xs" aria-label="Loading items"></span>
+            <span
+              class="loading loading-spinner loading-xs"
+              aria-label="Loading items"
+            ></span>
           }
         </div>
 
@@ -31,7 +42,9 @@
             }
           </datalist>
           @if (itemError()) {
-            <div class="label"><span class="label-text-alt text-error">{{ itemError() }}</span></div>
+            <div class="label">
+              <span class="label-text-alt text-error">{{ itemError() }}</span>
+            </div>
           }
         </label>
 
@@ -47,7 +60,12 @@
           />
         </label>
 
-        <button type="button" class="btn btn-primary w-full" (click)="addItem()" [disabled]="itemSubmitting()">
+        <button
+          type="button"
+          class="btn btn-primary w-full"
+          (click)="addItem()"
+          [disabled]="itemSubmitting()"
+        >
           Add item
         </button>
       </section>
@@ -56,7 +74,10 @@
         <div class="flex items-center justify-between">
           <h4 class="font-semibold">Recipe</h4>
           @if (recipesLoading()) {
-            <span class="loading loading-spinner loading-xs" aria-label="Loading recipes"></span>
+            <span
+              class="loading loading-spinner loading-xs"
+              aria-label="Loading recipes"
+            ></span>
           }
         </div>
 
@@ -75,7 +96,9 @@
             }
           </datalist>
           @if (recipeError()) {
-            <div class="label"><span class="label-text-alt text-error">{{ recipeError() }}</span></div>
+            <div class="label">
+              <span class="label-text-alt text-error">{{ recipeError() }}</span>
+            </div>
           }
         </label>
 
@@ -91,7 +114,12 @@
           />
         </label>
 
-        <button type="button" class="btn btn-primary w-full" (click)="addRecipe()" [disabled]="recipeSubmitting()">
+        <button
+          type="button"
+          class="btn btn-primary w-full"
+          (click)="addRecipe()"
+          [disabled]="recipeSubmitting()"
+        >
           Add recipe
         </button>
       </section>

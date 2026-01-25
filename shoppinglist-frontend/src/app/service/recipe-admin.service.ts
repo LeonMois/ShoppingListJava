@@ -31,19 +31,31 @@ export class RecipeAdminService {
   }
 
   deleteRecipe(recipe: RecipeDto): Observable<RecipeDto> {
-    return this.http.delete<RecipeDto>(`${this.baseUrl}/recipes/delete`, { body: recipe });
+    return this.http.delete<RecipeDto>(`${this.baseUrl}/recipes/delete`, {
+      body: recipe,
+    });
   }
 
-  updateRecipe(oldRecipe: RecipeDto, updatedRecipe: RecipeDto): Observable<RecipeDto> {
-    return this.http.put<RecipeDto>(`${this.baseUrl}/recipes/update`, [oldRecipe, updatedRecipe]);
+  updateRecipe(
+    oldRecipe: RecipeDto,
+    updatedRecipe: RecipeDto,
+  ): Observable<RecipeDto> {
+    return this.http.put<RecipeDto>(`${this.baseUrl}/recipes/update`, [
+      oldRecipe,
+      updatedRecipe,
+    ]);
   }
 
   getRecipeItems(recipeName: string): Observable<RecipeItemDto[]> {
-    return this.http.get<RecipeItemDto[]>(`${this.baseUrl}/recipe-items/${encodeURIComponent(recipeName)}`);
+    return this.http.get<RecipeItemDto[]>(
+      `${this.baseUrl}/recipe-items/${encodeURIComponent(recipeName)}`,
+    );
   }
 
   updateRecipeItems(items: RecipeItemDto[]): Observable<RecipeItemDto[]> {
-    return this.http.put<RecipeItemDto[]>(`${this.baseUrl}/recipe-items/update`, items);
+    return this.http.put<RecipeItemDto[]>(
+      `${this.baseUrl}/recipe-items/update`,
+      items,
+    );
   }
 }
-

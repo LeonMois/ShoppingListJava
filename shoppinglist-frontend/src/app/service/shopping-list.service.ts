@@ -11,19 +11,32 @@ export class ShoppingListService {
   constructor(private http: HttpClient) {}
 
   getItems(sortOrder?: string): Observable<ShoppingListItem[]> {
-    const params = sortOrder ? new HttpParams().set('sortOrder', sortOrder) : undefined;
-    return this.http.get<ShoppingListItem[]>(`${this.baseUrl}/shopping-list`, { params });
+    const params = sortOrder
+      ? new HttpParams().set('sortOrder', sortOrder)
+      : undefined;
+    return this.http.get<ShoppingListItem[]>(`${this.baseUrl}/shopping-list`, {
+      params,
+    });
   }
 
   addItems(items: ShoppingListItem[]): Observable<ShoppingListItem[]> {
-    return this.http.post<ShoppingListItem[]>(`${this.baseUrl}/shopping-list/add/items`, items);
+    return this.http.post<ShoppingListItem[]>(
+      `${this.baseUrl}/shopping-list/add/items`,
+      items,
+    );
   }
 
   addRecipes(recipes: RecipeDto[]): Observable<ShoppingListItem[]> {
-    return this.http.post<ShoppingListItem[]>(`${this.baseUrl}/shopping-list/add/recipes`, recipes);
+    return this.http.post<ShoppingListItem[]>(
+      `${this.baseUrl}/shopping-list/add/recipes`,
+      recipes,
+    );
   }
 
   toggleItems(items: ShoppingListItem[]): Observable<ShoppingListItem[]> {
-    return this.http.put<ShoppingListItem[]>(`${this.baseUrl}/shopping-list/toggle/items`, items);
+    return this.http.put<ShoppingListItem[]>(
+      `${this.baseUrl}/shopping-list/toggle/items`,
+      items,
+    );
   }
 }

@@ -1,30 +1,45 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild, computed, inject, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { ItemDto } from '../../models/item.dto';
 import { RecipeDto } from '../../models/recipe.dto';
-import { RecipeAdminService, RecipeItemDto } from '../../service/recipe-admin.service';
+import {
+  RecipeAdminService,
+  RecipeItemDto,
+} from '../../service/recipe-admin.service';
 
 @Component({
   selector: 'app-recipe-admin',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './recipe-admin.html',
-  styleUrl: './recipe-admin.scss',
+  styleUrl: './recipe-admin.css',
 })
 export class RecipeAdmin implements OnInit {
   private readonly recipeAdminService = inject(RecipeAdminService);
   private readonly formBuilder = inject(FormBuilder);
 
-  @ViewChild('editRecipeDialog', { static: true }) private editRecipeDialog!: ElementRef<HTMLDialogElement>;
+  @ViewChild('editRecipeDialog', { static: true })
+  private editRecipeDialog!: ElementRef<HTMLDialogElement>;
 
   readonly recipes = signal<RecipeDto[]>([]);
   readonly items = signal<ItemDto[]>([]);
   readonly recipeItems = signal<RecipeItemDto[]>([]);
 
   readonly selectedRecipeName = signal<string>('');
-  readonly selectedRecipe = computed(() => this.recipes().find((r) => r.name === this.selectedRecipeName()) ?? null);
+  readonly selectedRecipe = computed(
+    () =>
+      this.recipes().find((r) => r.name === this.selectedRecipeName()) ?? null,
+  );
 
   readonly recipesLoading = signal(false);
   readonly itemsLoading = signal(false);
@@ -34,11 +49,11 @@ export class RecipeAdmin implements OnInit {
   readonly error = signal<string | null>(null);
 
   readonly sortedRecipes = computed(() =>
-    [...this.recipes()].sort((a, b) => a.name.localeCompare(b.name))
+    [...this.recipes()].sort((a, b) => a.name.localeCompare(b.name)),
   );
 
   readonly sortedItems = computed(() =>
-    [...this.items()].sort((a, b) => a.name.localeCompare(b.name))
+    [...this.items()].sort((a, b) => a.name.localeCompare(b.name)),
   );
 
   readonly createRecipeForm = this.formBuilder.nonNullable.group({
@@ -147,7 +162,9 @@ export class RecipeAdmin implements OnInit {
         },
         error: (err) => {
           console.error('Failed to add recipe', err);
-          this.error.set('Failed to add recipe. The recipe might already exist.');
+          this.error.set(
+            'Failed to add recipe. The recipe might already exist.',
+          );
         },
       });
   }
@@ -210,8 +227,13 @@ export class RecipeAdmin implements OnInit {
       return;
     }
 
-    if (original.name.trim().toLowerCase() === updatedName.toLowerCase() && original.servings !== updatedServings) {
-      this.error.set('Backend does not support updating servings without changing the recipe name.');
+    if (
+      original.name.trim().toLowerCase() === updatedName.toLowerCase() &&
+      original.servings !== updatedServings
+    ) {
+      this.error.set(
+        'Backend does not support updating servings without changing the recipe name.',
+      );
       return;
     }
 
@@ -224,14 +246,18 @@ export class RecipeAdmin implements OnInit {
         next: () => {
           if (this.selectedRecipeName() === original.name) {
             this.selectedRecipeName.set(updated.name);
-            this.recipeItems.update((items) => items.map((it) => ({ ...it, recipeName: updated.name })));
+            this.recipeItems.update((items) =>
+              items.map((it) => ({ ...it, recipeName: updated.name })),
+            );
           }
           this.dismissEditRecipe();
           this.loadRecipes();
         },
         error: (err) => {
           console.error('Failed to update recipe', err);
-          this.error.set('Failed to update recipe. The new recipe might already exist.');
+          this.error.set(
+            'Failed to update recipe. The new recipe might already exist.',
+          );
         },
       });
   }
@@ -258,7 +284,10 @@ export class RecipeAdmin implements OnInit {
     }
 
     this.recipeItems.update((items) => {
-      const index = items.findIndex((existing) => existing.itemName === item.name && existing.unit === item.unit);
+      const index = items.findIndex(
+        (existing) =>
+          existing.itemName === item.name && existing.unit === item.unit,
+      );
       const nextItem: RecipeItemDto = {
         recipeName,
         itemName: item.name,
@@ -269,7 +298,9 @@ export class RecipeAdmin implements OnInit {
       if (index >= 0) {
         return items.map((existing, i) => (i === index ? nextItem : existing));
       }
-      return [...items, nextItem].sort((a, b) => a.itemName.localeCompare(b.itemName));
+      return [...items, nextItem].sort((a, b) =>
+        a.itemName.localeCompare(b.itemName),
+      );
     });
 
     this.addRecipeItemForm.reset({ itemName: '', quantity: 1 });
@@ -277,16 +308,22 @@ export class RecipeAdmin implements OnInit {
 
   removeRecipeItem(item: RecipeItemDto): void {
     this.recipeItems.update((items) =>
-      items.filter((existing) => !(existing.itemName === item.itemName && existing.unit === item.unit))
+      items.filter(
+        (existing) =>
+          !(existing.itemName === item.itemName && existing.unit === item.unit),
+      ),
     );
   }
 
   updateQuantity(item: RecipeItemDto, quantityRaw: unknown): void {
-    const quantity = typeof quantityRaw === 'number' ? quantityRaw : Number(quantityRaw);
+    const quantity =
+      typeof quantityRaw === 'number' ? quantityRaw : Number(quantityRaw);
     this.recipeItems.update((items) =>
       items.map((existing) =>
-        existing.itemName === item.itemName && existing.unit === item.unit ? { ...existing, quantity } : existing
-      )
+        existing.itemName === item.itemName && existing.unit === item.unit
+          ? { ...existing, quantity }
+          : existing,
+      ),
     );
   }
 
@@ -313,5 +350,4 @@ export class RecipeAdmin implements OnInit {
         },
       });
   }
-
 }

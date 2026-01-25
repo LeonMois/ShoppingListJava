@@ -18,4 +18,3 @@ export class CatalogService {
     return this.http.get<RecipeDto[]>(`${this.baseUrl}/recipes`);
   }
 }
-

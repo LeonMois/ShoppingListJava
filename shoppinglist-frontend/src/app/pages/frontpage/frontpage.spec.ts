@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { Frontpage } from './frontpage';
 
 describe('Frontpage', () => {
@@ -10,8 +13,7 @@ describe('Frontpage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Frontpage, HttpClientTestingModule],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Frontpage);
     component = fixture.componentInstance;

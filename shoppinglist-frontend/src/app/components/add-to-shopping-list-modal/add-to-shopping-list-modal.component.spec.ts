@@ -1,4 +1,7 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddToShoppingListModalComponent } from './add-to-shopping-list-modal.component';
 
@@ -17,10 +20,12 @@ describe('AddToShoppingListModalComponent', () => {
     httpMock = TestBed.inject(HttpTestingController);
 
     fixture.detectChanges();
-    httpMock.expectOne('http://localhost:8080/items').flush([
-      { name: 'Milk', category: 'Dairy', unit: 'l' },
-    ]);
-    httpMock.expectOne('http://localhost:8080/recipes').flush([{ name: 'Pancakes', servings: 2 }]);
+    httpMock
+      .expectOne('http://localhost:8080/items')
+      .flush([{ name: 'Milk', category: 'Dairy', unit: 'l' }]);
+    httpMock
+      .expectOne('http://localhost:8080/recipes')
+      .flush([{ name: 'Pancakes', servings: 2 }]);
   });
 
   it('resets only the item selection after adding an item', () => {
@@ -31,7 +36,9 @@ describe('AddToShoppingListModalComponent', () => {
 
     component.addItem();
 
-    httpMock.expectOne('http://localhost:8080/shopping-list/add/items').flush([]);
+    httpMock
+      .expectOne('http://localhost:8080/shopping-list/add/items')
+      .flush([]);
 
     expect(component.shoppingListChanged.emit).toHaveBeenCalled();
     expect(component.itemForm.controls.itemName.value).toBe('');
@@ -48,7 +55,9 @@ describe('AddToShoppingListModalComponent', () => {
 
     component.addRecipe();
 
-    httpMock.expectOne('http://localhost:8080/shopping-list/add/recipes').flush([]);
+    httpMock
+      .expectOne('http://localhost:8080/shopping-list/add/recipes')
+      .flush([]);
 
     expect(component.shoppingListChanged.emit).toHaveBeenCalled();
     expect(component.recipeForm.controls.recipeName.value).toBe('');
@@ -61,4 +70,3 @@ describe('AddToShoppingListModalComponent', () => {
     httpMock.verify();
   });
 });
-

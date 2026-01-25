@@ -26,11 +26,16 @@ export class IngredientsAdminService {
   }
 
   updateItem(oldItem: ItemDto, updatedItem: ItemDto): Observable<ItemDto> {
-    return this.http.put<ItemDto>(`${this.baseUrl}/items/item/update`, [oldItem, updatedItem]);
+    return this.http.put<ItemDto>(`${this.baseUrl}/items/item/update`, [
+      oldItem,
+      updatedItem,
+    ]);
   }
 
   deleteItem(item: ItemDto): Observable<ItemDto> {
-    return this.http.delete<ItemDto>(`${this.baseUrl}/items/item/delete`, { body: item });
+    return this.http.delete<ItemDto>(`${this.baseUrl}/items/item/delete`, {
+      body: item,
+    });
   }
 
   getUnits(): Observable<UnitDto[]> {
@@ -41,4 +46,3 @@ export class IngredientsAdminService {
     return this.http.get<CategoryDto[]>(`${this.baseUrl}/category`);
   }
 }
-
