@@ -31,6 +31,9 @@ public class ShoppingListEntity {
 
 
     public static ShoppingListDto mapToDto(ShoppingListEntity entity) {
+        if (entity.getItem() == null) {
+            return null;
+        }
         ShoppingListDto dto = new ShoppingListDto();
         dto.setItemName(entity.getItem().getItemName());
         dto.setUnitName(entity.getItem().getUnit().getUnitName());

@@ -39,4 +39,10 @@ export class ShoppingListService {
       items,
     );
   }
+
+  deleteDeletedItems(): Observable<ShoppingListItem[]> {
+    return this.http.delete<ShoppingListItem[]>(
+      `${this.baseUrl}/shopping-list/delete`,
+    );
+  }
 }

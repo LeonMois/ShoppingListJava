@@ -9,6 +9,9 @@
         >
           Add
         </button>
+        <button class="btn btn-outline btn-sm" (click)="removeDeletedItems()">
+          Remove deleted
+        </button>
       </div>
 
       <app-add-to-shopping-list-modal
@@ -35,7 +38,7 @@
       </div>
 
       <div class="space-y-3">
-        @for (item of items(); track item.itemName) {
+        @for (item of sortedItems(); track item.itemName) {
         <label class="item-row" [ngClass]="{ done: item.deleted }">
           <input
             type="checkbox"

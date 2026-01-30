@@ -31,7 +31,13 @@ public class ShoppingListService {
 
 
     public List<ShoppingListDto> getAll(final String sortOrder) {
-        List<ShoppingListDto> items = shoppingListRepository.findAll().stream().map(ShoppingListEntity::mapToDto).toList();
+        List<ShoppingListDto> items = shoppingListRepository.findAll().stream()
+                .map(ShoppingListEntity::mapToDto)
+                .filter(item -> item != null)
+                .toList();
+        if (items.isEmpty()) {
+            return items;
+        }
         Map<ItemUnit, List<ShoppingListDto>> grouped = items.stream().collect(groupingBy(entry -> new ItemUnit(entry.getItemName(), entry.getUnitName())));
         List<ShoppingListDto> summedItems = new ArrayList<>();
         // Group equal types

@@ -18,6 +18,12 @@ export class Frontpage implements OnInit {
   categories = computed(() =>
     Array.from(new Set(this.items().map((item) => item.category))).sort(),
   );
+  sortedItems = computed(() => {
+    const items = this.items();
+    const activeItems = items.filter((item) => !item.deleted);
+    const deletedItems = items.filter((item) => item.deleted);
+    return [...activeItems, ...deletedItems];
+  });
 
   ngOnInit(): void {
     this.loadItems();
@@ -34,15 +40,25 @@ export class Frontpage implements OnInit {
     const previous = item.deleted;
     item.deleted = deleted;
     const updated = { ...item, deleted };
+    this.items.set([...this.items()]);
     this.shoppingListService.toggleItems([updated]).subscribe({
       next: (res) => {
         const serverItem = res?.[0];
         item.deleted = serverItem?.deleted ?? deleted;
+        this.items.set([...this.items()]);
       },
       error: (err) => {
         console.error('Failed to toggle item', err);
         item.deleted = previous;
+        this.items.set([...this.items()]);
       },
+    });
+  }
+
+  removeDeletedItems(): void {
+    this.shoppingListService.deleteDeletedItems().subscribe({
+      next: () => this.loadItems(),
+      error: (err) => console.error('Failed to delete items', err),
     });
   }
 
