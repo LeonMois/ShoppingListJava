@@ -66,7 +66,7 @@ public class ItemService {
             throw new IOException("Original item doesn't exist!");
         }
         ItemEntity newEntry = itemRepository.findByItemNameIgnoreCaseAndUnit(newItem.getName(), unitService.getUnit(newItem.getUnit()));
-        if (newEntry != null) {
+        if (newEntry != null && newEntry.getId() != oldEntry.getId()) {
             throw new IOException("New Item already exists!");
         }
         oldEntry.setItemName(newItem.getName());

@@ -17,8 +17,7 @@ import shoppinglist.backend.dto.ShoppingListDto;
 public class ShoppingListEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "recipe_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @JoinColumn(name = "item_id", referencedColumnName = "id")
@@ -32,6 +31,9 @@ public class ShoppingListEntity {
 
 
     public static ShoppingListDto mapToDto(ShoppingListEntity entity) {
+        if (entity.getItem() == null) {
+            return null;
+        }
         ShoppingListDto dto = new ShoppingListDto();
         dto.setItemName(entity.getItem().getItemName());
         dto.setUnitName(entity.getItem().getUnit().getUnitName());

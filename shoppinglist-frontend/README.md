@@ -1,59 +1,11 @@
 # ShoppinglistFrontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+This project represents a shopping list, that makes it possible to fill the list directly from recipes.
+On top of that it provides the utility of being able to sort your list based on the type of items youre facing in the supermarket, to reduce the amount of times going back and forth between aisles, because you forgot an item in a previous section.
 
-## Development server
+The frontend is structured in main pages located at src/pages.
+The frontpage is the shopping list itself, where its possible to cross off entries, but only clear them later in case crossing them off was a mistake. Furthermore its possible to add items and recipes from a dropdown selection.
+The ingredient-admin page is responsible for creating new items, editing existing ones and deleting them.
+The recipes-admin page is responsible for linking items together into recipes, making it possible to fill the list quickly and easily.
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+The entire project uses the daisy-ui design system.

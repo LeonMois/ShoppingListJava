@@ -1,0 +1,60 @@
+<section class="w-full p-6">
+  <div class="card bg-base-100 shadow-xl w-full">
+    <div class="card-body">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="card-title text-2xl">Groceries</h1>
+        <button
+          class="btn btn-primary btn-sm ml-auto"
+          (click)="addModal.open()"
+        >
+          Add
+        </button>
+        <button class="btn btn-outline btn-sm" (click)="removeDeletedItems()">
+          Remove deleted
+        </button>
+      </div>
+
+      <app-add-to-shopping-list-modal
+        #addModal
+        (shoppingListChanged)="loadItems()"
+      ></app-add-to-shopping-list-modal>
+
+      <div
+        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4"
+      >
+        <div class="text-sm text-base-content/70">
+          Sort by item type (category)
+        </div>
+        <select
+          #sortSelect
+          class="select select-bordered w-full sm:w-64"
+          (change)="changeSort(sortSelect.value)"
+        >
+          <option value="">Default order</option>
+          @for (cat of categories(); track cat) {
+          <option [value]="cat">{{ cat }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="space-y-3">
+        @for (item of sortedItems(); track item.itemName) {
+        <label class="item-row" [ngClass]="{ done: item.deleted }">
+          <input
+            type="checkbox"
+            class="checkbox"
+            [checked]="item.deleted"
+            (change)="toggle(item, $any($event.target).checked)"
+          />
+          <div class="item-text">
+            <span class="font-medium">{{ item.itemName }}</span>
+            <span class="text-sm text-base-content/70">
+              {{ item.quantity }} {{ item.unitName }} · {{ item.category }}
+            </span>
+          </div>
+        </label>
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -17,11 +17,10 @@ import shoppinglist.backend.dto.ItemDto;
 public class ItemEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "item_sequence", sequenceName = "hibernate_sequence", allocationSize = 100)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true, name = "name")
+    @Column(name = "name")
     private String itemName;
 
     @JoinColumn(name = "category_id", referencedColumnName = "id")

@@ -1,20 +1,11 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
-import { Router } from '@angular/router';
-import { SiblingDataService } from '../service/sibling-data.service';
+import { Component, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [],
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss',
+  styleUrl: './sidebar.component.css',
 })
-export class SidebarComponent {
-  signalDataService = inject(SiblingDataService);
-  //isMenuCollapsed = signal(() => this.signalDataService.isMenuCollapsed);
-
-  router = inject(Router);
-
-  setRoute(path: string): void {
-    this.router.navigate([path]);
-  }
-}
+export class SidebarComponent {}

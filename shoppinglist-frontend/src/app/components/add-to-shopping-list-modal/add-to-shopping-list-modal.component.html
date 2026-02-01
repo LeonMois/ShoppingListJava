@@ -1,0 +1,134 @@
+<dialog #dialog class="modal" (close)="resetAll()">
+  <div class="modal-box w-11/12 max-w-2xl">
+    <form method="dialog">
+      <button
+        class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
+
+    <h3 class="font-bold text-lg">Add to shopping list</h3>
+    <p class="text-sm text-base-content/70 mt-1">
+      Add an item and/or a recipe. Each section has its own quantity and add
+      button.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
+      <section class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="font-semibold">Item</h4>
+          @if (itemsLoading()) {
+            <span
+              class="loading loading-spinner loading-xs"
+              aria-label="Loading items"
+            ></span>
+          }
+        </div>
+
+        <label class="form-control w-full">
+          <div class="label"><span class="label-text">Item</span></div>
+          <input
+            class="input input-bordered w-full"
+            list="item-options"
+            placeholder="Start typing an item..."
+            [formControl]="itemForm.controls.itemName"
+            [attr.aria-invalid]="itemError() ? 'true' : 'false'"
+          />
+          <datalist id="item-options">
+            @for (item of items(); track item.name) {
+              <option [value]="item.name"></option>
+            }
+          </datalist>
+          @if (itemError()) {
+            <div class="label">
+              <span class="label-text-alt text-error">{{ itemError() }}</span>
+            </div>
+          }
+        </label>
+
+        <label class="form-control w-full">
+          <div class="label"><span class="label-text">Quantity</span></div>
+          <input
+            class="input input-bordered w-full"
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="0.01"
+            [formControl]="itemForm.controls.quantity"
+          />
+        </label>
+
+        <button
+          type="button"
+          class="btn btn-primary w-full"
+          (click)="addItem()"
+          [disabled]="itemSubmitting()"
+        >
+          Add item
+        </button>
+      </section>
+
+      <section class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="font-semibold">Recipe</h4>
+          @if (recipesLoading()) {
+            <span
+              class="loading loading-spinner loading-xs"
+              aria-label="Loading recipes"
+            ></span>
+          }
+        </div>
+
+        <label class="form-control w-full">
+          <div class="label"><span class="label-text">Recipe</span></div>
+          <input
+            class="input input-bordered w-full"
+            list="recipe-options"
+            placeholder="Start typing a recipe..."
+            [formControl]="recipeForm.controls.recipeName"
+            [attr.aria-invalid]="recipeError() ? 'true' : 'false'"
+          />
+          <datalist id="recipe-options">
+            @for (recipe of recipes(); track recipe.name) {
+              <option [value]="recipe.name"></option>
+            }
+          </datalist>
+          @if (recipeError()) {
+            <div class="label">
+              <span class="label-text-alt text-error">{{ recipeError() }}</span>
+            </div>
+          }
+        </label>
+
+        <label class="form-control w-full">
+          <div class="label"><span class="label-text">Servings</span></div>
+          <input
+            class="input input-bordered w-full"
+            type="number"
+            inputmode="numeric"
+            min="1"
+            step="1"
+            [formControl]="recipeForm.controls.servings"
+          />
+        </label>
+
+        <button
+          type="button"
+          class="btn btn-primary w-full"
+          (click)="addRecipe()"
+          [disabled]="recipeSubmitting()"
+        >
+          Add recipe
+        </button>
+      </section>
+    </div>
+
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>

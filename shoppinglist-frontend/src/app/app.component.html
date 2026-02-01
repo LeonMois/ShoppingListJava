@@ -1,9 +1,23 @@
-<div class="overaching">
-  <div class="sidebar">
-    <app-sidebar></app-sidebar>
-  </div>
-  <div class="header-content">
-    <app-header class="header"></app-header>
-    <router-outlet></router-outlet>
+<div class="layout bg-base-200">
+  <aside class="sidebar-wrapper" [class.sidebar-closed]="!isOpen()">
+    <div class="sidebar-panel shadow-xl">
+      <div class="p-3 lg:hidden flex justify-end">
+        <button class="btn btn-ghost btn-sm" (click)="setSidebar(false)">
+          ✕
+        </button>
+      </div>
+      <app-sidebar></app-sidebar>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col min-h-screen main-area">
+    <div class="p-4">
+      <button class="btn btn-primary btn-sm" (click)="toggleSidebar()">
+        Menu
+      </button>
+    </div>
+    <div class="p-4 flex-1 content-area">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

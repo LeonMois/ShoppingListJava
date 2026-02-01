@@ -1,0 +1,148 @@
+<div
+  tabindex="0"
+  class="collapse collapse-arrow bg-base-100 border-base-300 border"
+>
+  <div class="collapse-title font-semibold">Create Items</div>
+  <div class="collapse-content text-sm">
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        @if (metaLoading()) {
+        <span
+          class="loading loading-spinner loading-xs"
+          aria-label="Loading metadata"
+        ></span>
+        }
+      </div>
+
+      <label class="form-control w-full">
+        <div class="label"><span class="label-text">Name</span></div>
+        <input
+          class="input input-bordered w-full"
+          placeholder="e.g. Tomatoes"
+          [formControl]="createForm.controls.name"
+        />
+      </label>
+
+      <label class="form-control w-full">
+        <div class="label"><span class="label-text">Category</span></div>
+        <input
+          class="input input-bordered w-full"
+          list="category-options"
+          placeholder="e.g. Vegetables"
+          [formControl]="createForm.controls.category"
+        />
+        <datalist id="category-options">
+          @for (category of categories(); track category) {
+          <option [value]="category"></option>
+          }
+        </datalist>
+      </label>
+
+      <label class="form-control w-full">
+        <div class="label"><span class="label-text">Unit</span></div>
+        <input
+          class="input input-bordered w-full"
+          list="unit-options"
+          placeholder="e.g. pcs"
+          [formControl]="createForm.controls.unit"
+        />
+        <datalist id="unit-options">
+          @for (unit of units(); track unit) {
+          <option [value]="unit"></option>
+          }
+        </datalist>
+      </label>
+
+      <button
+        class="btn btn-primary w-full"
+        (click)="addItem()"
+        [disabled]="submitting()"
+      >
+        Add item
+      </button>
+    </section>
+  </div>
+</div>
+<div
+  tabindex="1"
+  class="collapse collapse-arrow bg-base-100 border-base-300 border"
+>
+  <div class="collapse-title font-semibold">Edit Items</div>
+  <div class="collapse-content text-sm">
+    <div class="flex items-center justify-between">
+      <h2 class="font-semibold">Existing items</h2>
+      @if (itemsLoading()) {
+      <span
+        class="loading loading-spinner loading-xs"
+        aria-label="Loading items"
+      ></span>
+      }
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="table table-zebra table-md">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Unit</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of pagedItems(); track item.name + '::' + item.unit) {
+          <tr>
+            <td class="font-medium">{{ item.name }}</td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.unit }}</td>
+            <td class="text-right space-x-2">
+              <button class="btn btn-ghost btn-xs" (click)="openEdit(item)">
+                Edit
+              </button>
+              <button
+                class="btn btn-ghost btn-xs text-error"
+                (click)="deleteItem(item)"
+                [disabled]="submitting()"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-3 mt-4">
+      <span class="text-sm text-base-content/70">{{ paginationLabel() }}</span>
+      <div class="join">
+        <button
+          class="btn btn-sm join-item"
+          type="button"
+          (click)="previousPage()"
+          [disabled]="currentPage() === 1"
+        >
+          Previous
+        </button>
+        @for (page of pageNumbers(); track page) {
+        <button
+          class="btn btn-sm join-item"
+          type="button"
+          (click)="changePage(page)"
+          [class.btn-active]="page === currentPage()"
+        >
+          {{ page }}
+        </button>
+        }
+        <button
+          class="btn btn-sm join-item"
+          type="button"
+          (click)="nextPage()"
+          [disabled]="currentPage() === totalPages()"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

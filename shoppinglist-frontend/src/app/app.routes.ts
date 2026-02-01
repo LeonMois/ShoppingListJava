@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { ListComponent } from './shopping-list/list/list.component';
-import { HeaderComponent } from './header/header.component';
-import { AiGenListComponent } from './ai-gen-list/ai-gen-list.component';
-import { ShoppingListEditorComponent } from './shopping-list-editor/shopping-list-editor.component';
+import { Frontpage } from './pages/frontpage/frontpage';
+import { IngredientsAdmin } from './pages/ingredients-admin/ingredients-admin';
+import { RecipeAdmin } from './pages/recipe-admin/recipe-admin';
 
 export const routes: Routes = [
-  { path: '', component: AiGenListComponent },
-  { path: 'createShoppingList', component: ShoppingListEditorComponent },
+  { path: '', component: Frontpage },
+  { path: 'ingredients', component: IngredientsAdmin },
+  { path: 'recipes', component: RecipeAdmin },
 ];

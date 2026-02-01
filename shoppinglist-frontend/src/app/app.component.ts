@@ -1,16 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
-import { ListComponent } from './shopping-list/list/list.component';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SidebarComponent, HeaderComponent],
+  standalone: true,
+  imports: [RouterOutlet, SidebarComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'shoppinglist-frontend';
+  isOpen = signal<boolean>(false);
+
+  setSidebar(open: boolean): void {
+    this.isOpen.set(open);
+  }
+
+  toggleSidebar(): void {
+    this.isOpen.update((open) => !open);
+  }
 }

@@ -1,0 +1,644 @@
+openapi: 3.0.3
+info:
+  title: Shopping List API
+  version: "1.0.0"
+  description: REST API for managing shopping items, recipes, units, categories, and shopping lists.
+servers:
+  - url: http://localhost:8080
+    description: Local development
+paths:
+  /items:
+    get:
+      summary: Get all items
+      operationId: getItems
+      responses:
+        "200":
+          description: List of items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ItemDto"
+  /items/item/add:
+    post:
+      summary: Add a single item
+      operationId: addItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ItemDto"
+      responses:
+        "200":
+          description: Created item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ItemDto"
+  /items/item/delete:
+    delete:
+      summary: Delete an item
+      operationId: deleteItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ItemDto"
+      responses:
+        "200":
+          description: Deleted item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ItemDto"
+  /items/item/update:
+    put:
+      summary: Update an item
+      description: Expects an array with the old item as the first entry and the updated item as the last entry.
+      operationId: updateItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 2
+              items:
+                $ref: "#/components/schemas/ItemDto"
+      responses:
+        "200":
+          description: Updated item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ItemDto"
+  /items/item/addList:
+    post:
+      summary: Add a list of items
+      operationId: addItemList
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/ItemDto"
+      responses:
+        "200":
+          description: Created items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ItemDto"
+
+  /units:
+    get:
+      summary: Get all units
+      operationId: getUnits
+      responses:
+        "200":
+          description: List of units
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UnitDto"
+  /units/add:
+    post:
+      summary: Add a unit
+      operationId: addUnit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UnitDto"
+      responses:
+        "200":
+          description: Created unit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnitDto"
+  /units/addList:
+    post:
+      summary: Add a list of units
+      operationId: addUnitList
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/UnitDto"
+      responses:
+        "200":
+          description: Created units
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UnitDto"
+  /units/delete:
+    delete:
+      summary: Delete a unit
+      operationId: deleteUnit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UnitDto"
+      responses:
+        "200":
+          description: Deleted unit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnitDto"
+  /units/update:
+    put:
+      summary: Update a unit
+      description: Expects an array with the old unit as the first entry and the updated unit as the last entry.
+      operationId: updateUnit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 2
+              items:
+                $ref: "#/components/schemas/UnitDto"
+      responses:
+        "200":
+          description: Updated unit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnitDto"
+
+  /category:
+    get:
+      summary: Get all categories
+      operationId: getCategories
+      responses:
+        "200":
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryDto"
+  /category/add:
+    post:
+      summary: Add a category
+      operationId: addCategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryDto"
+      responses:
+        "200":
+          description: Created category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryDto"
+  /category/addList:
+    post:
+      summary: Add a list of categories
+      operationId: addCategoryList
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/CategoryDto"
+      responses:
+        "200":
+          description: Created categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryDto"
+  /category/update:
+    put:
+      summary: Update a category
+      description: Expects an array with the old category as the first entry and the updated category as the last entry.
+      operationId: updateCategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 2
+              items:
+                $ref: "#/components/schemas/CategoryDto"
+      responses:
+        "200":
+          description: Updated category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryDto"
+  /category/delete:
+    delete:
+      summary: Delete a category
+      operationId: deleteCategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryDto"
+      responses:
+        "200":
+          description: Deleted category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryDto"
+
+  /recipes:
+    get:
+      summary: Get all recipes
+      operationId: getRecipes
+      responses:
+        "200":
+          description: List of recipes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RecipeDto"
+  /recipes/{recipe}:
+    get:
+      summary: Get a single recipe
+      operationId: getRecipe
+      parameters:
+        - in: path
+          name: recipe
+          required: true
+          schema:
+            type: string
+          description: Recipe name
+      responses:
+        "200":
+          description: Recipe details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecipeDto"
+  /recipes/add:
+    post:
+      summary: Add a recipe
+      operationId: addRecipe
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecipeDto"
+      responses:
+        "200":
+          description: Created recipe
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecipeDto"
+  /recipes/delete:
+    delete:
+      summary: Delete a recipe
+      operationId: deleteRecipe
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecipeDto"
+      responses:
+        "200":
+          description: Deleted recipe
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecipeDto"
+  /recipes/update:
+    put:
+      summary: Update a recipe
+      description: Expects an array with the old recipe as the first entry and the updated recipe as the last entry.
+      operationId: updateRecipe
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 2
+              items:
+                $ref: "#/components/schemas/RecipeDto"
+      responses:
+        "200":
+          description: Updated recipe
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecipeDto"
+
+  /recipe-items:
+    get:
+      summary: Get all recipe items
+      operationId: getRecipeItems
+      responses:
+        "200":
+          description: List of recipe items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RecipeItemDto"
+  /recipe-items/{recipeName}:
+    get:
+      summary: Get recipe items for a recipe
+      operationId: getRecipeItemsForRecipe
+      parameters:
+        - in: path
+          name: recipeName
+          required: true
+          schema:
+            type: string
+          description: Recipe name
+      responses:
+        "200":
+          description: Items belonging to the recipe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RecipeItemDto"
+  /recipe-items/add:
+    post:
+      summary: Add items to a recipe
+      operationId: addRecipeItems
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/RecipeItemDto"
+      responses:
+        "200":
+          description: Created recipe items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RecipeItemDto"
+  /recipe-items/delete:
+    delete:
+      summary: Delete recipe items
+      operationId: deleteRecipeItems
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/RecipeItemDto"
+      responses:
+        "200":
+          description: Deleted recipe items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RecipeItemDto"
+  /recipe-items/update:
+    put:
+      summary: Update recipe items
+      description: Expects an array of items to update; the service toggles or replaces matching items internally.
+      operationId: updateRecipeItems
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/RecipeItemDto"
+      responses:
+        "200":
+          description: Updated recipe items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RecipeItemDto"
+
+  /shopping-list:
+    get:
+      summary: Get shopping list
+      operationId: getShoppingList
+      parameters:
+        - in: query
+          name: sortOrder
+          required: false
+          schema:
+            type: string
+          description: Optional category name used to prioritize sorting.
+      responses:
+        "200":
+          description: Aggregated shopping list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ShoppingListDto"
+  /shopping-list/add/items:
+    post:
+      summary: Add items to shopping list
+      operationId: addItemsToShoppingList
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/ShoppingListDto"
+      responses:
+        "200":
+          description: Added items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ShoppingListDto"
+  /shopping-list/toggle/items:
+    put:
+      summary: Toggle items as deleted/active
+      description: Toggles the deleted flag for each provided shopping list item.
+      operationId: toggleShoppingListItems
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/ShoppingListDto"
+      responses:
+        "200":
+          description: Updated items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ShoppingListDto"
+  /shopping-list/delete:
+    delete:
+      summary: Remove items marked as deleted
+      operationId: deleteShoppingListItems
+      responses:
+        "200":
+          description: Removed items that had been marked as deleted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ShoppingListDto"
+  /shopping-list/add/recipes:
+    post:
+      summary: Add recipes to shopping list
+      description: Adds items for the given recipes based on their servings.
+      operationId: addRecipesToShoppingList
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/RecipeDto"
+      responses:
+        "200":
+          description: Shopping list with added recipe items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ShoppingListDto"
+
+components:
+  schemas:
+    ItemDto:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        unit:
+          type: string
+      required:
+        - name
+        - category
+        - unit
+    UnitDto:
+      type: object
+      properties:
+        unitName:
+          type: string
+      required:
+        - unitName
+    CategoryDto:
+      type: object
+      properties:
+        categoryName:
+          type: string
+      required:
+        - categoryName
+    RecipeDto:
+      type: object
+      properties:
+        name:
+          type: string
+        servings:
+          type: integer
+          format: int32
+          description: Number of servings to prepare
+      required:
+        - name
+        - servings
+    RecipeItemDto:
+      type: object
+      properties:
+        recipeName:
+          type: string
+        itemName:
+          type: string
+        unit:
+          type: string
+        category:
+          type: string
+        quantity:
+          type: number
+          format: float
+      required:
+        - recipeName
+        - itemName
+        - unit
+        - category
+        - quantity
+    ShoppingListDto:
+      type: object
+      properties:
+        itemName:
+          type: string
+        unitName:
+          type: string
+        quantity:
+          type: number
+          format: float
+        deleted:
+          type: boolean
+        category:
+          type: string
+      required:
+        - itemName
+        - unitName
+        - quantity
+        - deleted
+        - category

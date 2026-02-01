@@ -1,0 +1,47 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.main-area {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  background: #fdfcfb;
+  min-width: 0;
+}
+
+.content-area {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+}
+
+.content-area > * {
+  width: 100%;
+}
+
+.sidebar-wrapper {
+  width: 18rem;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: width 150ms ease;
+}
+
+.sidebar-wrapper.sidebar-closed {
+  width: 0;
+}
+
+.sidebar-panel {
+  position: relative;
+  background: #fdfcfb;
+  min-height: 100vh;
+  transition: transform 150ms ease;
+}
+
+.sidebar-closed .sidebar-panel {
+  transform: translateX(-100%);
+}
