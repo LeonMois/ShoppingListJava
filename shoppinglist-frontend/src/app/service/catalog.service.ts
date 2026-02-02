@@ -6,7 +6,7 @@ import { RecipeDto } from '../models/recipe.dto';
 
 @Injectable({ providedIn: 'root' })
 export class CatalogService {
-  private readonly baseUrl = 'http://localhost:8080';
+  private readonly baseUrl = '/api';
 
   constructor(private http: HttpClient) {}
 

@@ -21,9 +21,9 @@ describe('Frontpage', () => {
 
     fixture.detectChanges();
 
-    httpMock.expectOne('http://localhost:8080/shopping-list').flush([]);
-    httpMock.expectOne('http://localhost:8080/items').flush([]);
-    httpMock.expectOne('http://localhost:8080/recipes').flush([]);
+    httpMock.expectOne('/api/shopping-list').flush([]);
+    httpMock.expectOne('/api/items').flush([]);
+    httpMock.expectOne('/api/recipes').flush([]);
   });
 
   it('should create', () => {

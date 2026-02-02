@@ -21,10 +21,10 @@ describe('AddToShoppingListModalComponent', () => {
 
     fixture.detectChanges();
     httpMock
-      .expectOne('http://localhost:8080/items')
+      .expectOne('/api/items')
       .flush([{ name: 'Milk', category: 'Dairy', unit: 'l' }]);
     httpMock
-      .expectOne('http://localhost:8080/recipes')
+      .expectOne('/api/recipes')
       .flush([{ name: 'Pancakes', servings: 2 }]);
   });
 
@@ -37,7 +37,7 @@ describe('AddToShoppingListModalComponent', () => {
     component.addItem();
 
     httpMock
-      .expectOne('http://localhost:8080/shopping-list/add/items')
+      .expectOne('/api/shopping-list/add/items')
       .flush([]);
 
     expect(component.shoppingListChanged.emit).toHaveBeenCalled();
@@ -56,7 +56,7 @@ describe('AddToShoppingListModalComponent', () => {
     component.addRecipe();
 
     httpMock
-      .expectOne('http://localhost:8080/shopping-list/add/recipes')
+      .expectOne('/api/shopping-list/add/recipes')
       .flush([]);
 
     expect(component.shoppingListChanged.emit).toHaveBeenCalled();

@@ -59,6 +59,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "proxyconfig.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "shoppinglist-frontend:build:production"
