@@ -153,7 +153,7 @@ build_backend() {
   if [[ -f "./gradlew" ]]; then
     log "Detected Gradle wrapper. Running: ./gradlew clean bootJar"
     chmod +x ./gradlew
-    ./gradlew clean bootJar
+    ./gradlew clean bootJar >&2
 
     # Find the newest jar in build/libs (exclude *plain.jar if possible)
     jar_path="$(ls -1t build/libs/*.jar 2>/dev/null | grep -v 'plain\.jar' | head -n 1 || true)"
@@ -165,11 +165,11 @@ build_backend() {
     if [[ -f "./mvnw" ]]; then
       log "Detected Maven wrapper. Running: ./mvnw -DskipTests package"
       chmod +x ./mvnw
-      ./mvnw -DskipTests package
+      ./mvnw -DskipTests package >&2
     else
       require_cmd mvn
       log "Detected Maven. Running: mvn -DskipTests package"
-      mvn -DskipTests package
+      mvn -DskipTests package >&2
     fi
 
     # Find the newest jar in target (exclude *original.jar if possible)
