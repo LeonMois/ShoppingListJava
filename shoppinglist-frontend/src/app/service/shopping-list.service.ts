@@ -6,7 +6,7 @@ import { ShoppingListItem } from '../models/shopping-list-item';
 
 @Injectable({ providedIn: 'root' })
 export class ShoppingListService {
-  private readonly baseUrl = 'http://localhost:8080';
+  private readonly baseUrl = '/api';
 
   constructor(private http: HttpClient) {}
 

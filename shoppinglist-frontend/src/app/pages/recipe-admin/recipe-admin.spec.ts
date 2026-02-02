@@ -21,12 +21,12 @@ describe('RecipeAdmin', () => {
     httpMock = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
 
-    httpMock.expectOne('http://localhost:8080/items').flush([]);
+    httpMock.expectOne('/api/items').flush([]);
     httpMock
-      .expectOne('http://localhost:8080/recipes')
+      .expectOne('/api/recipes')
       .flush([{ name: 'Test Recipe', servings: 2 }]);
     httpMock
-      .expectOne('http://localhost:8080/recipe-items/Test%20Recipe')
+      .expectOne('/api/recipe-items/Test%20Recipe')
       .flush([]);
   });
 

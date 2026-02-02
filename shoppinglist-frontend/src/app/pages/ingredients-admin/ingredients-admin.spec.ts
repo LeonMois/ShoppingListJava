@@ -21,9 +21,9 @@ describe('IngredientsAdmin', () => {
     httpMock = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
 
-    httpMock.expectOne('http://localhost:8080/items').flush([]);
-    httpMock.expectOne('http://localhost:8080/units').flush([]);
-    httpMock.expectOne('http://localhost:8080/category').flush([]);
+    httpMock.expectOne('/api/items').flush([]);
+    httpMock.expectOne('/api/units').flush([]);
+    httpMock.expectOne('/api/category').flush([]);
   });
 
   it('should create', () => {
