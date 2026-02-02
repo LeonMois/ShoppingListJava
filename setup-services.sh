@@ -25,16 +25,6 @@ require_cmd() {
   }
 }
 
-ensure_user() {
-  if id -u "${APP_USER}" >/dev/null 2>&1; then
-    log "User exists: ${APP_USER}"
-    return 0
-  fi
-
-  log "Creating system user: ${APP_USER}"
-  sudo useradd --system --no-create-home --shell /usr/sbin/nologin "${APP_USER}"
-}
-
 ensure_group() {
   if getent group "${APP_GROUP}" >/dev/null 2>&1; then
     log "Group exists: ${APP_GROUP}"
@@ -43,6 +33,20 @@ ensure_group() {
 
   log "Creating system group: ${APP_GROUP}"
   sudo groupadd --system "${APP_GROUP}"
+}
+
+ensure_user() {
+  if id -u "${APP_USER}" >/dev/null 2>&1; then
+    log "User exists: ${APP_USER}"
+    return 0
+  fi
+
+  log "Creating system user: ${APP_USER}"
+  if getent group "${APP_GROUP}" >/dev/null 2>&1; then
+    sudo useradd --system --no-create-home --shell /usr/sbin/nologin -g "${APP_GROUP}" "${APP_USER}"
+  else
+    sudo useradd --system --no-create-home --shell /usr/sbin/nologin "${APP_USER}"
+  fi
 }
 
 ensure_user_in_group() {
