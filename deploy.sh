@@ -27,7 +27,7 @@ ANGULAR_DIST_DIR=""
 #############################################
 # Helpers                                   #
 #############################################
-log() { echo -e "\n[deploy] $*\n"; }
+log() { echo -e "\n[deploy] $*\n" >&2; }
 
 require_cmd() {
   command -v "$1" >/dev/null 2>&1 || {
@@ -97,14 +97,14 @@ build_frontend() {
   # Use npm ci if lockfile exists, else npm install
   if [[ -f package-lock.json ]]; then
     require_cmd npm
-    npm ci
+    npm ci >&2
   else
     require_cmd npm
-    npm install
+    npm install >&2
   fi
 
   # Prefer npm run build (works for most Angular setups)
-  npm run build
+  npm run build >&2
 
   local dist_dir
   dist_dir="$(detect_angular_dist "${fe_path}")"
