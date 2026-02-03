@@ -9,6 +9,9 @@ set -euo pipefail
 FRONTEND_DIR="shoppinglist-frontend"     # Angular project folder
 BACKEND_DIR="backend"                   # Spring Boot project folder
 
+# Java binary (adjust when upgrading Java)
+JAVA_BIN="/opt/jdk-21.0.7+6/bin/java"
+
 # Deploy targets on the Raspberry Pi
 FRONTEND_TARGET="/var/www/html"
 BACKEND_TARGET_DIR="/opt/shoppinglist"
@@ -34,6 +37,14 @@ require_cmd() {
     echo "[deploy] ERROR: missing command: $1" >&2
     exit 1
   }
+}
+
+require_executable() {
+  local path="$1"
+  if [[ ! -x "${path}" ]]; then
+    echo "[deploy] ERROR: executable not found or not executable: ${path}" >&2
+    exit 1
+  fi
 }
 
 has_systemd_service() {
@@ -244,6 +255,7 @@ main() {
   require_cmd sudo
   require_cmd git
   require_cmd ss
+  require_executable "${JAVA_BIN}"
 
   # Build + deploy frontend
   local dist_dir
