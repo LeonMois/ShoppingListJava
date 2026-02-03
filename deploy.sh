@@ -12,6 +12,9 @@ BACKEND_DIR="backend"                   # Spring Boot project folder
 # Java binary (adjust when upgrading Java)
 JAVA_BIN="/opt/jdk-21.0.7+6/bin/java"
 
+# Systemctl binary (avoid PATH issues)
+SYSTEMCTL_BIN="/usr/bin/systemctl"
+
 # Deploy targets on the Raspberry Pi
 FRONTEND_TARGET="/var/www/html"
 BACKEND_TARGET_DIR="/opt/shoppinglist"
@@ -49,10 +52,10 @@ require_executable() {
 
 has_systemd_service() {
   local service="$1"
-  if ! command -v systemctl >/dev/null 2>&1; then
+  if [[ ! -x "${SYSTEMCTL_BIN}" ]]; then
     return 1
   fi
-  systemctl list-unit-files --type=service --no-pager 2>/dev/null | grep -q "^${service}\.service"
+  "${SYSTEMCTL_BIN}" list-unit-files --type=service --no-pager 2>/dev/null | grep -q "^${service}\.service"
 }
 
 repo_root() {
@@ -142,7 +145,7 @@ deploy_frontend() {
   sudo rsync -a --delete "${dist_dir}/" "${FRONTEND_TARGET}/"
 
   # Reload nginx to pick up changes (not strictly required for static files, but harmless)
-  sudo systemctl reload "${NGINX_SERVICE}"
+  sudo "${SYSTEMCTL_BIN}" reload "${NGINX_SERVICE}"
 }
 
 build_backend() {
@@ -219,7 +222,7 @@ deploy_backend() {
 
   # Restart backend service
   if [[ -n "${BACKEND_SERVICE}" ]] && has_systemd_service "${BACKEND_SERVICE}"; then
-    sudo systemctl restart "${BACKEND_SERVICE}"
+    sudo "${SYSTEMCTL_BIN}" restart "${BACKEND_SERVICE}"
   else
     log "Skipping backend restart (systemd service not found): ${BACKEND_SERVICE}"
   fi
@@ -228,13 +231,13 @@ deploy_backend() {
 status_check() {
   log "Service status"
   if [[ -n "${BACKEND_SERVICE}" ]] && has_systemd_service "${BACKEND_SERVICE}"; then
-    sudo systemctl --no-pager --full status "${BACKEND_SERVICE}" || true
+    sudo "${SYSTEMCTL_BIN}" --no-pager --full status "${BACKEND_SERVICE}" || true
   else
     log "Skipping backend status (systemd service not found): ${BACKEND_SERVICE}"
   fi
 
   if has_systemd_service "${NGINX_SERVICE}"; then
-    sudo systemctl --no-pager --full status "${NGINX_SERVICE}" || true
+    sudo "${SYSTEMCTL_BIN}" --no-pager --full status "${NGINX_SERVICE}" || true
   else
     log "Skipping nginx status (systemd service not found): ${NGINX_SERVICE}"
   fi
@@ -256,6 +259,7 @@ main() {
   require_cmd git
   require_cmd ss
   require_executable "${JAVA_BIN}"
+  require_executable "${SYSTEMCTL_BIN}"
 
   # Build + deploy frontend
   local dist_dir

@@ -10,6 +10,9 @@ APP_GROUP="shoppinglist"
 APP_DIR="/opt/shoppinglist"
 APP_JAR="${APP_DIR}/shoppinglist-backend.jar"
 APP_PORT="8080"
+JAVA_BIN="/opt/jdk-21.0.7+6/bin/java"
+
+SYSTEMCTL_BIN="/usr/bin/systemctl"
 
 NGINX_SITE_AVAILABLE="/etc/nginx/sites-available/shoppinglist"
 NGINX_SITE_ENABLED="/etc/nginx/sites-enabled/shoppinglist"
@@ -23,6 +26,14 @@ require_cmd() {
     echo "[setup] ERROR: missing command: $1" >&2
     exit 1
   }
+}
+
+require_executable() {
+  local path="$1"
+  if [[ ! -x "${path}" ]]; then
+    echo "[setup] ERROR: executable not found or not executable: ${path}" >&2
+    exit 1
+  fi
 }
 
 ensure_group() {
@@ -77,7 +88,7 @@ Type=simple
 User=${APP_USER}
 Group=${APP_GROUP}
 WorkingDirectory=${APP_DIR}
-ExecStart=/usr/bin/java -jar ${APP_JAR} --server.port=${APP_PORT}
+ExecStart=${JAVA_BIN} -jar ${APP_JAR} --server.port=${APP_PORT}
 Restart=on-failure
 RestartSec=5
 SuccessExitStatus=143
@@ -89,9 +100,9 @@ EOF
 
 enable_backend_service() {
   log "Enabling backend service"
-  sudo systemctl daemon-reload
-  sudo systemctl enable "${APP_NAME}-backend"
-  sudo systemctl restart "${APP_NAME}-backend"
+  sudo "${SYSTEMCTL_BIN}" daemon-reload
+  sudo "${SYSTEMCTL_BIN}" enable "${APP_NAME}-backend"
+  sudo "${SYSTEMCTL_BIN}" restart "${APP_NAME}-backend"
 }
 
 enable_nginx_site() {
@@ -110,14 +121,14 @@ enable_nginx_site() {
 
 reload_nginx() {
   log "Reloading nginx"
-  sudo systemctl enable nginx
-  sudo systemctl restart nginx
+  sudo "${SYSTEMCTL_BIN}" enable nginx
+  sudo "${SYSTEMCTL_BIN}" restart nginx
 }
 
 main() {
   require_cmd sudo
-  require_cmd systemctl
-  require_cmd java
+  require_executable "${SYSTEMCTL_BIN}"
+  require_executable "${JAVA_BIN}"
 
   ensure_group
   ensure_user
