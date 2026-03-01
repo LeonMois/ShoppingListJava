@@ -38,7 +38,7 @@
           />
           <datalist id="item-options">
             @for (item of items(); track item.name) {
-              <option [value]="item.name"></option>
+              <option [value]="item.name + ' | ' + item.unit"></option>
             }
           </datalist>
           @if (itemError()) {
@@ -55,7 +55,7 @@
             type="number"
             inputmode="decimal"
             min="0"
-            step="0.01"
+            step="0.5"
             [formControl]="itemForm.controls.quantity"
           />
         </label>

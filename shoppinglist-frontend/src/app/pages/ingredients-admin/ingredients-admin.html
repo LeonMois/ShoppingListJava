@@ -78,7 +78,10 @@
       ></span>
       }
     </div>
-
+    <div>
+      <span>Search</span> <br />
+      <textarea (ngModel)="searchString()"></textarea>
+    </div>
     <div class="overflow-x-auto">
       <table class="table table-zebra table-md">
         <thead>
@@ -146,3 +149,71 @@
     </div>
   </div>
 </div>
+
+<dialog #editDialog class="modal" (close)="closeEdit()">
+  <div class="modal-box w-11/12 max-w-xl">
+    <form method="dialog">
+      <button
+        class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
+
+    <h3 class="font-bold text-lg">Edit</h3>
+
+    <div class="space-y-3 mt-4">
+      <label class="form-control w-full">
+        <div class="label"><span class="label-text">Name</span></div>
+        <input
+          class="input input-bordered w-full"
+          [formControl]="editForm.controls.newName"
+        />
+      </label>
+
+      <label class="form-control w-full">
+        <div class="label"><span class="label-text">Unit</span></div>
+        <input
+          class="input input-bordered w-full"
+          list="unit-options"
+          placeholder="Start typing a unit..."
+          [formControl]="editForm.controls.newUnit"
+        />
+        <datalist id="unit-options">
+          @for (unit of units(); track unit) {
+          <option [value]="unit"></option>
+          }
+        </datalist>
+      </label>
+      <label class="form-control w-full">
+        <div class="label"><span class="label-text">Category</span></div>
+        <input
+          class="input input-bordered w-full"
+          list="category-options"
+          placeholder="Start typing a category..."
+          [formControl]="editForm.controls.newCategory"
+        />
+        <datalist id="category-options">
+          @for (category of categories(); track category) {
+          <option [value]="category"></option>
+          }
+        </datalist>
+      </label>
+    </div>
+
+    <div class="modal-action">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="saveEdit()"
+        [disabled]="submitting()"
+      >
+        Save
+      </button>
+      <form method="dialog">
+        <button class="btn">Cancel</button>
+      </form>
+    </div>
+  </div>
+</dialog>

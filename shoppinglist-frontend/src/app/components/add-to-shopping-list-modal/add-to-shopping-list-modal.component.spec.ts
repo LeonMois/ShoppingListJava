@@ -36,9 +36,7 @@ describe('AddToShoppingListModalComponent', () => {
 
     component.addItem();
 
-    httpMock
-      .expectOne('/api/shopping-list/add/items')
-      .flush([]);
+    httpMock.expectOne('/api/shopping-list/add/items').flush([]);
 
     expect(component.shoppingListChanged.emit).toHaveBeenCalled();
     expect(component.itemForm.controls.itemName.value).toBe('');
@@ -55,9 +53,7 @@ describe('AddToShoppingListModalComponent', () => {
 
     component.addRecipe();
 
-    httpMock
-      .expectOne('/api/shopping-list/add/recipes')
-      .flush([]);
+    httpMock.expectOne('/api/shopping-list/add/recipes').flush([]);
 
     expect(component.shoppingListChanged.emit).toHaveBeenCalled();
     expect(component.recipeForm.controls.recipeName.value).toBe('');
