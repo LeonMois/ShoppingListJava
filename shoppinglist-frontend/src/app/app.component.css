@@ -39,6 +39,7 @@
   position: relative;
   background: #fdfcfb;
   min-height: 100vh;
+  height: 100%;
   transition: transform 150ms ease;
 }
 

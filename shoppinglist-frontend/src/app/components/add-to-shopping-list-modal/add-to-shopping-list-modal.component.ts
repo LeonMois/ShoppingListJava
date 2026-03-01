@@ -70,10 +70,13 @@ export class AddToShoppingListModalComponent implements OnInit {
 
   addItem(): void {
     this.itemError.set(null);
-
-    const itemName = this.itemForm.controls.itemName.value.trim();
+    const itemVals = this.itemForm.controls.itemName.value.split('|');
+    const itemName = itemVals[0].trim();
+    const itemUnit = itemVals[1].trim();
     const quantity = this.itemForm.controls.quantity.value;
-    const item = this.items().find((candidate) => candidate.name === itemName);
+    const item = this.items().find(
+      (candidate) => candidate.name === itemName && candidate.unit === itemUnit,
+    );
 
     if (!itemName || !item) {
       this.itemError.set('Select an item from the list.');

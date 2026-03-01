@@ -38,13 +38,20 @@ export class IngredientsAdmin implements OnInit {
   readonly error = signal<string | null>(null);
 
   readonly selectedItem = signal<ItemDto | null>(null);
-
+  readonly searchString = signal('');
   readonly pageSize = 25;
   readonly currentPage = signal(1);
 
   readonly sortedItems = computed(() =>
     [...this.items()].sort((a, b) => a.name.localeCompare(b.name)),
   );
+
+  readonly searchItems = computed(() =>
+    this.sortedItems().filter((item) =>
+      item.name.includes(this.searchString()),
+    ),
+  );
+
   readonly totalPages = computed(() =>
     Math.max(1, Math.ceil(this.sortedItems().length / this.pageSize)),
   );
@@ -73,9 +80,9 @@ export class IngredientsAdmin implements OnInit {
   });
 
   readonly editForm = this.formBuilder.nonNullable.group({
-    name: ['', [Validators.required]],
-    category: ['', [Validators.required]],
-    unit: ['', [Validators.required]],
+    newName: ['', [Validators.required]],
+    newCategory: ['', [Validators.required]],
+    newUnit: ['', [Validators.required]],
   });
 
   ngOnInit(): void {
@@ -167,16 +174,16 @@ export class IngredientsAdmin implements OnInit {
   openEdit(item: ItemDto): void {
     this.selectedItem.set(item);
     this.editForm.reset({
-      name: item.name,
-      category: item.category,
-      unit: item.unit,
+      newName: item.name,
+      newCategory: item.category,
+      newUnit: item.unit,
     });
     this.editDialog.nativeElement.showModal();
   }
 
   closeEdit(): void {
     this.selectedItem.set(null);
-    this.editForm.reset({ name: '', category: '', unit: '' });
+    this.editForm.reset({ newName: '', newCategory: '', newUnit: '' });
   }
 
   dismissEdit(): void {
@@ -206,9 +213,9 @@ export class IngredientsAdmin implements OnInit {
     const original = this.selectedItem();
     if (!original) return;
 
-    const name = this.editForm.controls.name.value.trim();
-    const category = this.editForm.controls.category.value.trim();
-    const unit = this.editForm.controls.unit.value.trim();
+    const name = this.editForm.controls.newName.value.trim();
+    const category = this.editForm.controls.newCategory.value.trim();
+    const unit = this.editForm.controls.newUnit.value.trim();
 
     if (!name || !category || !unit) {
       this.error.set('Name, category and unit are required.');

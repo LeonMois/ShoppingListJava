@@ -11,9 +11,10 @@ export class ShoppingListService {
   constructor(private http: HttpClient) {}
 
   getItems(sortOrder?: string): Observable<ShoppingListItem[]> {
-    const params = sortOrder
-      ? new HttpParams().set('sortOrder', sortOrder)
-      : undefined;
+    let params = new HttpParams().set('_ts', Date.now().toString());
+    if (sortOrder) {
+      params = params.set('sortOrder', sortOrder);
+    }
     return this.http.get<ShoppingListItem[]>(`${this.baseUrl}/shopping-list`, {
       params,
     });
