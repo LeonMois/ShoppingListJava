@@ -1,0 +1,33 @@
+<input
+  type="text"
+  [formControl]="filterControl"
+  placeholder="Type here"
+  class="input"
+/>
+<br />
+<div class="carousel carousel-end rounded-box w-full">
+  @for (recipe of filteredRecipes(); track recipe.name) {
+    <div class="carousel-item">
+      <div class="card w-96 bg-base-100 card-lg shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title">{{ recipe.name }}</h2>
+          <p>{{ recipe.name }} serves {{ recipe.servings }} portions</p>
+          <div class="justify-end card-actions">
+            <button class="btn btn-primary" (click)="selectRecipe(recipe)">
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+@if (detailData(); as detail) {
+  <div class="flex items-center justify-center">
+    <app-recipe-edit-detail
+      [recipe]="detail.recipe"
+      [items]="detail.items"
+      (closed)="closeDetail()"
+    ></app-recipe-edit-detail>
+  </div>
+}

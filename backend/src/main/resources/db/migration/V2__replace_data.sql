@@ -44,6 +44,12 @@ CREATE TABLE IF NOT EXISTS shopping_list (
     FOREIGN KEY (item_id) REFERENCES item(id)
 );
 
+DELETE FROM shopping_list;
+DELETE FROM recipe_item;
+DELETE FROM item;
+DELETE FROM recipe;
+DELETE FROM category;
+DELETE FROM unit;
 -- ------------------------------------------------------------
 -- UNITS
 -- ------------------------------------------------------------
