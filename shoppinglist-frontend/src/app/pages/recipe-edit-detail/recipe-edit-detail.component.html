@@ -1,0 +1,35 @@
+<div class="flex flex-col items-center">
+  <fieldset
+    class="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4"
+  >
+    <legend class="fieldset-legend">{{ recipe().name }}</legend>
+    @for (item of items(); track item.itemName) {
+      <div class="flex">
+        <input
+          type="text"
+          class="input w-full"
+          (change)="onItemInputChange(item, $any($event.target).value)"
+          placeholder="{{ item.itemName }} | {{ item.unit }}"
+          list="items"
+        />
+        <input
+          type="number"
+          class="input validator"
+          [(ngModel)]="item.quantity"
+        />
+        <button class="btn btn-primary btn-sm" (click)="remove(item)">
+          Delete
+        </button>
+      </div>
+      <datalist id="items">
+        @for (it of allItems(); track it.name) {
+          <option value="{{ it.name }} | {{ it.unit }}"></option>
+        }
+      </datalist>
+    }
+    <button class="btn btn-primary btn-sm" (click)="addNewItem()">
+      Add new item
+    </button>
+  </fieldset>
+</div>
+<button class="btn btn-primary" (click)="save()">Save</button>

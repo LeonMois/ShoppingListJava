@@ -80,7 +80,7 @@
     </div>
     <div>
       <span>Search</span> <br />
-      <textarea (ngModel)="searchString()"></textarea>
+      <input class="input input-bordered w-full" type="text" [ngModel]="searchString()" (ngModelChange)="searchString.set($event)" />
     </div>
     <div class="overflow-x-auto">
       <table class="table table-zebra table-md">

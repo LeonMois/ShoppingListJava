@@ -1,0 +1,66 @@
+<div class="flex">
+  <input
+    type="text"
+    [formControl]="filterControl"
+    placeholder="Search here"
+    class="input"
+  />
+  <!-- Open the modal using ID.showModal() method -->
+  <button class="btn btn-primary ml-1" onclick="new_recipe.showModal()">
+    Add new recipe
+  </button>
+  <dialog id="new_recipe" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+      <div class="flex pb-1">
+        <input #recipeName required="text" placeholder="Name" class="input" />
+        <input
+          #servingAmount
+          required
+          type="number"
+          placeholder="Servings"
+          class="input"
+        />
+      </div>
+      <form method="dialog">
+        <button
+          class="btn btn-primary"
+          (click)="addNewRecipe(recipeName.value, servingAmount.value)"
+        >
+          Create
+        </button>
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </dialog>
+</div>
+<br />
+<div class="carousel carousel-end rounded-box w-full">
+  @for (recipe of filteredRecipes(); track recipe.name) {
+    <div class="carousel-item ml-1">
+      <div class="card w-96 bg-base-100 card-lg shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title">{{ recipe.name }}</h2>
+          <p>{{ recipe.name }} serves {{ recipe.servings }} portions</p>
+          <div class="justify-end card-actions">
+            <button class="btn btn-primary" (click)="selectRecipe(recipe)">
+              Edit
+            </button>
+            <button class="btn btn-primary" (click)="deleteRecipe(recipe)">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+@if (detailData(); as detail) {
+  <div class="flex items-center justify-center">
+    <app-recipe-edit-detail
+      [recipe]="detail.recipe"
+      [items]="detail.items"
+      (closed)="closeDetail()"
+    ></app-recipe-edit-detail>
+  </div>
+}

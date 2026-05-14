@@ -6,9 +6,10 @@ import {
   ViewChild,
   computed,
   inject,
+  model,
   signal,
 } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { ItemDto } from '../../models/item.dto';
 import { IngredientsAdminService } from '../../service/ingredients-admin.service';
@@ -16,7 +17,7 @@ import { IngredientsAdminService } from '../../service/ingredients-admin.service
 @Component({
   selector: 'app-ingredients-admin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './ingredients-admin.html',
   styleUrl: './ingredients-admin.css',
 })
@@ -38,7 +39,7 @@ export class IngredientsAdmin implements OnInit {
   readonly error = signal<string | null>(null);
 
   readonly selectedItem = signal<ItemDto | null>(null);
-  readonly searchString = signal('');
+  readonly searchString = model('');
   readonly pageSize = 25;
   readonly currentPage = signal(1);
 
@@ -53,18 +54,18 @@ export class IngredientsAdmin implements OnInit {
   );
 
   readonly totalPages = computed(() =>
-    Math.max(1, Math.ceil(this.sortedItems().length / this.pageSize)),
+    Math.max(1, Math.ceil(this.searchItems().length / this.pageSize)),
   );
   readonly pageNumbers = computed(() =>
     Array.from({ length: this.totalPages() }, (_, index) => index + 1),
   );
   readonly pagedItems = computed(() => {
     const start = (this.currentPage() - 1) * this.pageSize;
-    return this.sortedItems().slice(start, start + this.pageSize);
+    return this.searchItems().slice(start, start + this.pageSize);
   });
 
   readonly paginationLabel = computed(() => {
-    const total = this.sortedItems().length;
+    const total = this.searchItems().length;
     if (total === 0) {
       return 'No items';
     }

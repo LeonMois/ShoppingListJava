@@ -8,7 +8,6 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  background: #fdfcfb;
   min-width: 0;
 }
 
@@ -37,7 +36,6 @@
 
 .sidebar-panel {
   position: relative;
-  background: #fdfcfb;
   min-height: 100vh;
   height: 100%;
   transition: transform 150ms ease;
