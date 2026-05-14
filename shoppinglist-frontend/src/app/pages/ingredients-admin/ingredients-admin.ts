@@ -9,7 +9,7 @@ import {
   model,
   signal,
 } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { ItemDto } from '../../models/item.dto';
 import { IngredientsAdminService } from '../../service/ingredients-admin.service';
@@ -17,7 +17,7 @@ import { IngredientsAdminService } from '../../service/ingredients-admin.service
 @Component({
   selector: 'app-ingredients-admin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './ingredients-admin.html',
   styleUrl: './ingredients-admin.css',
 })

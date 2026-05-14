@@ -39,16 +39,6 @@ export class RecipeEditDetailComponent {
   });
   closed = output<void>();
 
-  editRecipe(newServings: number): void {
-    const r = this.recipe();
-    this.recipeService
-      .updateRecipe(
-        { name: r.name, servings: r.servings },
-        { name: r.name, servings: newServings },
-      )
-      .subscribe();
-  }
-
   editRecipeItem(): void {
     this.recipeService.updateRecipeItems(this.items()).subscribe();
   }

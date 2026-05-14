@@ -1,13 +1,9 @@
-import {
-  Component,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import {
   RecipeAdminService,
   RecipeItemDto,
 } from '../../service/recipe-admin.service';
+import { httpResource } from '@angular/common/http';
 import { RecipeDto } from '../../models/recipe.dto';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -21,8 +17,9 @@ import { RecipeEditDetailComponent } from '../recipe-edit-detail/recipe-edit-det
 })
 export class RecipeEditComponent {
   recipeService = inject(RecipeAdminService);
+  recipesResource = httpResource<RecipeDto[]>('/api/recipes');
 
-  recipes = toSignal(this.recipeService.getRecipes());
+  recipes = this.recipesResource.value;
   filterControl = new FormControl('');
   filterQuery = toSignal(this.filterControl.valueChanges, { initialValue: '' });
   filteredRecipes = computed(() => {
@@ -42,13 +39,22 @@ export class RecipeEditComponent {
     return null;
   });
 
-  selectRecipe(recipe: RecipeDto): void {
+  addNewRecipe(name: string, amount: string) {
     this.recipeService
-      .getRecipeItems(recipe.name)
-      .subscribe((items) => {
-        this.selectedRecipe.set(recipe);
-        this.selectedItems.set(items);
-      });
+      .addRecipe({ name: name, servings: parseInt(amount) })
+      .subscribe(() => this.recipesResource.reload());
+  }
+  selectRecipe(recipe: RecipeDto): void {
+    this.recipeService.getRecipeItems(recipe.name).subscribe((items) => {
+      this.selectedRecipe.set(recipe);
+      this.selectedItems.set(items);
+    });
+  }
+
+  deleteRecipe(recipe: RecipeDto): void {
+    this.recipeService
+      .deleteRecipe(recipe)
+      .subscribe(() => this.recipesResource.reload());
   }
 
   closeDetail(): void {
