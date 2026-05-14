@@ -1,8 +1,6 @@
 @import "tailwindcss";
-@plugin "daisyui";
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  height: 100%;
-  background-color: rgb(220, 203, 203);
+@plugin "daisyui" {
+  themes:
+    bumblebee --default,
+    retro --prefersdark;
 }

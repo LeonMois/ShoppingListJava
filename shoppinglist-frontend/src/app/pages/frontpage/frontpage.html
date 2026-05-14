@@ -42,7 +42,7 @@
         <label class="item-row" [ngClass]="{ done: item.deleted }">
           <input
             type="checkbox"
-            class="checkbox"
+            class="checkbox-lg"
             [checked]="item.deleted"
             (change)="toggle(item, $any($event.target).checked)"
           />
