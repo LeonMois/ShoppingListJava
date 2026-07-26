@@ -32,7 +32,7 @@ describe('AddToShoppingListModalComponent', () => {
     spyOn(component.shoppingListChanged, 'emit');
 
     component.recipeForm.setValue({ recipeName: 'Pancakes', servings: 3 });
-    component.itemForm.setValue({ itemName: 'Milk', quantity: 2 });
+    component.itemForm.setValue({ itemName: 'Milk | l', quantity: 2 });
 
     component.addItem();
 
