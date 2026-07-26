@@ -59,6 +59,9 @@ public class RecipeItemService {
 
     // Delete a recipeItem
     public List<RecipeItemDto> deleteRecipeItem(List<RecipeItemDto> recipeItems) throws IOException {
+        if (recipeItems.stream().map(RecipeItemDto::getRecipeName).distinct().count() > 1) {
+            throw new IOException("Changing more than one recipe at a time is not allowed!");
+        }
         List<RecipeItemEntity> deleteEntities = new ArrayList<>();
         for (RecipeItemDto recipeItem : recipeItems) {
             RecipeEntity recipe = recipeService.getSingleRecipe(recipeItem.getRecipeName());
