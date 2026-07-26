@@ -23,7 +23,6 @@ public class ItemService {
     }
 
     public List<ItemDto> getAllItems() {
-        itemRepository.findAll();
         return itemRepository.findAll().stream().map(itemEntity -> new ItemDto(itemEntity.getItemName(), itemEntity.getCategory().getCategoryName(), itemEntity.getUnit().getUnitName())).toList();
     }
 
@@ -45,6 +44,7 @@ public class ItemService {
             try {
                 addItem(item);
             } catch (IOException e) {
+                // todo: throw correct Exception
                 System.out.println(e.getMessage());
             }
         }

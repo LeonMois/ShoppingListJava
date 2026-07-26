@@ -34,6 +34,7 @@ public class CategoryService {
             try {
                 addCategory(category.getCategoryName());
             } catch (IOException e) {
+                // todo: create proper Exception
                 System.out.println(e.getMessage());
             }
         }

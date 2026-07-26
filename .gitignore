@@ -1,0 +1,17 @@
+# Deployment / setup scripts — kept local only
+deploy.sh
+setup-services.sh
+
+# Build outputs
+backend/build/
+backend/.gradle/
+shoppinglist-frontend/.angular/
+shoppinglist-frontend/dist/
+shoppinglist-frontend/node_modules/
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
