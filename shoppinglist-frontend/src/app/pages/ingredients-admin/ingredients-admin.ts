@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   ElementRef,
@@ -8,6 +8,7 @@ import {
   inject,
   model,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
@@ -17,8 +18,9 @@ import { IngredientsAdminService } from '../../service/ingredients-admin.service
 @Component({
   selector: 'app-ingredients-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './ingredients-admin.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ingredients-admin.css',
 })
 export class IngredientsAdmin implements OnInit {

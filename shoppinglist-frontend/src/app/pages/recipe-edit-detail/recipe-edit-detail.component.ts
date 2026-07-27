@@ -6,6 +6,7 @@ import {
   model,
   output,
   WritableSignal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { RecipeDto } from '../../models/recipe.dto';
 import {
@@ -22,6 +23,7 @@ import { ItemDto } from '../../models/item.dto';
   selector: 'app-recipe-edit-detail',
   imports: [FormsModule],
   templateUrl: './recipe-edit-detail.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './recipe-edit-detail.component.css',
 })
 export class RecipeEditDetailComponent {

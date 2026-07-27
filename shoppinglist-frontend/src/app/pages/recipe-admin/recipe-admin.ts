@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   ElementRef,
@@ -7,6 +7,7 @@ import {
   computed,
   inject,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
@@ -20,8 +21,9 @@ import {
 @Component({
   selector: 'app-recipe-admin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './recipe-admin.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './recipe-admin.css',
 })
 export class RecipeAdmin implements OnInit {
