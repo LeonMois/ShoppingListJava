@@ -20,8 +20,12 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [20.x, 22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    defaults:
+      run:
+        working-directory: shoppinglist-frontend
 
     steps:
     - uses: actions/checkout@v4
@@ -30,6 +34,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: shoppinglist-frontend/package-lock.json
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+    - run: npm test -- --watch=false
