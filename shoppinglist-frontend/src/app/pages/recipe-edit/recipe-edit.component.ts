@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   RecipeAdminService,
   RecipeItemDto,
@@ -13,11 +13,12 @@ import { RecipeEditDetailComponent } from '../recipe-edit-detail/recipe-edit-det
   selector: 'app-recipe-edit',
   imports: [ReactiveFormsModule, RecipeEditDetailComponent],
   templateUrl: './recipe-edit.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './recipe-edit.component.css',
 })
 export class RecipeEditComponent {
   recipeService = inject(RecipeAdminService);
-  recipesResource = httpResource<RecipeDto[]>('/api/recipes');
+  recipesResource = httpResource<RecipeDto[]>(() => '/api/recipes');
 
   recipes = this.recipesResource.value;
   filterControl = new FormControl('');

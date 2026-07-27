@@ -1,5 +1,5 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
-import { NgClass, NgFor } from '@angular/common';
+import { Component, OnInit, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { NgClass } from '@angular/common';
 import { AddToShoppingListModalComponent } from '../../components/add-to-shopping-list-modal/add-to-shopping-list-modal.component';
 import { ShoppingListItem } from '../../models/shopping-list-item';
 import { ShoppingListService } from '../../service/shopping-list.service';
@@ -9,6 +9,7 @@ import { ShoppingListService } from '../../service/shopping-list.service';
   standalone: true,
   imports: [NgClass, AddToShoppingListModalComponent],
   templateUrl: './frontpage.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './frontpage.css',
 })
 export class Frontpage implements OnInit {

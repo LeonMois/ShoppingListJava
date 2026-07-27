@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   ElementRef,
@@ -8,6 +8,7 @@ import {
   ViewChild,
   inject,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
@@ -19,8 +20,9 @@ import { ShoppingListService } from '../../service/shopping-list.service';
 @Component({
   selector: 'app-add-to-shopping-list-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './add-to-shopping-list-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './add-to-shopping-list-modal.component.css',
 })
 export class AddToShoppingListModalComponent implements OnInit {
