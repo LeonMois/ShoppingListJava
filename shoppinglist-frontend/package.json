@@ -10,15 +10,15 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/cdk": "^22.0.6",
-    "@angular/common": "^22.0.8",
-    "@angular/compiler": "^22.0.8",
-    "@angular/core": "^22.0.8",
-    "@angular/forms": "^22.0.8",
-    "@angular/material": "^22.0.6",
-    "@angular/platform-browser": "^22.0.8",
-    "@angular/platform-browser-dynamic": "^22.0.8",
-    "@angular/router": "^22.0.8",
+    "@angular/cdk": "^22.1.0",
+    "@angular/common": "^22.1.0",
+    "@angular/compiler": "^22.1.0",
+    "@angular/core": "^22.1.0",
+    "@angular/forms": "^22.1.0",
+    "@angular/material": "^22.1.0",
+    "@angular/platform-browser": "^22.1.0",
+    "@angular/platform-browser-dynamic": "^22.1.0",
+    "@angular/router": "^22.1.0",
     "@tailwindcss/postcss": "^4.1.18",
     "postcss": "^8.5.25",
     "rxjs": "~7.8.0",
@@ -27,9 +27,9 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^22.0.8",
-    "@angular/cli": "^22.0.8",
-    "@angular/compiler-cli": "^22.0.8",
+    "@angular-devkit/build-angular": "^22.1.0",
+    "@angular/cli": "^22.1.0",
+    "@angular/compiler-cli": "^22.1.0",
     "@types/jasmine": "~5.1.0",
     "daisyui": "^5.5.14",
     "istanbul-lib-instrument": "^6.0.3",
@@ -42,6 +42,6 @@
     "typescript": "~6.0.3"
   },
   "engines": {
-    "node": "^22.22.3 || ^24.15.0"
+    "node": "^24.15.0"
   }
 }
